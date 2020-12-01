@@ -14,10 +14,26 @@ function Header() {
         <NavLink title="Blog" url="/blog" />
         <Link href="/">
           <a>
-            <img src="/logo.svg" alt="Aaron Hodges" height={128} width={128} />
+            <img
+              src="/logo.svg"
+              alt="Aaron Hodges"
+              height={128}
+              width={128}
+              className="image transition-all duration-250"
+            />
           </a>
         </Link>
-        <NavDropdown title="Books" links={[placeholderLink]} />
+        <NavDropdown
+          title="Books"
+          links={[
+            {
+              url: "",
+              label: "The Knights of Alanaaa",
+            },
+            placeholderLink,
+            placeholderLink,
+          ]}
+        />
         <NavDropdown title="Worlds" links={[placeholderLink]} />
       </nav>
     </header>
@@ -51,10 +67,13 @@ function NavDropdown({ title, links }: { title: string; links: Link[] }) {
     >
       {title.toUpperCase()}
       <ul
-        className={`hover-target hidden absolute justify-center shadow-md z-50 pt-2 pb-2 w-40 top-6`}
+        className={`hover-target hidden absolute justify-center flex-col shadow-md z-50 pt-2 pb-2 w-40 top-6`}
       >
         {links.map((_link, i) => (
-          <li key={i} className="w-full flex justify-center">
+          <li
+            key={i}
+            className="w-full flex justify-center items-center hover:bg-gray-200 text-black hover:text-gray-500 text-center p-2 text-sm"
+          >
             <Link href={_link.url}>
               <a>{_link.label}</a>
             </Link>

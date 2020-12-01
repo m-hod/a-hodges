@@ -5,7 +5,7 @@
 /* Defaults */
 
 body {
-  /* @apply font-serif; */
+  @apply font-serif;
 }
 
 /* Used to display a child on hover of the parent with pure css */
@@ -16,4 +16,8 @@ body {
 
 .hover-trigger:hover .hover-target {
   display: flex;
+}
+
+.image:hover {
+  filter: brightness(75%);
 }
