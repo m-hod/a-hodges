@@ -8,35 +8,31 @@ const placeholderLink = {
 
 function Header() {
   return (
-    <header>
-      <nav className="flex items-center justify-center">
-        <NavLink title="About" url="/about" />
-        <NavLink title="Blog" url="/blog" />
-        <Link href="/">
-          <a>
-            <img
-              src="/logo.svg"
-              alt="Aaron Hodges"
-              height={128}
-              width={128}
-              className="image transition-all duration-250"
-            />
-          </a>
-        </Link>
-        <NavDropdown
-          title="Books"
-          links={[
-            {
-              url: "",
-              label: "The Knights of Alanaaa",
-            },
-            placeholderLink,
-            placeholderLink,
-          ]}
-        />
-        <NavDropdown title="Worlds" links={[placeholderLink]} />
-      </nav>
-    </header>
+    <nav className="h-header flex items-center justify-center bg-white">
+      <NavLink title="About" url="/about" />
+      <NavLink title="Blog" url="/blog" />
+      <Link href="/">
+        <a>
+          <img
+            src="/logo.svg"
+            alt="Aaron Hodges"
+            className="image transition-all duration-250 object-contain"
+          />
+        </a>
+      </Link>
+      <NavDropdown
+        title="Books"
+        links={[
+          {
+            url: "",
+            label: "The Knights of Alanaaa",
+          },
+          placeholderLink,
+          placeholderLink,
+        ]}
+      />
+      <NavDropdown title="Worlds" links={[placeholderLink]} />
+    </nav>
   );
 }
 
@@ -48,7 +44,7 @@ type Link = {
 };
 
 const navlinkStyles =
-  "font-medium mx-4 hover:text-gray-500 cursor-pointer w-16";
+  "font-medium mx-4 hover:text-gray-500 cursor-pointer w-16 tracking-wider";
 
 function NavLink({ title, url }: { title: string; url: string }) {
   return (

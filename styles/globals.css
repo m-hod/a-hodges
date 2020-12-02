@@ -2,10 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Defaults */
+@layer base {
+  body {
+    @apply font-noto;
+    @apply text-gray-700;
+  }
 
-body {
-  @apply font-serif;
+  img {
+    @apply object-contain;
+  }
+
+  h1 {
+    @apply text-6xl;
+  }
+
+  h2 {
+    @apply text-2xl;
+    @apply italic;
+    @apply text-gray-600;
+  }
+
+  h3 {
+    @apply text-lg;
+    @apply text-gray-500;
+  }
+
+  p {
+    @apply text-lg;
+  }
 }
 
 /* Used to display a child on hover of the parent with pure css */
