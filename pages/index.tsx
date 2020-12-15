@@ -1,9 +1,13 @@
 import Head from "next/head";
 import Link from "next/link";
+import Button from "../components/Elements/button";
 import Footer from "../components/footer";
 import Header from "../components/header";
 import ContentDisplay from "../components/layouts/ContentDisplay";
+import Newsletter from "../components/layouts/Newsletter";
 import Page from "../components/layouts/page";
+import Centered from "../components/wrappers/Centered";
+import Section from "../components/wrappers/Section";
 import TextFade from "../components/wrappers/TextFade";
 
 export default function Home() {
@@ -18,27 +22,29 @@ export default function Home() {
         height: 128,
       }}
     >
-      <div>
+      <Section>
         <ContentDisplay
           left={
-            <div className="flex flex-col items-center h-full object-contain">
+            <div className="flex flex-col items-center justify-center h-full object-contain max-h-screen">
               <img
                 src="AaronHodges_BookCover_Ebook-low-res-534x800.jpg"
                 alt=""
               />
-              button
+              <div className="m-4">
+                <Button>PREORDER</Button>
+              </div>
             </div>
           }
           right={
             <TextFade>
               <div className="flex flex-col h-full relative">
                 <div className="flex flex-col mb-12">
-                  <h3 className="mb-8">The Knights of Alana: Book One</h3>
+                  <h5 className="mb-8">The Knights of Alana: Book One</h5>
                   <h1 className="mb-12">Daughter of Fate</h1>
-                  <h2>
+                  <h3>
                     When Knights attack the temple of Skystead,
                     seventeen-year-old Pela is the only one to escape.
-                  </h2>
+                  </h3>
                 </div>
                 <div className="h-full overflow-hidden">
                   <p className="mb-4">
@@ -69,17 +75,22 @@ export default function Home() {
                   <p className="mb-4">But she knows one.</p>
                 </div>
                 <div className="absolute bottom-0 z-20 flex w-full justify-center">
-                  <h3 className="underline cursor-pointer hover:text-gray-400">
+                  <p className="underline cursor-pointer hover:text-gray-400">
                     <Link href="">
                       <a>Read More</a>
                     </Link>
-                  </h3>
+                  </p>
                 </div>
               </div>
             </TextFade>
           }
         />
-      </div>
+      </Section>
+      <Section>
+        <Centered>
+          <Newsletter />
+        </Centered>
+      </Section>
     </Page>
   );
 }

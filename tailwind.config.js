@@ -12,6 +12,9 @@ module.exports = {
         'screen-header': 'calc(100vh - 128px)',
         'screen-75': '75vh',
         'screen-50': '50vh'
+      },
+      maxWidth: {
+        '3/4': '75%',
       }
     },
   },

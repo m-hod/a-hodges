@@ -63,7 +63,7 @@ function NavDropdown({ title, links }: { title: string; links: Link[] }) {
     >
       {title.toUpperCase()}
       <ul
-        className={`hover-target hidden absolute justify-center flex-col shadow-md z-50 pt-2 pb-2 w-40 top-6`}
+        className={`hover-target hidden absolute justify-center flex-col shadow-md z-50 pt-2 pb-2 w-40 top-6 bg-white`}
       >
         {links.map((_link, i) => (
           <li
