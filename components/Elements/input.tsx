@@ -22,7 +22,7 @@ function Input({
   return (
     <input
       {...rest}
-      className={`p-2 font-sans font-medium border-2 ${colorClasses} ${sizeClasses} ${className}`}
+      className={`p-2 font-sans  border-2 ${colorClasses} ${sizeClasses} ${className}`}
     />
   );
 }

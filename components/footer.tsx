@@ -62,7 +62,7 @@ function Footer() {
         </div>
       </div>
       <div className="h-full w-full flex">
-        <div className="flex flex-col justify-center">
+        <div className="w-full max-w-sm flex flex-col justify-center">
           <small className="mb-2">Sign up to the newsletter</small>
           <Input
             variant="reverse"
@@ -93,3 +93,6 @@ function Footer() {
 }
 
 export default Footer;
+
+// input / button should wrap depending on width
+// neat button animation

@@ -146,3 +146,43 @@
 .button-reverse:hover {
   color: rgba(107, 114, 128, var(--tw-border-opacity));
 }
+
+/* Icon Button styles */
+.circle {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle:after,
+.circle:before {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  transform: rotate(45deg);
+}
+
+.circle:hover:before {
+  border-top-color: #fff;
+  border-right-color: #fff;
+  border-bottom-color: #fff;
+  border-left-color: #fff;
+  transition: border-top-color 0s linear 0s, border-right-color 0s linear 0.15s,
+    border-bottom-color 0s linear 0.3s, border-left-color 0s linear 0.45s;
+}
+
+.circle:hover:after {
+  border-top-color: #fff;
+  transform: rotate(360deg);
+  transition: transform 0.6s linear 0s;
+}

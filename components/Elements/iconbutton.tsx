@@ -11,7 +11,7 @@ function Iconbutton({
   const { className, ...rest } = props;
   return (
     <div>
-      <button {...rest} className={` ${className}`}>
+      <button {...rest} className={`circle spin ${className}`}>
         {children}
       </button>
     </div>
