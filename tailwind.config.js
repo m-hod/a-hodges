@@ -4,7 +4,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'noto': ['"Noto Serif"']
+        'noto': ['"Noto Serif"'],
+        'roboto': ["Roboto"]
       },
       height: {
         'header': 128,
@@ -15,6 +16,9 @@ module.exports = {
       },
       maxWidth: {
         '3/4': '75%',
+      },
+      minWidth: {
+        '300': 300
       }
     },
   },

@@ -1,11 +1,28 @@
 import React, { HTMLAttributes } from "react";
 
-function Input(props: HTMLAttributes<HTMLInputElement>) {
+type Props = {
+  variant?: "reverse";
+  size?: "slim";
+};
+
+function Input({
+  variant,
+  size,
+  ...props
+}: Props & HTMLAttributes<HTMLInputElement>) {
   const { className, ...rest } = props;
+  const colorClasses = (() => {
+    if (variant === "reverse") return "border-white bg-transparent";
+    return "border-gray-500 bg-white";
+  })();
+  const sizeClasses = (() => {
+    if (size === "slim") return "h-8";
+    return "h-12";
+  })();
   return (
     <input
       {...rest}
-      className={`p-2 font-sans font-medium border-2 border-gray-500 ${className}`}
+      className={`p-2 font-sans font-medium border-2 ${colorClasses} ${sizeClasses} ${className}`}
     />
   );
 }

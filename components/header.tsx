@@ -8,7 +8,7 @@ const placeholderLink = {
 
 function Header() {
   return (
-    <nav className="h-header flex items-center justify-center bg-white">
+    <nav className="h-header flex items-center justify-center">
       <NavLink title="About" url="/about" />
       <NavLink title="Blog" url="/blog" />
       <Link href="/">

@@ -16,7 +16,7 @@ function Page({
   };
 }) {
   return (
-    <>
+    <div className="min-w-300">
       <header>{header.element}</header>
       <main
         style={{
@@ -26,7 +26,7 @@ function Page({
         {children}
       </main>
       <footer>{footer.element}</footer>
-    </>
+    </div>
   );
 }
 
