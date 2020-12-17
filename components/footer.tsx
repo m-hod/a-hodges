@@ -7,7 +7,7 @@ import Input from "./Elements/input";
 
 function Footer() {
   return (
-    <div className="footer h-auto md:h-footer bg-gray-500 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 p-4 pr-20 font-roboto text-white relative">
+    <div className="footer h-auto md:h-footer bg-gray-500 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 p-4 pr-24 font-roboto text-white relative">
       <div className="h-full w-full flex flex-col justify-between">
         <p className="text-base">
           <strong>Aaron Hodges</strong>
