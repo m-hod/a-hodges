@@ -1,33 +1,21 @@
 import Head from "next/head";
 import Link from "next/link";
 import Button from "../components/Elements/button";
-import Footer from "../components/footer";
-import Header from "../components/header";
 import ContentDisplay from "../components/layouts/ContentDisplay";
 import Newsletter from "../components/layouts/Newsletter";
-import Page from "../components/layouts/page";
 import Centered from "../components/wrappers/Centered";
 import Section from "../components/wrappers/Section";
 import TextFade from "../components/wrappers/TextFade";
 
 export default function Home() {
   return (
-    <Page
-      header={{
-        element: <Header />,
-        height: 128,
-      }}
-      footer={{
-        element: <Footer />,
-        height: 128,
-      }}
-    >
+    <div>
       <Section>
         <ContentDisplay
           left={
             <div className="flex flex-col items-center justify-center h-full object-contain max-h-screen">
               <img
-                src="AaronHodges_BookCover_Ebook-low-res-534x800.jpg"
+                src="/images/AaronHodges_BookCover_Ebook-low-res-534x800.jpg"
                 alt=""
               />
               <div className="m-4">
@@ -91,6 +79,6 @@ export default function Home() {
           <Newsletter />
         </Centered>
       </Section>
-    </Page>
+    </div>
   );
 }

@@ -24,7 +24,7 @@ function Header() {
         title="Books"
         links={[
           {
-            url: "",
+            url: "/books/alana",
             label: "The Knights of Alanaaa",
           },
           placeholderLink,

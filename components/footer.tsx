@@ -7,7 +7,7 @@ import Input from "./Elements/input";
 
 function Footer() {
   return (
-    <div className="footer h-auto md:h-footer bg-gray-500 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 p-4 pr-24 font-roboto text-white relative">
+    <div className="footer h-auto md:h-footer bg-gray-500 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 p-8 pr-24 font-roboto text-white relative">
       <div className="h-full w-full flex flex-col justify-between">
         <p className="text-base">
           <strong>Aaron Hodges</strong>
@@ -19,7 +19,7 @@ function Footer() {
           <small>©2020 Aaron Hodges</small>
         </div>
         <div>
-          <Link href="m-hodges.com">
+          <Link href="https://m-hodges.com">
             <a target="_blank" rel="noreferrer" className="hover:text-gray-300">
               <small>Created by Michael Hodges</small>
             </a>
@@ -32,7 +32,7 @@ function Footer() {
             <a
               target="_blank"
               rel="noreferrer"
-              className="flex align-center hover:text-gray-300"
+              className="inline-flex align-center hover:text-gray-300"
             >
               <Facebook className="mr-2" /> Facebook
             </a>
@@ -43,7 +43,7 @@ function Footer() {
             <a
               target="_blank"
               rel="noreferrer"
-              className="flex align-center hover:text-gray-300"
+              className="inline-flex align-center hover:text-gray-300"
             >
               <Twitter className="mr-2" /> Twitter
             </a>
@@ -54,7 +54,7 @@ function Footer() {
             <a
               target="_blank"
               rel="noreferrer"
-              className="flex align-center hover:text-gray-300"
+              className="inline-flex align-center hover:text-gray-300"
             >
               <Instagram className="mr-2" /> Instagram
             </a>
