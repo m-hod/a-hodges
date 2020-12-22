@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
-import Button from "../components/Elements/button";
+import Button from "../components/elements/button";
 import ContentDisplay from "../components/layouts/ContentDisplay";
 import Newsletter from "../components/layouts/Newsletter";
 import Centered from "../components/wrappers/Centered";

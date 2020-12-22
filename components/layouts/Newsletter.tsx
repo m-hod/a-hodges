@@ -1,6 +1,6 @@
 import React from "react";
-import Button from "../Elements/button";
-import Input from "../Elements/input";
+import Button from "../elements/button";
+import Input from "../elements/input";
 
 function Newsletter() {
   return (

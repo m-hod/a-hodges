@@ -1,6 +1,6 @@
 import React from "react";
 import { Circle } from "react-feather";
-import BackgroundImage from "../Elements/BackgroundImage";
+import BackgroundImage from "../elements/BackgroundImage";
 
 interface Props {
   children: React.ReactNode;

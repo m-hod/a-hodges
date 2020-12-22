@@ -1,9 +1,9 @@
 import Link from "next/link";
 import React from "react";
 import { Facebook, Twitter, Instagram, ChevronUp } from "react-feather";
-import Button from "./Elements/button";
-import Iconbutton from "./Elements/iconbutton";
-import Input from "./Elements/input";
+import Button from "./elements/button";
+import Iconbutton from "./elements/iconbutton";
+import Input from "./elements/input";
 
 function Footer() {
   return (
