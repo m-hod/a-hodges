@@ -9,9 +9,9 @@ function Footer() {
   return (
     <div className="footer h-auto md:h-footer bg-gray-500 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 p-8 pr-24 font-roboto text-white relative">
       <div className="h-full w-full flex flex-col justify-between">
-        <p className="text-base">
+        <div className="text-base">
           <strong>Aaron Hodges</strong>
-        </p>
+        </div>
         <div>
           <small>Author</small>
         </div>
@@ -93,6 +93,3 @@ function Footer() {
 }
 
 export default Footer;
-
-// input / button should wrap depending on width
-// neat button animation

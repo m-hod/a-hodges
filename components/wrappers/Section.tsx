@@ -1,9 +1,24 @@
 import React from "react";
 
-function Section({ children }: { children: React.ReactNode }) {
+type Options = {
+  removeBottomPadding?: boolean;
+};
+
+function Section({
+  children,
+  id,
+  options,
+}: {
+  children: React.ReactNode;
+  id?: string;
+  options?: Options;
+}) {
   return (
-    <section className="p-6 md:p-12 flex justify-center">
-      <div className="w-full xl:max-w-3/4 2xl:max-w-screen-2xl">{children}</div>
+    <section
+      id={id}
+      className={`section p-8 md:p-12 flex justify-center pb-0 md:pb-0`}
+    >
+      <div className="w-full 2xl:max-w-screen-2xl">{children}</div>
     </section>
   );
 }

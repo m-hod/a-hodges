@@ -12,7 +12,7 @@ export default function BookHoverAnchor({
       onClick={() => {
         const target = document.getElementById(anchor);
         if (target) {
-          target.scrollTo({ behavior: "smooth" });
+          target.scrollIntoView({ block: "start", behavior: "smooth" });
         }
       }}
       className="book-link"

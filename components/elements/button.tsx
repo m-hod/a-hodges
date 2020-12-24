@@ -25,7 +25,7 @@ function Button({
   return (
     <button
       {...rest}
-      className={`px-10 flex justify-center align-center font-sans font-medium border-2 ${sizeClasses} ${colorClasses} ${className}`}
+      className={`px-10 flex justify-center align-center font-sans font-medium border-2 truncate ${sizeClasses} ${colorClasses} ${className}`}
     >
       {children}
     </button>

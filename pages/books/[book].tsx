@@ -1,7 +1,11 @@
 import React from "react";
 import BookHoverAnchor from "../../components/elements/BookHoverAnchor";
+import BookSection, {
+  BookSectionType,
+} from "../../components/layouts/BookSection";
 import Carousel from "../../components/layouts/Carousel";
 import Hero from "../../components/wrappers/hero";
+import Section from "../../components/wrappers/Section";
 import { headerHeight } from "../../utils/constants";
 
 interface Props {}
@@ -13,16 +17,91 @@ type BookLink = {
 
 const dummyBooks: BookLink[] = [
   {
-    anchor: "",
+    anchor: "1",
     image: "/images/AaronHodges_BookCover_Ebook-low-res-534x800.jpg",
   },
   {
-    anchor: "",
+    anchor: "2",
     image: "/images/AaronHodges_BookCover_Ebook-low-res-534x800.jpg",
   },
   {
-    anchor: "",
+    anchor: "3",
     image: "/images/AaronHodges_BookCover_Ebook-low-res-534x800.jpg",
+  },
+];
+
+const dummyBookSections: BookSectionType[] = [
+  {
+    title: "The Knights of Alana",
+    subtitle: "The Complete Series",
+    content:
+      "<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed arcu ante, pharetra id molestie ac, hendrerit eu quam. Curabitur pharetra faucibus purus, non hendrerit tortor ultricies nec. Nulla eget pellentesque enim. Duis vitae tincidunt massa, sed accumsan magna. Fusce elementum lacus a diam euismod pellentesque. Nunc pulvinar luctus nunc, eu luctus leo posuere et. Duis vel viverra sem. Cras ornare pretium dolor sit amet vestibulum. </p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed arcu ante, pharetra id molestie ac, hendrerit eu quam. Curabitur pharetra faucibus purus, non hendrerit tortor ultricies nec. Nulla eget pellentesque enim. Duis vitae tincidunt massa, sed accumsan magna. Fusce elementum lacus a diam euismod pellentesque. Nunc pulvinar luctus nunc, eu luctus leo posuere et. Duis vel viverra sem. Cras ornare pretium dolor sit amet vestibulum. </p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed arcu ante, pharetra id molestie ac, hendrerit eu quam. Curabitur pharetra faucibus purus, non hendrerit tortor ultricies nec. Nulla eget pellentesque enim. Duis vitae tincidunt massa, sed accumsan magna. Fusce elementum lacus a diam euismod pellentesque. Nunc pulvinar luctus nunc, eu luctus leo posuere et. Duis vel viverra sem. Cras ornare pretium dolor sit amet vestibulum. </p>",
+    orderLinks: [
+      { url: "", label: "Amazon" },
+      { url: "", label: "Good Reads" },
+    ],
+    cover: "/images/AaronHodges_BookCover_Ebook-low-res-534x800.jpg",
+    art: "/images/Aaron_B3_Cover_no_typography.jpg",
+    quotes: [
+      {
+        content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        author: "Full Name",
+      },
+      {
+        content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        author: "Full Name",
+      },
+    ],
+    orientation: "left",
+    anchor: "1",
+  },
+  {
+    title: "The Knights of Alana",
+    subtitle: "The Complete Series",
+    content:
+      "<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed arcu ante, pharetra id molestie ac, hendrerit eu quam. Curabitur pharetra faucibus purus, non hendrerit tortor ultricies nec. Nulla eget pellentesque enim. Duis vitae tincidunt massa, sed accumsan magna. Fusce elementum lacus a diam euismod pellentesque. Nunc pulvinar luctus nunc, eu luctus leo posuere et. Duis vel viverra sem. Cras ornare pretium dolor sit amet vestibulum. </p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed arcu ante, pharetra id molestie ac, hendrerit eu quam. Curabitur pharetra faucibus purus, non hendrerit tortor ultricies nec. Nulla eget pellentesque enim. Duis vitae tincidunt massa, sed accumsan magna. Fusce elementum lacus a diam euismod pellentesque. Nunc pulvinar luctus nunc, eu luctus leo posuere et. Duis vel viverra sem. Cras ornare pretium dolor sit amet vestibulum. </p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed arcu ante, pharetra id molestie ac, hendrerit eu quam. Curabitur pharetra faucibus purus, non hendrerit tortor ultricies nec. Nulla eget pellentesque enim. Duis vitae tincidunt massa, sed accumsan magna. Fusce elementum lacus a diam euismod pellentesque. Nunc pulvinar luctus nunc, eu luctus leo posuere et. Duis vel viverra sem. Cras ornare pretium dolor sit amet vestibulum. </p>",
+    orderLinks: [
+      { url: "", label: "Amazon" },
+      { url: "", label: "Good Reads" },
+    ],
+    cover: "/images/AaronHodges_BookCover_Ebook-low-res-534x800.jpg",
+    art: "/images/Aaron_B3_Cover_no_typography.jpg",
+    quotes: [
+      {
+        content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        author: "Full Name",
+      },
+      {
+        content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        author: "Full Name",
+      },
+    ],
+    orientation: "right",
+    anchor: "2",
+  },
+  {
+    title: "The Knights of Alana",
+    subtitle: "The Complete Series",
+    content:
+      "<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed arcu ante, pharetra id molestie ac, hendrerit eu quam. Curabitur pharetra faucibus purus, non hendrerit tortor ultricies nec. Nulla eget pellentesque enim. Duis vitae tincidunt massa, sed accumsan magna. Fusce elementum lacus a diam euismod pellentesque. Nunc pulvinar luctus nunc, eu luctus leo posuere et. Duis vel viverra sem. Cras ornare pretium dolor sit amet vestibulum. </p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed arcu ante, pharetra id molestie ac, hendrerit eu quam. Curabitur pharetra faucibus purus, non hendrerit tortor ultricies nec. Nulla eget pellentesque enim. Duis vitae tincidunt massa, sed accumsan magna. Fusce elementum lacus a diam euismod pellentesque. Nunc pulvinar luctus nunc, eu luctus leo posuere et. Duis vel viverra sem. Cras ornare pretium dolor sit amet vestibulum. </p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed arcu ante, pharetra id molestie ac, hendrerit eu quam. Curabitur pharetra faucibus purus, non hendrerit tortor ultricies nec. Nulla eget pellentesque enim. Duis vitae tincidunt massa, sed accumsan magna. Fusce elementum lacus a diam euismod pellentesque. Nunc pulvinar luctus nunc, eu luctus leo posuere et. Duis vel viverra sem. Cras ornare pretium dolor sit amet vestibulum. </p>",
+    orderLinks: [
+      { url: "", label: "Amazon" },
+      { url: "", label: "Good Reads" },
+    ],
+    cover: "/images/AaronHodges_BookCover_Ebook-low-res-534x800.jpg",
+    art: "/images/Aaron_B3_Cover_no_typography.jpg",
+    quotes: [
+      {
+        content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        author: "Full Name",
+      },
+      {
+        content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        author: "Full Name",
+      },
+    ],
+    orientation: "left",
+    anchor: "3",
   },
 ];
 
@@ -67,6 +146,52 @@ function Book(props: Props) {
           ]}
         />
       </Hero>
+      <BookSection
+        title="The Knights of Alana"
+        subtitle="The Complete Series"
+        content="<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed arcu ante, pharetra id molestie ac, hendrerit eu quam. Curabitur pharetra faucibus purus, non hendrerit tortor ultricies nec. Nulla eget pellentesque enim. Duis vitae tincidunt massa, sed accumsan magna. Fusce elementum lacus a diam euismod pellentesque. Nunc pulvinar luctus nunc, eu luctus leo posuere et. Duis vel viverra sem. Cras ornare pretium dolor sit amet vestibulum. </p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed arcu ante, pharetra id molestie ac, hendrerit eu quam. Curabitur pharetra faucibus purus, non hendrerit tortor ultricies nec. Nulla eget pellentesque enim. Duis vitae tincidunt massa, sed accumsan magna. Fusce elementum lacus a diam euismod pellentesque. Nunc pulvinar luctus nunc, eu luctus leo posuere et. Duis vel viverra sem. Cras ornare pretium dolor sit amet vestibulum. </p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed arcu ante, pharetra id molestie ac, hendrerit eu quam. Curabitur pharetra faucibus purus, non hendrerit tortor ultricies nec. Nulla eget pellentesque enim. Duis vitae tincidunt massa, sed accumsan magna. Fusce elementum lacus a diam euismod pellentesque. Nunc pulvinar luctus nunc, eu luctus leo posuere et. Duis vel viverra sem. Cras ornare pretium dolor sit amet vestibulum. </p>"
+        orderLinks={[
+          { url: "", label: "Amazon" },
+          { url: "", label: "Good Reads" },
+        ]}
+        cover="/images/AaronHodges_BookCover_Ebook-low-res-534x800.jpg"
+        art="/images/Aaron_B3_Cover_no_typography.jpg"
+        quotes={[
+          {
+            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            author: "Full Name",
+          },
+          {
+            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            author: "Full Name",
+          },
+        ]}
+        orientation="left"
+        anchor="1"
+      />
+      <BookSection
+        title="The Knights of Alana"
+        subtitle="The Complete Series"
+        content="<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed arcu ante, pharetra id molestie ac, hendrerit eu quam. Curabitur pharetra faucibus purus, non hendrerit tortor ultricies nec. Nulla eget pellentesque enim. Duis vitae tincidunt massa, sed accumsan magna. Fusce elementum lacus a diam euismod pellentesque. Nunc pulvinar luctus nunc, eu luctus leo posuere et. Duis vel viverra sem. Cras ornare pretium dolor sit amet vestibulum. </p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed arcu ante, pharetra id molestie ac, hendrerit eu quam. Curabitur pharetra faucibus purus, non hendrerit tortor ultricies nec. Nulla eget pellentesque enim. Duis vitae tincidunt massa, sed accumsan magna. Fusce elementum lacus a diam euismod pellentesque. Nunc pulvinar luctus nunc, eu luctus leo posuere et. Duis vel viverra sem. Cras ornare pretium dolor sit amet vestibulum. </p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed arcu ante, pharetra id molestie ac, hendrerit eu quam. Curabitur pharetra faucibus purus, non hendrerit tortor ultricies nec. Nulla eget pellentesque enim. Duis vitae tincidunt massa, sed accumsan magna. Fusce elementum lacus a diam euismod pellentesque. Nunc pulvinar luctus nunc, eu luctus leo posuere et. Duis vel viverra sem. Cras ornare pretium dolor sit amet vestibulum. </p>"
+        orderLinks={[
+          { url: "", label: "Amazon" },
+          { url: "", label: "Good Reads" },
+        ]}
+        cover="/images/AaronHodges_BookCover_Ebook-low-res-534x800.jpg"
+        art="/images/Aaron_B3_Cover_no_typography.jpg"
+        quotes={[
+          {
+            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            author: "Full Name",
+          },
+          {
+            content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            author: "Full Name",
+          },
+        ]}
+        orientation="right"
+        anchor="2"
+      />
     </div>
   );
 }
