@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import BookHoverAnchor from "../../components/elements/BookHoverAnchor";
 import BookSection from "../../components/layouts/BookSection";
 import Carousel from "../../components/layouts/Carousel";
 import Hero from "../../components/wrappers/hero";
 import { headerHeight } from "../../utils/constants";
+import { useRouter } from "next/router";
 
 type BookLink = {
   anchor: string;
@@ -25,7 +26,18 @@ const dummyBooks: BookLink[] = [
   },
 ];
 
-function Book() {
+function Series() {
+  const router = useRouter();
+
+  useEffect(() => {
+    if (router.query.book) {
+      const target = document.getElementById(`${router.query.book}`);
+      if (target) {
+        target.scrollIntoView({ block: "start", behavior: "smooth" });
+      }
+    }
+  }, [router]);
+
   return (
     <div>
       <Hero headerHeight={headerHeight}>
@@ -114,4 +126,4 @@ function Book() {
   );
 }
 
-export default Book;
+export default Series;

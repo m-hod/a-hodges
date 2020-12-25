@@ -78,7 +78,7 @@ export default function About() {
       </Section>
       <Section>
         {quotes.map((_quote, i) => (
-          <div className={`${i < quotes.length - 1 && "mb-8"}`}>
+          <div className={`${i < quotes.length - 1 && "mb-8"} md:mb-8`}>
             <Quote
               content={_quote.content}
               author={_quote.author}

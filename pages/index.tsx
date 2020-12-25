@@ -65,7 +65,12 @@ export default function Home() {
                 </div>
                 <div className="absolute bottom-0 z-20 flex w-full justify-center">
                   <p className="underline cursor-pointer hover:text-gray-400">
-                    <Link href="">
+                    <Link
+                      href={{
+                        pathname: "series/[series]",
+                        query: { series: "alana", book: "1" },
+                      }}
+                    >
                       <a>Read More</a>
                     </Link>
                   </p>
