@@ -15,7 +15,7 @@ export default function BookHoverAnchor({
           target.scrollIntoView({ block: "start", behavior: "smooth" });
         }
       }}
-      className="book-link"
+      className="book-link hover:shadow-2xl"
     >
       <img src={image} alt="" className="w-40 xl:w-52 shadow-lg" />
     </button>
