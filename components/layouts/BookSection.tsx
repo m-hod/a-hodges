@@ -3,6 +3,7 @@ import Section from "../wrappers/Section";
 import parser from "react-html-parser";
 import Button from "../elements/button";
 import BackgroundImage from "../elements/BackgroundImage";
+import Quote from "../elements/Quote";
 
 export type BookSectionType = {
   title: string;
@@ -50,7 +51,7 @@ export default function BookSection({
           <div className="sm:hidden mb-8">
             <img src={cover} alt="" />
           </div>
-          <div className="lg:col-span-2 book-section-content">
+          <div className="lg:col-span-2 text-column-2">
             {parser(content)}
             <div>
               <hr className="my-8" />
@@ -78,8 +79,11 @@ export default function BookSection({
         <div className="m-8 flex flex-col justify-center lg:w-1/3">
           {quotes.map((_quote, i) => (
             <div key={i} className="my-8">
-              <h3 className="text-white mb-2">{_quote.content}</h3>
-              <h2 className="text-white text-right">- {_quote.author}</h2>
+              <Quote
+                content={_quote.content}
+                author={_quote.author}
+                color="white"
+              />
             </div>
           ))}
         </div>

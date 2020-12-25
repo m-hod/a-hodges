@@ -210,7 +210,7 @@
 }
 
 /* BookSection */
-.book-section-content {
+.text-column-2 {
   column-count: 1;
   column-gap: 2rem;
   @media screen and (min-width: 1024px) {
