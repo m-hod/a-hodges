@@ -13,10 +13,11 @@ export default function Home() {
       <Section>
         <ContentDisplay
           left={
-            <div className="flex flex-col items-center justify-center h-full object-contain max-h-screen">
+            <div className="flex flex-col items-center justify-center h-full object-contain">
               <img
                 src="/images/AaronHodges_BookCover_Ebook-low-res-534x800.jpg"
                 alt=""
+                style={{ maxHeight: "calc(100% - 1rem - 50px)" }}
               />
               <div className="m-4">
                 <Button>PREORDER</Button>
