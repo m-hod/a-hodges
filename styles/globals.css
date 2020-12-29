@@ -155,19 +155,33 @@
 }
 
 /* Icon Button styles */
-.circle {
+.circle-small {
+  height: 25px;
+  width: 25px;
+}
+
+.circle-medium {
   height: 50px;
   width: 50px;
+}
+
+.circle-large {
+  height: 75px;
+  width: 75px;
+}
+
+.circle-white {
   border-radius: 50%;
   border: 2px solid transparent;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #fff;
 }
 
-.circle:after,
-.circle:before {
+.circle-white:after,
+.circle-white:before {
   position: absolute;
   content: "";
   top: 0;
@@ -179,7 +193,7 @@
   transform: rotate(45deg);
 }
 
-.circle:hover:before {
+.circle-white:hover:before {
   border-top-color: #fff;
   border-right-color: #fff;
   border-bottom-color: #fff;
@@ -188,8 +202,46 @@
     border-bottom-color 0s linear 0.3s, border-left-color 0s linear 0.45s;
 }
 
-.circle:hover:after {
+.circle-white:hover:after {
   border-top-color: #fff;
+  transform: rotate(360deg);
+  transition: transform 0.6s linear 0s;
+}
+
+.circle-gray {
+  border-radius: 50%;
+  border: 2px solid transparent;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(107, 114, 128);
+}
+
+.circle-gray:after,
+.circle-gray:before {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  transform: rotate(45deg);
+}
+
+.circle-gray:hover:before {
+  border-top-color: rgba(107, 114, 128, var(--tw-text-opacity));
+  border-right-color: rgba(107, 114, 128, var(--tw-text-opacity));
+  border-bottom-color: rgba(107, 114, 128, var(--tw-text-opacity));
+  border-left-color: rgba(107, 114, 128, var(--tw-text-opacity));
+  transition: border-top-color 0s linear 0s, border-right-color 0s linear 0.15s,
+    border-bottom-color 0s linear 0.3s, border-left-color 0s linear 0.45s;
+}
+
+.circle-gray:hover:after {
+  border-top-color: rgba(107, 114, 128, var(--tw-text-opacity));
   transform: rotate(360deg);
   transition: transform 0.6s linear 0s;
 }
@@ -222,5 +274,21 @@
   @apply pb-8;
   @media screen and (min-width: 768px) {
     @apply pb-12;
+  }
+}
+
+/* Animations */
+.fade-in {
+  animation: fade 0.3s linear;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
   }
 }

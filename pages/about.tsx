@@ -6,6 +6,7 @@ import Section from "../components/wrappers/Section";
 import parser from "react-html-parser";
 import Link from "next/link";
 import { Facebook, Instagram, Twitter } from "react-feather";
+import Iconbutton from "../components/elements/iconbutton";
 
 const quotes = [
   {
@@ -24,7 +25,7 @@ export default function About() {
   return (
     <div>
       <Section>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-8">
           <div className="lg:col-span-2">
             <h1 className="mb-8">About Aaron</h1>
             <h3 className="mb-8">
@@ -38,40 +39,46 @@ export default function About() {
               )}
             </div>
           </div>
-          <div>
+          <div className="flex flex-grow flex-col items-center">
             <img
               src="/images/cropped-Author-picture.jpeg"
               alt=""
-              className="rounded-full"
+              className="rounded-full w-full max-w-lg"
             />
             <div className="my-8 flex justify-center">
-              <Link href="">
-                <a
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mx-4 inline-flex align-center hover:text-gray-300"
-                >
-                  <Facebook size={30} />
-                </a>
-              </Link>
-              <Link href="">
-                <a
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mx-4 inline-flex align-center hover:text-gray-300"
-                >
-                  <Twitter size={30} />
-                </a>
-              </Link>
-              <Link href="">
-                <a
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mx-4 inline-flex align-center hover:text-gray-300"
-                >
-                  <Instagram size={30} />
-                </a>
-              </Link>
+              <Iconbutton color="gray" size="large" className="mx-4">
+                <Link href="">
+                  <a
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex align-center"
+                  >
+                    <Facebook size={30} />
+                  </a>
+                </Link>
+              </Iconbutton>
+              <Iconbutton color="gray" size="large" className="mx-4">
+                <Link href="">
+                  <a
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex align-center"
+                  >
+                    <Twitter size={30} />
+                  </a>
+                </Link>
+              </Iconbutton>
+              <Iconbutton color="gray" size="large" className="mx-4">
+                <Link href="">
+                  <a
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex align-center"
+                  >
+                    <Instagram size={30} />
+                  </a>
+                </Link>
+              </Iconbutton>
             </div>
           </div>
         </div>
