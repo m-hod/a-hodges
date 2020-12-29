@@ -279,7 +279,7 @@
 
 /* Animations */
 .fade-in {
-  animation: fade 0.3s linear;
+  animation: fade 0.3s ease-out;
 }
 
 @keyframes fade {

@@ -37,9 +37,9 @@ export default function BookSection({
 }: BookSectionType) {
   return (
     <Section id={anchor}>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
         {orientation === "right" && (
-          <div className="col-span-1 hidden sm:contents">
+          <div className="col-span-1 hidden sm:flex justify-center items-start">
             <img src={cover} alt="" />
           </div>
         )}
@@ -65,7 +65,7 @@ export default function BookSection({
           </div>
         </div>
         {orientation === "left" && (
-          <div className="col-span-1 hidden sm:contents">
+          <div className="col-span-1 hidden sm:flex justify-center items-start">
             <img src={cover} alt="" />
           </div>
         )}
