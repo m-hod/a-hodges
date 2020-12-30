@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import Button from "../components/elements/button";
+import ProgressiveImage from "../components/elements/ProgressiveImage";
 import ContentDisplay from "../components/layouts/ContentDisplay";
 import Newsletter from "../components/layouts/Newsletter";
 import Centered from "../components/wrappers/Centered";
@@ -14,11 +15,16 @@ export default function Home() {
         <ContentDisplay
           left={
             <div className="fade-in flex flex-col items-center justify-center h-full object-contain">
-              <img
+              <ProgressiveImage
+                thumb="/images/AaronHodges_BookCover_Ebook-low-res-534x800_thumb.jpeg"
+                url="/images/AaronHodges_BookCover_Ebook-low-res-534x800.jpg"
+                style={{ maxHeight: "calc(100% - 1rem - 65px)" }}
+              />
+              {/* <img
                 src="/images/AaronHodges_BookCover_Ebook-low-res-534x800.jpg"
                 alt=""
                 style={{ maxHeight: "calc(100% - 1rem - 65px)" }}
-              />
+              /> */}
               <div className="m-4">
                 <Button>PREORDER</Button>
               </div>

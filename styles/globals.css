@@ -6,6 +6,7 @@
   body {
     @apply font-noto;
     @apply text-gray-700;
+    @apply overflow-x-hidden;
   }
 
   img {
@@ -275,6 +276,17 @@
   @media screen and (min-width: 768px) {
     @apply pb-12;
   }
+}
+
+/* Progressive Image */
+.progressive-image-blur {
+  filter: blur(1);
+}
+
+/** Timeline */
+.timeline-circle {
+  color: rgba(209, 213, 219, var(--tw-text-opacity));
+  fill: rgba(209, 213, 219, var(--tw-text-opacity));
 }
 
 /* Animations */

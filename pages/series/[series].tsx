@@ -70,9 +70,18 @@ function Series() {
         </div>
         <Carousel
           images={[
-            "/images/AronHodges-Cover-FINAL-Clean.webp",
-            "/images/Aaron_B3_Cover_no_typography.jpg",
-            "/images/AaronHodges_BookCover_Jpeg_Full.jpg",
+            {
+              thumb: "/images/AronHodges_Cover_FINAL_Clean_thumb.jpg",
+              url: "/images/AronHodges-Cover-FINAL-Clean.webp",
+            },
+            {
+              thumb: "/images/Aaron_B3_Cover_no_typography_thumb.jpg",
+              url: "/images/Aaron_B3_Cover_no_typography.jpg",
+            },
+            {
+              thumb: "/images/AaronHodges_BookCover_Jpeg_Full_thumb.jpg",
+              url: "/images/AaronHodges_BookCover_Jpeg_Full.jpg",
+            },
           ]}
         />
       </Hero>

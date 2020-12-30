@@ -3,22 +3,22 @@ import { Circle } from "react-feather";
 import BackgroundImage from "../elements/BackgroundImage";
 
 interface Props {
-  images: string[];
+  images: { thumb: string; url: string }[];
+  /** Apply a custom intervale for the image to change at */
   interval?: number;
 }
 
 /** Place within a relative wrapper */
 function Carousel({ images, interval }: Props) {
-  const [index, setIndex] = useState(0);
-
+  const [activeIndex, setActiveIndex] = useState(0);
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIndex(index < images.length - 1 ? index + 1 : 0);
+      setActiveIndex(activeIndex < images.length - 1 ? activeIndex + 1 : 0);
     }, interval || 10000);
     return () => {
       clearTimeout(timer);
     };
-  }, [index]);
+  }, [activeIndex]);
 
   return (
     <>
@@ -27,19 +27,32 @@ function Carousel({ images, interval }: Props) {
           <button
             key={i}
             onClick={() => {
-              setIndex(i);
+              setActiveIndex(i);
             }}
             className="m-1"
           >
             <Circle
               color="rgba(255,255,255,0.5)"
-              fill={index === i ? "#FFF" : "transparent"}
+              fill={activeIndex === i ? "#FFF" : "transparent"}
               className="carousel-icon"
             />
           </button>
         ))}
       </div>
-      <BackgroundImage url={images[index]} />
+      {images.map((_image, i) => {
+        const offset = (i - activeIndex) * 100;
+        return (
+          <BackgroundImage
+            key={i}
+            thumb={images[i].thumb}
+            url={images[i].url}
+            style={{
+              transform: `translate(${offset}%)`,
+              transition: "transform 0.5s ease-in",
+            }}
+          />
+        );
+      })}
     </>
   );
 }

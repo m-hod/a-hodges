@@ -31,7 +31,17 @@ function Header() {
           placeholderLink,
         ]}
       />
-      <NavDropdown title="Worlds" links={[placeholderLink]} />
+      <NavDropdown
+        title="Worlds"
+        links={[
+          {
+            url: "/worlds/alana",
+            label: "The Knights of Alanaaa",
+          },
+          placeholderLink,
+          placeholderLink,
+        ]}
+      />
     </nav>
   );
 }
