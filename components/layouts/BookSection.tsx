@@ -87,7 +87,7 @@ export default function BookSection({
             </div>
           ))}
         </div>
-        <BackgroundImage url={art} />
+        <BackgroundImage thumb={art} url={art} />
       </div>
     </Section>
   );
