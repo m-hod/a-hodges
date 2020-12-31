@@ -1,12 +1,21 @@
 import React from "react";
 import BackgroundImage from "../../components/elements/BackgroundImage";
 import Divider from "../../components/layouts/Divider";
+import Newsletter from "../../components/layouts/Newsletter";
 import Timeline from "../../components/layouts/Timeline";
+import Centered from "../../components/wrappers/Centered";
 import Section from "../../components/wrappers/Section";
 
 export default function Worlds() {
   return (
     <div>
+      <Section>
+        <h1 className="mb-8">The World of Alana</h1>
+        <h3 className="md:w-3/5">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum
+          dolor sit amet, consectetur adipiscing elit.
+        </h3>
+      </Section>
       <Section>
         <Divider
           left={
@@ -185,6 +194,11 @@ export default function Worlds() {
             </div>
           }
         />
+      </Section>
+      <Section>
+        <Centered>
+          <Newsletter />
+        </Centered>
       </Section>
     </div>
   );

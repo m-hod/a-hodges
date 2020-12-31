@@ -5,6 +5,9 @@ import Carousel from "../../components/layouts/Carousel";
 import Hero from "../../components/wrappers/hero";
 import { headerHeight } from "../../utils/constants";
 import { useRouter } from "next/router";
+import Section from "../../components/wrappers/Section";
+import Centered from "../../components/wrappers/Centered";
+import Newsletter from "../../components/layouts/Newsletter";
 
 type BookLink = {
   anchor: string;
@@ -40,8 +43,12 @@ function Series() {
 
   return (
     <div>
-      <Hero headerHeight={headerHeight}>
-        <div className="p-16 h-full flex flex-grow flex-col">
+      <Hero>
+        <div
+          className="p-16 h-full flex flex-grow flex-col"
+          style={{ paddingTop: headerHeight }}
+        >
+          {/* <div className="w-full" style={{ height: headerHeight }} /> */}
           <div className="flex flex-col justify-between h-full">
             <div className="flex flex-col text-center md:text-left">
               <h1 className="mt-8 mb-16 text-white">The Knights of Alana</h1>
@@ -131,6 +138,11 @@ function Series() {
         orientation="right"
         anchor="2"
       />
+      <Section>
+        <Centered>
+          <Newsletter />
+        </Centered>
+      </Section>
     </div>
   );
 }
