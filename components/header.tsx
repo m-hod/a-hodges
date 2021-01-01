@@ -358,21 +358,26 @@ function NavDropdownItem({ link }: { link: CascadeLinkType }) {
         <Link href={link.url}>
           <a className="col-span-3 hover:text-gray-500">{link.label}</a>
         </Link>
-        <button className="flex justify-end items-center hover:text-gray-500">
-          {isExpanded ? (
-            <ChevronUp
-              onClick={() => {
-                setExpanded(false);
-              }}
-            />
-          ) : (
-            <ChevronDown
-              onClick={() => {
-                setExpanded(true);
-              }}
-            />
-          )}
-        </button>
+
+        {isExpanded ? (
+          <button
+            className="flex justify-end items-center hover:text-gray-500"
+            onClick={() => {
+              setExpanded(false);
+            }}
+          >
+            <ChevronUp />
+          </button>
+        ) : (
+          <button
+            className="flex justify-end items-center hover:text-gray-500"
+            onClick={() => {
+              setExpanded(true);
+            }}
+          >
+            <ChevronDown />
+          </button>
+        )}
       </div>
       <div className={`overflow-hidden ${isExpanded ? "h-full" : "h-0"}`}>
         {link.links?.map((_link, i) => (
@@ -408,21 +413,26 @@ function SubNavDropdownItem({
     <>
       <div className="flex justify-center">
         <button className="hover:text-gray-500">{label.toUpperCase()}</button>
-        <button className="ml-2 flex justify-end items-center hover:text-gray-500">
-          {isExpanded ? (
-            <ChevronUp
-              onClick={() => {
-                setExpanded(false);
-              }}
-            />
-          ) : (
-            <ChevronDown
-              onClick={() => {
-                setExpanded(true);
-              }}
-            />
-          )}
-        </button>
+
+        {isExpanded ? (
+          <button
+            className="ml-2 flex justify-end items-center hover:text-gray-500"
+            onClick={() => {
+              setExpanded(false);
+            }}
+          >
+            <ChevronUp />
+          </button>
+        ) : (
+          <button
+            className="ml-2 flex justify-end items-center hover:text-gray-500"
+            onClick={() => {
+              setExpanded(true);
+            }}
+          >
+            <ChevronDown />
+          </button>
+        )}
       </div>
       <div className={`overflow-hidden ${isExpanded ? "h-full" : "h-0"}`}>
         {links?.map((_link, i) => (

@@ -14,7 +14,7 @@ export default function Home() {
       <Section>
         <ContentDisplay
           left={
-            <div className="fade-in flex flex-col items-center justify-center h-full object-contain">
+            <div className="fade-in flex flex-col items-center justify-center object-contain h-full-padding-removed md:h-full">
               <ProgressiveImage
                 thumb="/images/AaronHodges_BookCover_Ebook-low-res-534x800_thumb.jpeg"
                 url="/images/AaronHodges_BookCover_Ebook-low-res-534x800.jpg"

@@ -13,6 +13,7 @@ module.exports = {
         "screen-header": "calc(100vh - 128px)",
         "screen-75": "75vh",
         "screen-50": "50vh",
+        "full-padding-removed": "calc(100% - 2rem - 2rem)",
       },
       maxWidth: {
         "1/2": "50%",
@@ -21,6 +22,9 @@ module.exports = {
       },
       minWidth: {
         300: 300,
+      },
+      maxHeight: {
+        "screen-header": "calc(100vh - 128px)",
       },
     },
   },
