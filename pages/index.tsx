@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useContext } from "react";
 import Button from "../components/elements/button";
 import ProgressiveImage from "../components/elements/ProgressiveImage";
 import ContentDisplay from "../components/layouts/ContentDisplay";
@@ -7,8 +8,11 @@ import Newsletter from "../components/layouts/Newsletter";
 import Centered from "../components/wrappers/Centered";
 import Section from "../components/wrappers/Section";
 import TextFade from "../components/wrappers/TextFade";
+import { GlobalContext } from "../utils/context";
 
 export default function Home() {
+  const ctx = useContext(GlobalContext);
+
   return (
     <div>
       <Section>

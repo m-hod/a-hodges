@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Quote from "../components/elements/Quote";
 import Newsletter from "../components/layouts/Newsletter";
 import Centered from "../components/wrappers/Centered";
@@ -7,6 +7,9 @@ import parser from "react-html-parser";
 import Link from "next/link";
 import { Facebook, Instagram, Twitter } from "react-feather";
 import Iconbutton from "../components/elements/iconbutton";
+import { GlobalContext } from "../utils/context";
+import Markdown from "react-markdown";
+import { getSocials } from "../utils";
 
 const quotes = [
   {
@@ -22,21 +25,17 @@ const quotes = [
 ];
 
 export default function About() {
+  const ctx = useContext(GlobalContext);
+
   return (
     <div>
       <Section>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-8">
           <div className="lg:col-span-2">
-            <h1 className="mb-8">About Aaron</h1>
-            <h3 className="mb-8">
-              Suspendisse luctus cursus lorem, vitae maximus nisi commodo sit
-              amet. Quisque imperdiet elementum ante, eu iaculis ipsum eleifend
-              vel.
-            </h3>
+            <h1 className="mb-8">{ctx.about.title}</h1>
+            <h3 className="mb-8">{ctx.about.subtitle}</h3>
             <div className="text-column-2">
-              {parser(
-                "<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed arcu ante, pharetra id molestie ac, hendrerit eu quam. Curabitur pharetra faucibus purus, non hendrerit tortor ultricies nec. Nulla eget pellentesque enim. Duis vitae tincidunt massa, sed accumsan magna. Fusce elementum lacus a diam euismod pellentesque. Nunc pulvinar luctus nunc, eu luctus leo posuere et. Duis vel viverra sem. Cras ornare pretium dolor sit amet vestibulum. </p><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed arcu ante, pharetra id molestie ac, hendrerit eu quam. Curabitur pharetra faucibus purus, non hendrerit tortor ultricies nec. Nulla eget pellentesque enim. Duis vitae tincidunt massa, sed accumsan magna. Fusce elementum lacus a diam euismod pellentesque. Nunc pulvinar luctus nunc, eu luctus leo posuere et. Duis vel viverra sem. Cras ornare pretium dolor sit amet vestibulum. </p>"
-              )}
+              <Markdown>{ctx.about.content}</Markdown>
             </div>
           </div>
           <div className="flex flex-grow flex-col items-center">
@@ -46,46 +45,37 @@ export default function About() {
               className="rounded-full w-full max-w-lg"
             />
             <div className="my-8 flex justify-center">
-              <Iconbutton color="gray" size="large" className="mx-4">
-                <Link href="">
-                  <a
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex align-center"
-                  >
-                    <Facebook size={30} />
-                  </a>
-                </Link>
-              </Iconbutton>
-              <Iconbutton color="gray" size="large" className="mx-4">
-                <Link href="">
-                  <a
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex align-center"
-                  >
-                    <Twitter size={30} />
-                  </a>
-                </Link>
-              </Iconbutton>
-              <Iconbutton color="gray" size="large" className="mx-4">
-                <Link href="">
-                  <a
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex align-center"
-                  >
-                    <Instagram size={30} />
-                  </a>
-                </Link>
-              </Iconbutton>
+              {getSocials(ctx.socials).map((_social, i) => {
+                const Icon = _social.Icon;
+                return (
+                  <Link key={i} href={_social.link}>
+                    <a
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex align-center"
+                    >
+                      <Iconbutton
+                        color="gray"
+                        size="large"
+                        className="mx-4"
+                        title={_social.label}
+                      >
+                        <Icon size={30} />
+                      </Iconbutton>
+                    </a>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </div>
       </Section>
       <Section>
-        {quotes.map((_quote, i) => (
-          <div key={i} className={`${i < quotes.length - 1 && "mb-8"} md:mb-8`}>
+        {ctx.about.quotes.map((_quote, i) => (
+          <div
+            key={_quote.id}
+            className={`${i < quotes.length - 1 && "mb-8"} md:mb-8`}
+          >
             <Quote
               content={_quote.content}
               author={_quote.author}
@@ -102,3 +92,5 @@ export default function About() {
     </div>
   );
 }
+
+// to do: image
