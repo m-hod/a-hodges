@@ -8,36 +8,30 @@ import { GlobalContext } from "../utils/context";
 import { Schema } from "../utils/types";
 import { NextComponentType, NextPageContext } from "next";
 
-function App({
-  Component,
-  props,
-}: {
-  Component: NextComponentType<NextPageContext, any, any>;
-  props: Schema;
-}) {
+function App({ Component, pageProps }: AppProps) {
   return (
-    <GlobalContext.Provider value={props}>
-      <Page
-        header={{
-          element: <Header />,
-          height: headerHeight,
-        }}
-        footer={{
-          element: <Footer />,
-          height: footerHeight,
-        }}
-      >
-        <Component {...props} />
-      </Page>
-    </GlobalContext.Provider>
+    // <GlobalContext.Provider value={props}>
+    <Page
+      header={{
+        element: <Header />,
+        height: headerHeight,
+      }}
+      footer={{
+        element: <Footer />,
+        height: footerHeight,
+      }}
+    >
+      <Component {...pageProps} />
+    </Page>
+    // </GlobalContext.Provider>
   );
 }
 
-App.getInitialProps = async (ctx) => {
-  const res = await fetch("https://admin.m-hodges.com/aahodges");
-  const data: Schema = await res.json();
-  return { props: data };
-};
+// App.getInitialProps = async (ctx) => {
+//   const res = await fetch("https://admin.m-hodges.com/aahodges");
+//   const data: Schema = await res.json();
+//   return { props: data };
+// };
 
 export default App;
 

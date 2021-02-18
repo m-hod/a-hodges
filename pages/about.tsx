@@ -4,11 +4,10 @@ import Newsletter from "../components/layouts/Newsletter";
 import Centered from "../components/wrappers/Centered";
 import Section from "../components/wrappers/Section";
 import Link from "next/link";
-import { Facebook, Instagram, Twitter } from "react-feather";
 import Iconbutton from "../components/elements/iconbutton";
-import { GlobalContext } from "../utils/context";
 import Markdown from "react-markdown";
 import { getSocials } from "../utils";
+import { Schema } from "../utils/types";
 
 const quotes = [
   {
@@ -23,18 +22,16 @@ const quotes = [
   },
 ];
 
-export default function About() {
-  const ctx = useContext(GlobalContext);
-
+export default function About(props: Schema) {
   return (
     <div>
       <Section>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-8">
           <div className="lg:col-span-2">
-            <h1 className="mb-8">{ctx.about.title}</h1>
-            <h3 className="mb-8">{ctx.about.subtitle}</h3>
+            <h1 className="mb-8">{props.about.title}</h1>
+            <h3 className="mb-8">{props.about.subtitle}</h3>
             <div className="text-column-2">
-              <Markdown>{ctx.about.content}</Markdown>
+              <Markdown>{props.about.content}</Markdown>
             </div>
           </div>
           <div className="flex flex-grow flex-col items-center">
@@ -44,7 +41,7 @@ export default function About() {
               className="rounded-full w-full max-w-lg"
             />
             <div className="my-8 flex justify-center">
-              {getSocials(ctx.socials).map((_social, i) => {
+              {getSocials(props.socials).map((_social, i) => {
                 const Icon = _social.Icon;
                 return (
                   <Link key={i} href={_social.link}>
@@ -70,7 +67,7 @@ export default function About() {
         </div>
       </Section>
       <Section>
-        {ctx.about.quotes.map((_quote, i) => (
+        {props.about.quotes.map((_quote, i) => (
           <div
             key={_quote.id}
             className={`${i < quotes.length - 1 && "mb-8"} md:mb-8`}
@@ -90,6 +87,12 @@ export default function About() {
       </Section>
     </div>
   );
+}
+
+export async function getStaticProps(ctx) {
+  const res = await fetch("https://admin.m-hodges.com/aahodges");
+  const data: Schema = await res.json();
+  return { props: data };
 }
 
 // to do: image
