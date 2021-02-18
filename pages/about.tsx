@@ -3,7 +3,6 @@ import Quote from "../components/elements/Quote";
 import Newsletter from "../components/layouts/Newsletter";
 import Centered from "../components/wrappers/Centered";
 import Section from "../components/wrappers/Section";
-import parser from "react-html-parser";
 import Link from "next/link";
 import { Facebook, Instagram, Twitter } from "react-feather";
 import Iconbutton from "../components/elements/iconbutton";

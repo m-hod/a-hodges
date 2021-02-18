@@ -6,7 +6,7 @@ const validSocials: SocialsUnion[] = ["facebook", "instagram", "twitter"];
 export function getSocials(socials: Socials) {
     const {id, ...links} = socials;
     return [...Object.keys(links)]
-        .filter(_key => validSocials.includes(_key))
+        .filter(_key => validSocials.includes(_key as SocialsUnion))
         .map((_key) => {
             switch (_key) {
                 case "facebook":
