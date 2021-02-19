@@ -1,6 +1,5 @@
-import Head from "next/head";
 import Link from "next/link";
-import { useContext } from "react";
+import { useMemo } from "react";
 import Button from "../components/elements/button";
 import ProgressiveImage from "../components/elements/ProgressiveImage";
 import ContentDisplay from "../components/layouts/ContentDisplay";
@@ -8,88 +7,82 @@ import Newsletter from "../components/layouts/Newsletter";
 import Centered from "../components/wrappers/Centered";
 import Section from "../components/wrappers/Section";
 import TextFade from "../components/wrappers/TextFade";
-import { GlobalContext } from "../utils/context";
+import { Book, Schema } from "../utils/types";
+import classes from "./index.module.scss";
+import Markdown from "react-markdown";
+import clsx from "clsx";
+import { slugify } from "../utils";
 
-export default function Home() {
-  const ctx = useContext(GlobalContext);
+export default function Home(props: Schema) {
+  const { promoBook, promoSeries } = useMemo(() => {
+    let promoBook: Book | undefined = undefined;
+    const promoSeries = props.series.find((_series) =>
+      _series.books.find((_book) => {
+        if (_book.is_promo) {
+          promoBook = _book;
+          return true;
+        } else return false;
+      })
+    );
+    return {
+      promoBook,
+      promoSeries,
+    };
+  }, [props]);
 
   return (
     <div>
-      <Section>
-        <ContentDisplay
-          left={
-            <div className="fade-in flex flex-col items-center justify-center object-contain h-full-padding-removed md:h-full">
-              <ProgressiveImage
-                thumb="/images/AaronHodges_BookCover_Ebook-low-res-534x800_thumb.jpeg"
-                url="/images/AaronHodges_BookCover_Ebook-low-res-534x800.jpg"
-                style={{ maxHeight: "calc(100% - 1rem - 65px)" }}
-              />
-              {/* <img
-                src="/images/AaronHodges_BookCover_Ebook-low-res-534x800.jpg"
-                alt=""
-                style={{ maxHeight: "calc(100% - 1rem - 65px)" }}
-              /> */}
-              <div className="m-4">
-                <Button>PREORDER</Button>
-              </div>
-            </div>
-          }
-          right={
-            <TextFade>
-              <div className="flex flex-col h-full relative">
-                <div className="flex flex-col mb-12">
-                  <h5 className="mb-8">The Knights of Alana: Book One</h5>
-                  <h1 className="mb-12">Daughter of Fate</h1>
-                  <h3>
-                    When Knights attack the temple of Skystead,
-                    seventeen-year-old Pela is the only one to escape.
-                  </h3>
-                </div>
-                <div className="h-full overflow-hidden">
-                  <p className="mb-4">
-                    Her mother and the other villagers are taken, accused of
-                    worshiping the False Gods. They will pay the ultimate price
-                    – unless Pela can rescue them.
-                  </p>
-                  <p className="mb-4">
-                    Pela has never left the safety of her town, let alone
-                    touched a sword. What chance does she have against the
-                    ruthless Knights of Alana? She’s not a hero.
-                  </p>
-                  <p className="mb-4">
-                    Pela has never left the safety of her town, let alone
-                    touched a sword. What chance does she have against the
-                    ruthless Knights of Alana? She’s not a hero.
-                  </p>
-                  <p className="mb-4">
-                    Pela has never left the safety of her town, let alone
-                    touched a sword. What chance does she have against the
-                    ruthless Knights of Alana? She’s not a hero.
-                  </p>
-                  <p className="mb-4">
-                    Pela has never left the safety of her town, let alone
-                    touched a sword. What chance does she have against the
-                    ruthless Knights of Alana? She’s not a hero.
-                  </p>
-                  <p className="mb-4">But she knows one.</p>
-                </div>
-                <div className="absolute bottom-0 z-20 flex w-full justify-center">
-                  <p className="underline cursor-pointer hover:text-gray-400">
-                    <Link
-                      href={{
-                        pathname: "series/[series]",
-                        query: { series: "alana", book: "1" },
-                      }}
-                    >
-                      <a>Read More</a>
-                    </Link>
-                  </p>
+      {promoBook && promoSeries && (
+        <Section>
+          <ContentDisplay
+            left={
+              <div className="fade-in flex flex-col items-center justify-center object-contain h-full-padding-removed md:h-full">
+                <ProgressiveImage
+                  thumb="/images/AaronHodges_BookCover_Ebook-low-res-534x800_thumb.jpeg"
+                  url="/images/AaronHodges_BookCover_Ebook-low-res-534x800.jpg"
+                  // style={{ maxHeight: "calc(100% - 1rem - 65px)" }}
+                />
+                {/* </div> */}
+                <div className="m-4">
+                  <Button>
+                    <a href={promoBook.orderLinks[0].url}>PREORDER</a>
+                  </Button>
                 </div>
               </div>
-            </TextFade>
-          }
-        />
-      </Section>
+            }
+            right={
+              <TextFade>
+                <div className="flex flex-col h-full relative">
+                  <div className="flex flex-col">
+                    <h5 className="mb-8">{promoBook.subtitle}</h5>
+                    <h1 className="mb-12">{promoBook.title}</h1>
+                  </div>
+                  <div
+                    className={clsx("h-full overflow-hidden", classes.markdown)}
+                  >
+                    <Markdown>{promoBook.summary}</Markdown>
+                  </div>
+                  <div className="absolute bottom-0 z-20 flex w-full justify-center">
+                    <p className="underline cursor-pointer hover:text-gray-400">
+                      <Link
+                        href={{
+                          pathname: "series/[series]",
+                          query: {
+                            series: slugify(promoSeries.title),
+                            book: slugify(promoBook.title),
+                          },
+                        }}
+                      >
+                        <a>Read More</a>
+                      </Link>
+                    </p>
+                  </div>
+                </div>
+              </TextFade>
+            }
+          />
+        </Section>
+      )}
       <Section>
         <Centered>
           <Newsletter />
@@ -98,3 +91,15 @@ export default function Home() {
     </div>
   );
 }
+
+export async function getStaticProps(ctx) {
+  const res = await fetch("https://admin.m-hodges.com/aahodges");
+  const data: Schema = await res.json();
+  return { props: data };
+}
+
+/**
+ * to do
+ * image
+ * section container
+ */

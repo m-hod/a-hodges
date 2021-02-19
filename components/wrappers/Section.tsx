@@ -1,4 +1,5 @@
 import React from "react";
+import clsx from "clsx";
 
 type Options = {
   removeBottomPadding?: boolean;
@@ -16,7 +17,10 @@ function Section({
   return (
     <section
       id={id}
-      className={`section p-8 md:p-12 flex justify-center pb-0 md:pb-0`}
+      className={clsx(
+        `p-8 md:p-12 flex justify-center`,
+        options?.removeBottomPadding ? "pb-0" : "pb-8 md:pb-12"
+      )}
     >
       <div className="w-full 2xl:max-w-screen-2xl">{children}</div>
     </section>

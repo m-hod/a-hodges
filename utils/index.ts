@@ -1,5 +1,5 @@
 import { Facebook, Instagram, Twitter } from 'react-feather';
-import { Socials, SocialsUnion } from './types';
+import { Schema, Socials, SocialsUnion } from './types';
 
 const validSocials: SocialsUnion[] = ["facebook", "instagram", "twitter"]; 
 
@@ -30,3 +30,7 @@ export function getSocials(socials: Socials) {
             }
     })
 };
+
+export function slugify(text: string) {
+    return text.toLowerCase().replace(/ /gi, "-");
+}
