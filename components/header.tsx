@@ -1,10 +1,11 @@
+import { AlignRight, ChevronDown, ChevronUp } from "react-feather";
 import React, { useEffect, useMemo, useState } from "react";
+
 import Link from "next/link";
+import { headerHeight } from "../utils/constants";
 import useObserver from "../hooks/useObserver";
 import { useRouter } from "next/router";
-import { AlignRight, ChevronDown, ChevronUp } from "react-feather";
 import useWindowSize from "../hooks/useWindowSize";
-import { headerHeight } from "../utils/constants";
 
 const placeholderLink = {
   label: "hi",
@@ -325,7 +326,7 @@ function NavDropdown({
             ) : (
               <li
                 key={i}
-                className="w-full hover:bg-gray-200 text-black p-2 text-sm text-center"
+                className="w-full hover:bg-gray-200 text-black p-2 text-sm text-center list-none"
               >
                 <Link href={_link.url}>
                   <a className="col-span-3 hover:text-gray-500">
@@ -345,20 +346,18 @@ function NavDropdownItem({ link }: { link: CascadeLinkType }) {
   const router = useRouter();
   const [isExpanded, setExpanded] = useState(false);
 
-  /** Close dropdown on window size change */
   useEffect(() => {
     if (isExpanded) {
       setExpanded(false);
     }
-  }, [router]);
+  }, [router, router.pathname]);
 
   return (
-    <li className="w-full hover:bg-gray-200 text-black p-2 text-sm text-left">
+    <li className="w-full hover:bg-gray-200 text-black p-2 text-sm text-left list-none">
       <div className="grid grid-cols-4 gap-2">
         <Link href={link.url}>
           <a className="col-span-3 hover:text-gray-500">{link.label}</a>
         </Link>
-
         {isExpanded ? (
           <button
             className="flex justify-end items-center hover:text-gray-500"
@@ -381,7 +380,7 @@ function NavDropdownItem({ link }: { link: CascadeLinkType }) {
       </div>
       <div className={`overflow-hidden ${isExpanded ? "h-full" : "h-0"}`}>
         {link.links?.map((_link, i) => (
-          <div key={i} className="m-2">
+          <div key={i} className="m-4">
             <Link href={_link.url}>
               <a className="text-black hover:text-gray-500">{_link.label}</a>
             </Link>
@@ -413,7 +412,6 @@ function SubNavDropdownItem({
     <>
       <div className="flex justify-center">
         <button className="hover:text-gray-500">{label.toUpperCase()}</button>
-
         {isExpanded ? (
           <button
             className="ml-2 flex justify-end items-center hover:text-gray-500"

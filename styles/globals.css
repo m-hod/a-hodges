@@ -268,11 +268,6 @@
   fill: rgba(255, 255, 255, 0.5);
 }
 
-/* BookLink */
-.book-link:hover img {
-  transform: scale(1.05);
-}
-
 /* BookSection */
 .text-column-2 {
   column-count: 1;

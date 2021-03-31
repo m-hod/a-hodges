@@ -1,4 +1,5 @@
 import React, { HTMLAttributes } from "react";
+
 import ProgressiveImage from "./ProgressiveImage";
 
 interface Props {
@@ -23,7 +24,7 @@ function BackgroundImage({
       {...props}
       className={`absolute left-0 top-0 w-full h-full bg-gray-500 object-cover bg-center ${className}`}
       style={{
-        filter: "brightness(75%) contrast(95%)",
+        filter: "brightness(75%) contrast(105%)",
         zIndex: -1,
         ...style,
       }}

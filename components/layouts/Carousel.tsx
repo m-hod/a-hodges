@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Circle } from "react-feather";
+
 import BackgroundImage from "../elements/BackgroundImage";
+import { Circle } from "react-feather";
 
 interface Props {
   images: { thumb: string; url: string }[];

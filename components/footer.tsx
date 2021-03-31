@@ -1,9 +1,10 @@
-import Link from "next/link";
-import React from "react";
-import { Facebook, Twitter, Instagram, ChevronUp } from "react-feather";
+import { ChevronUp, Facebook, Instagram, Twitter } from "react-feather";
+
 import Button from "./elements/button";
 import Iconbutton from "./elements/iconbutton";
 import Input from "./elements/input";
+import Link from "next/link";
+import React from "react";
 
 function Footer() {
   return (
@@ -19,11 +20,14 @@ function Footer() {
           <small>©2020 Aaron Hodges</small>
         </div>
         <div>
-          <Link href="https://m-hodges.com">
-            <a target="_blank" rel="noreferrer" className="hover:text-gray-300">
-              <small>Created by Michael Hodges</small>
-            </a>
-          </Link>
+          <small className="flex align-center">
+            <img
+              src="https://enim-content-cdn.sgp1.cdn.digitaloceanspaces.com/enim/logos/logo-circle.svg"
+              width={20}
+              className="mr-1"
+            />
+            Enim Web Services
+          </small>
         </div>
       </div>
       <div className="h-full w-full flex flex-col justify-between">

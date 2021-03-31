@@ -1,9 +1,9 @@
+import BackgroundImage from "../elements/BackgroundImage";
+import Button from "../elements/button";
+import Quote from "../elements/Quote";
 import React from "react";
 import Section from "../wrappers/Section";
 import parser from "react-html-parser";
-import Button from "../elements/button";
-import BackgroundImage from "../elements/BackgroundImage";
-import Quote from "../elements/Quote";
 
 export type BookSectionType = {
   title: string;
