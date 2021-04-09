@@ -1,13 +1,14 @@
 import BackgroundImage from "./BackgroundImage";
 import Link from "next/link";
 import React from "react";
+import { StrapiImage } from "../../utils/types";
 
 function WorldLink({
   image,
   link,
   title,
 }: {
-  image: string;
+  image: StrapiImage;
   link: string;
   title: string;
 }) {
@@ -30,7 +31,7 @@ function WorldLink({
             minWidth: 250,
             maxWidth: 250,
             borderRadius: "50%",
-            backgroundImage: `url(${image})`,
+            backgroundImage: `url(${image.url})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -47,14 +48,7 @@ function WorldLink({
                 "invert(22%) sepia(13%) saturate(1090%) hue-rotate(178deg) brightness(95%) contrast(86%)",
             }}
           />
-          <h2
-            className="text-center text-white"
-            style={{
-              textShadow: "1px 2px #707070",
-            }}
-          >
-            {title}
-          </h2>
+          <h2 className="text-center text-white">{title}</h2>
           <img
             src={`/brush21.svg`}
             width={150}

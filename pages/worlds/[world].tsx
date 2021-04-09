@@ -31,7 +31,15 @@ export default function Worlds(props: Schema) {
   if (!world) return null;
 
   return (
-    <Wrapper>
+    <Wrapper
+      headerProps={{
+        series: props.series,
+        worlds: props.worlds,
+      }}
+      footerProps={{
+        socials: props.socials,
+      }}
+    >
       <div>
         <Section>
           <h1 className="mb-8">{world.title}</h1>

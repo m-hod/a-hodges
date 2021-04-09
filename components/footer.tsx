@@ -1,12 +1,17 @@
-import { ChevronUp, Facebook, Instagram, Twitter } from "react-feather";
-
 import Button from "./elements/button";
+import { ChevronUp } from "react-feather";
 import Iconbutton from "./elements/iconbutton";
 import Input from "./elements/input";
 import Link from "next/link";
 import React from "react";
+import { Socials } from "../utils/types";
+import { getSocials } from "../utils";
 
-function Footer() {
+export type FooterProps = {
+  socials: Socials;
+};
+
+function Footer({ socials }: FooterProps) {
   return (
     <div className="footer h-auto md:h-footer bg-gray-500 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 p-8 pr-24 font-roboto text-white relative">
       <div className="h-full w-full flex flex-col justify-between">
@@ -31,39 +36,22 @@ function Footer() {
         </div>
       </div>
       <div className="h-full w-full flex flex-col justify-between">
-        <div>
-          <Link href="">
-            <a
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex align-center hover:text-gray-300"
-            >
-              <Facebook className="mr-2" /> Facebook
-            </a>
-          </Link>
-        </div>
-        <div>
-          <Link href="">
-            <a
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex align-center hover:text-gray-300"
-            >
-              <Twitter className="mr-2" /> Twitter
-            </a>
-          </Link>
-        </div>
-        <div>
-          <Link href="">
-            <a
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex align-center hover:text-gray-300"
-            >
-              <Instagram className="mr-2" /> Instagram
-            </a>
-          </Link>
-        </div>
+        {getSocials(socials).map((_social, i) => {
+          const Icon = _social.Icon;
+          return (
+            <div key={i}>
+              <Link href={_social.link}>
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex align-center hover:text-gray-300"
+                >
+                  <Icon className="mr-2" /> {_social.label}
+                </a>
+              </Link>
+            </div>
+          );
+        })}
       </div>
       <div className="h-full w-full flex">
         <div className="w-full max-w-sm flex flex-col justify-center">

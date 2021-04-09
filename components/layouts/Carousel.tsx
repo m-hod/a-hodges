@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 
 import BackgroundImage from "../elements/BackgroundImage";
 import { Circle } from "react-feather";
+import { StrapiImage } from "../../utils/types";
 
 interface Props {
-  images: { thumb: string; url: string }[];
+  images: StrapiImage[];
   /** Apply a custom intervale for the image to change at */
   interval?: number;
 }
@@ -45,7 +46,7 @@ function Carousel({ images, interval }: Props) {
         return (
           <BackgroundImage
             key={i}
-            thumb={images[i].thumb}
+            thumb={images[i].formats.thumbnail.url}
             url={images[i].url}
             style={{
               transform: `translate(${offset}%)`,

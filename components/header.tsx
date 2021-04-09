@@ -1,18 +1,20 @@
 import { AlignRight, ChevronDown, ChevronUp } from "react-feather";
 import React, { useEffect, useMemo, useState } from "react";
+import { Series, World } from "../utils/types";
 
 import Link from "next/link";
 import { headerHeight } from "../utils/constants";
+import { slugify } from "../utils";
 import useObserver from "../hooks/useObserver";
 import { useRouter } from "next/router";
 import useWindowSize from "../hooks/useWindowSize";
 
-const placeholderLink = {
-  label: "hi",
-  url: "",
+export type HeaderProps = {
+  series: Series[];
+  worlds: World[];
 };
 
-function Header() {
+function Header({ series, worlds }: HeaderProps) {
   const id = "header";
   const { isContentVisible } = useObserver(id);
   const windowSize = useWindowSize();
@@ -34,6 +36,28 @@ function Header() {
       setDropdownVisibility(false);
     }
   }, [windowSize, router]);
+
+  const seriesLinks = useMemo(
+    () =>
+      series.map((_series) => ({
+        url: `/series/${slugify(_series.title)}`,
+        label: _series.title,
+        links: _series.books.map((_book) => ({
+          url: `/series/${slugify(_series.title)}?book=${slugify(_book.title)}`,
+          label: _book.title,
+        })),
+      })),
+    [series]
+  );
+
+  const worldsLinks = useMemo(
+    () =>
+      worlds.map((_world) => ({
+        url: `/worlds/${slugify(_world.title)}`,
+        label: _world.title,
+      })),
+    [worlds]
+  );
 
   return (
     <>
@@ -70,45 +94,8 @@ function Header() {
               top: "calc(50% - 12px)",
             }}
           >
-            <NavDropdown
-              label="Books"
-              theme={theme}
-              links={[
-                {
-                  url: "/series/alana",
-                  label: "The Knights of Alanaaa",
-                  links: [placeholderLink],
-                },
-                {
-                  url: "/worlds/alana",
-                  label: "The Knights of Alanaaa",
-                  links: [placeholderLink],
-                },
-                {
-                  url: "/worlds/alana",
-                  label: "The Knights of Alanaaa",
-                  links: [placeholderLink],
-                },
-              ]}
-            />
-            <NavDropdown
-              label="Worlds"
-              theme={theme}
-              links={[
-                {
-                  url: "/worlds/alana",
-                  label: "The Knights of Alanaaa",
-                },
-                {
-                  url: "/worlds/alana",
-                  label: "The Knights of Alanaaa",
-                },
-                {
-                  url: "/worlds/alana",
-                  label: "The Knights of Alanaaa",
-                },
-              ]}
-            />
+            <NavDropdown label="Books" theme={theme} links={seriesLinks} />
+            <NavDropdown label="Worlds" theme={theme} links={worldsLinks} />
           </div>
         </div>
         <div className="flex justify-center items-center md:hidden mr-8">
@@ -156,43 +143,8 @@ function Header() {
                 top: "calc(50% - 12px)",
               }}
             >
-              <NavDropdown
-                label="Books"
-                links={[
-                  {
-                    url: "/series/alana",
-                    label: "The Knights of Alanaaa",
-                    links: [placeholderLink],
-                  },
-                  {
-                    url: "/series/alana",
-                    label: "The Knights of Alanaaa",
-                    links: [placeholderLink],
-                  },
-                  {
-                    url: "/series/alana",
-                    label: "The Knights of Alanaaa",
-                    links: [placeholderLink],
-                  },
-                ]}
-              />
-              <NavDropdown
-                label="Worlds"
-                links={[
-                  {
-                    url: "/worlds/alana",
-                    label: "The Knights of Alanaaa",
-                  },
-                  {
-                    url: "/worlds/alana",
-                    label: "The Knights of Alanaaa",
-                  },
-                  {
-                    url: "/worlds/alana",
-                    label: "The Knights of Alanaaa",
-                  },
-                ]}
-              />
+              <NavDropdown label="Books" links={seriesLinks} />
+              <NavDropdown label="Worlds" links={worldsLinks} />
             </div>
           </div>
           <div className="flex justify-center items-center md:hidden mr-4">
@@ -222,45 +174,10 @@ function Header() {
           <NavLink label="About" url="/about" />
         </div>
         <div className="my-2">
-          <SubNavDropdownItem
-            label="Books"
-            links={[
-              {
-                url: "/series/alana",
-                label: "The Knights of Alanaaa",
-                links: [placeholderLink],
-              },
-              {
-                url: "/series/alana",
-                label: "The Knights of Alanaaa",
-                links: [placeholderLink],
-              },
-              {
-                url: "/series/alana",
-                label: "The Knights of Alanaaa",
-                links: [placeholderLink],
-              },
-            ]}
-          />
+          <SubNavDropdownItem label="Books" links={seriesLinks} />
         </div>
         <div className="my-2">
-          <SubNavDropdownItem
-            label="Worlds"
-            links={[
-              {
-                url: "/worlds/alana",
-                label: "The Knights of Alanaaa",
-              },
-              {
-                url: "/worlds/alana",
-                label: "The Knights of Alanaaa",
-              },
-              {
-                url: "/worlds/alana",
-                label: "The Knights of Alanaaa",
-              },
-            ]}
-          />
+          <SubNavDropdownItem label="Worlds" links={worldsLinks} />
         </div>
       </div>
     </>
@@ -352,7 +269,7 @@ function NavDropdownItem({ link }: { link: CascadeLinkType }) {
     }
   }, [router, router.pathname]);
 
-  return (
+  return !!link.links?.length ? (
     <li className="w-full hover:bg-gray-200 text-black p-2 text-sm text-left list-none">
       <div className="grid grid-cols-4 gap-2">
         <Link href={link.url}>
@@ -388,6 +305,12 @@ function NavDropdownItem({ link }: { link: CascadeLinkType }) {
         ))}
       </div>
     </li>
+  ) : (
+    <li className="w-full hover:bg-gray-200 text-black p-2 text-sm text-center list-none">
+      <Link href={link.url}>
+        <a className="col-span-3 hover:text-gray-500">{link.label}</a>
+      </Link>
+    </li>
   );
 }
 
@@ -412,7 +335,7 @@ function SubNavDropdownItem({
     <>
       <div className="flex justify-center">
         <button className="hover:text-gray-500">{label.toUpperCase()}</button>
-        {isExpanded ? (
+        {!!links.length && isExpanded ? (
           <button
             className="ml-2 flex justify-end items-center hover:text-gray-500"
             onClick={() => {

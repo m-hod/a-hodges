@@ -1,18 +1,28 @@
-import React from "react";
-import Footer from "../footer";
-import Header from "../header";
-import Page from "./page";
+import Footer, { FooterProps } from "../footer";
 import { footerHeight, headerHeight } from "../../utils/constants";
 
-function Wrapper({ children }: { children: React.ReactNode }) {
+import Header from "../header";
+import { HeaderProps } from "../header";
+import Page from "./page";
+import React from "react";
+
+function Wrapper({
+  children,
+  headerProps,
+  footerProps,
+}: {
+  children: React.ReactNode;
+  headerProps: HeaderProps;
+  footerProps: FooterProps;
+}) {
   return (
     <Page
       header={{
-        element: <Header />,
+        element: <Header {...headerProps} />,
         height: headerHeight,
       }}
       footer={{
-        element: <Footer />,
+        element: <Footer {...footerProps} />,
         height: footerHeight,
       }}
     >

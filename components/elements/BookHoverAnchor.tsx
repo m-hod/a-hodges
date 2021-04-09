@@ -1,10 +1,11 @@
 import React from "react";
+import { StrapiImage } from "../../utils/types";
 
 export default function BookHoverAnchor({
   image,
   anchor,
 }: {
-  image: string;
+  image: StrapiImage;
   anchor: string;
 }) {
   return (
@@ -17,7 +18,7 @@ export default function BookHoverAnchor({
       }}
       className="hover:shadow-2xl transform hover:scale-105 transition-transform"
     >
-      <img src={image} alt="" className="w-40 xl:w-52 shadow-lg" />
+      <img src={image.url} alt="" className="w-40 xl:w-52 shadow-lg" />
     </button>
   );
 }

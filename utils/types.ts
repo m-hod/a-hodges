@@ -3,6 +3,14 @@ export type Schema = {
   worlds: World[];
   about: About;
   socials: Socials;
+  // new
+  newsletter: Newsletter;
+};
+
+export type Newsletter = {
+  title: string;
+  content: string;
+  backgroundImage: StrapiImage;
 };
 
 export type Series = {

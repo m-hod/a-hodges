@@ -1,21 +1,22 @@
+import { Link, StrapiImage } from "../../utils/types";
+
 import BackgroundImage from "../elements/BackgroundImage";
 import Button from "../elements/button";
 import Quote from "../elements/Quote";
 import React from "react";
+import ReactMarkdown from "react-markdown";
 import Section from "../wrappers/Section";
-import parser from "react-html-parser";
+import classes from "./BookSection.module.scss";
+import clsx from "clsx";
 
 export type BookSectionType = {
   title: string;
   subtitle: string;
   /** As html string */
   content: string;
-  orderLinks: {
-    url: string;
-    label: string;
-  }[];
-  cover: string;
-  art: string;
+  orderLinks: Link[];
+  cover: StrapiImage;
+  banner: StrapiImage;
   quotes: {
     content: string;
     author: string;
@@ -30,7 +31,7 @@ export default function BookSection({
   content,
   orderLinks,
   cover,
-  art,
+  banner,
   quotes,
   orientation,
   anchor,
@@ -40,7 +41,7 @@ export default function BookSection({
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
         {orientation === "right" && (
           <div className="col-span-1 hidden sm:flex justify-center items-start">
-            <img src={cover} alt="" />
+            <img src={cover.url} alt="" />
           </div>
         )}
         <div className="lg:col-span-2 grid grid-cols-1 lg:grid-cols-2">
@@ -49,16 +50,18 @@ export default function BookSection({
             <h3 className="mb-8">{subtitle}</h3>
           </div>
           <div className="sm:hidden mb-8">
-            <img src={cover} alt="" />
+            <img src={cover.url} alt="" />
           </div>
-          <div className="lg:col-span-2 text-column-2">
-            {parser(content)}
+          <div
+            className={clsx(classes.markdown, "lg:col-span-2 text-column-2")}
+          >
+            <ReactMarkdown>{content}</ReactMarkdown>
             <div>
               <hr className="my-8" />
               <h2 className="text-center mb-8">Order Now</h2>
               <div className="grid grid-cols-2 gap-4">
-                {orderLinks.map((_link, i) => (
-                  <Button key={i}>{_link.label.toUpperCase()}</Button>
+                {orderLinks.map((_link) => (
+                  <Button key={_link.id}>{_link.title.toUpperCase()}</Button>
                 ))}
               </div>
             </div>
@@ -66,7 +69,7 @@ export default function BookSection({
         </div>
         {orientation === "left" && (
           <div className="col-span-1 hidden sm:flex justify-center items-start">
-            <img src={cover} alt="" />
+            <img src={cover.url} alt="" />
           </div>
         )}
       </div>
@@ -87,7 +90,10 @@ export default function BookSection({
             </div>
           ))}
         </div>
-        <BackgroundImage thumb={art} url={art} />
+        <BackgroundImage
+          thumb={banner.formats.thumbnail.url}
+          url={banner.url}
+        />
       </div>
     </Section>
   );

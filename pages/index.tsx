@@ -1,18 +1,19 @@
-import Link from "next/link";
-import { useMemo } from "react";
+import { Book, Schema } from "../utils/types";
+
 import Button from "../components/elements/button";
-import ProgressiveImage from "../components/elements/ProgressiveImage";
-import ContentDisplay from "../components/layouts/ContentDisplay";
-import Newsletter from "../components/layouts/Newsletter";
 import Centered from "../components/wrappers/Centered";
+import ContentDisplay from "../components/layouts/ContentDisplay";
+import Link from "next/link";
+import Markdown from "react-markdown";
+import Newsletter from "../components/layouts/Newsletter";
+import ProgressiveImage from "../components/elements/ProgressiveImage";
 import Section from "../components/wrappers/Section";
 import TextFade from "../components/wrappers/TextFade";
-import { Book, Schema } from "../utils/types";
-import classes from "./index.module.scss";
-import Markdown from "react-markdown";
-import clsx from "clsx";
-import { generateCMSLink, slugify } from "../utils";
 import Wrapper from "../components/layouts/wrapper";
+import classes from "./index.module.scss";
+import clsx from "clsx";
+import { slugify } from "../utils";
+import { useMemo } from "react";
 
 export default function Home(props: Schema) {
   const { promoBook, promoSeries } = useMemo(() => {
@@ -32,7 +33,15 @@ export default function Home(props: Schema) {
   }, [props]);
 
   return (
-    <Wrapper>
+    <Wrapper
+      headerProps={{
+        series: props.series,
+        worlds: props.worlds,
+      }}
+      footerProps={{
+        socials: props.socials,
+      }}
+    >
       <div>
         {promoBook && promoSeries && (
           <Section>
@@ -40,10 +49,8 @@ export default function Home(props: Schema) {
               left={
                 <div className="fade-in flex flex-col items-center justify-center object-contain h-full-padding-removed md:h-full">
                   <ProgressiveImage
-                    thumb={generateCMSLink(
-                      promoBook.cover.formats.thumbnail.url
-                    )}
-                    url={generateCMSLink(promoBook.cover.url)}
+                    thumb={promoBook.cover.formats.thumbnail.url}
+                    url={promoBook.cover.url}
                   />
                   <div className="m-4">
                     <Button>
@@ -70,13 +77,9 @@ export default function Home(props: Schema) {
                     <div className="absolute bottom-0 z-20 flex w-full justify-center">
                       <p className="underline cursor-pointer hover:text-gray-400">
                         <Link
-                          href={{
-                            pathname: "series/[series]",
-                            query: {
-                              series: slugify(promoSeries.title),
-                              book: slugify(promoBook.title),
-                            },
-                          }}
+                          href={`/series/${slugify(
+                            promoSeries.title
+                          )}?book=${slugify(promoBook.title)}`}
                         >
                           <a>Read More</a>
                         </Link>

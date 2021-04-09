@@ -14,7 +14,15 @@ import Wrapper from "../components/layouts/wrapper";
 
 export default function About(props: Schema) {
   return (
-    <Wrapper>
+    <Wrapper
+      headerProps={{
+        series: props.series,
+        worlds: props.worlds,
+      }}
+      footerProps={{
+        socials: props.socials,
+      }}
+    >
       <div>
         <Section>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-8">
