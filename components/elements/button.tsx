@@ -4,12 +4,14 @@ type Props = {
   children: React.ReactNode;
   variant?: "reverse";
   size?: "slim";
+  loading?: boolean;
 };
 
 function Button({
   children,
   variant,
   size,
+  loading,
   ...props
 }: Props & HTMLAttributes<HTMLButtonElement>) {
   const { className, ...rest } = props;
@@ -27,7 +29,7 @@ function Button({
       {...rest}
       className={`px-10 flex justify-center align-center font-sans font-medium border-2 truncate ${sizeClasses} ${colorClasses} ${className}`}
     >
-      {children}
+      {loading ? "loading..." : children}
     </button>
   );
 }

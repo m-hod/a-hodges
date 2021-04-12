@@ -1,9 +1,12 @@
 import BackgroundImage from "../elements/BackgroundImage";
 import Button from "../elements/button";
 import Input from "../elements/input";
-import React from "react";
+import React, { useState } from "react";
 
 function Newsletter() {
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+
   return (
     <div className="w-full 2xl:max-w-3/4 p-4 md:p-6 flex flex-col justify-center align-center text-center relative">
       <div className="flex justify-center mb-4">
@@ -31,10 +34,52 @@ function Newsletter() {
       </div>
       <p className="italic text-white">Short explanation of newsletter</p>
       <div className="mt-4 md:mt-8 flex justify-center">
-        <div className="w-3/4 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-          <Input className="md:col-span-2 w-full" placeholder="Email Address" />
-          <Button className="md:col-span-1 w-full">SIGN UP</Button>
-        </div>
+        <form
+          onSubmit={async (e) => {
+            e.preventDefault();
+            console.log("submitted");
+            if (email) {
+              setLoading(true);
+              const res = await fetch(
+                `https://api.mailertlite.com/api/v2/groups/8538412/subscribers`,
+                {
+                  method: "POST",
+                  headers: {
+                    Host: "api.mailertlite.com",
+                    "Content-Type": "application/json",
+                    "X-Mailerlite-ApiKey":
+                      process.env.NEXT_PUBLIC_MAILERLITE_API_KEY,
+                  },
+                  body: JSON.stringify({
+                    email,
+                  }),
+                }
+              );
+              console.log(res);
+              setLoading(false);
+            }
+          }}
+        >
+          <div className="w-3/4 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+            <Input
+              className="md:col-span-2 w-full"
+              placeholder="Email Address"
+              typeof="email"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+            />
+            <Button
+              className="md:col-span-1 w-full"
+              typeof="submit"
+              loading={loading}
+              disabled={loading}
+            >
+              SIGN UP
+            </Button>
+          </div>
+        </form>
       </div>
       <BackgroundImage
         thumb={"/images/Aaron_B3_Cover_no_typography_thumb.jpg"}
