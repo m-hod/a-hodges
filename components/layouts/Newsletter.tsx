@@ -42,22 +42,12 @@ function Newsletter() {
             if (email) {
               setLoading(true);
               try {
-                const res = await fetch(
-                  `https://api.mailerlite.com/api/v2/groups/8538412/subscribers`,
-                  {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                      "X-Mailerlite-ApiKey":
-                        process.env.NEXT_PUBLIC_MAILERLITE_API_KEY,
-                      "Access-Control-Allow-Origin": "*",
-                      "Access-Controll-Allow-Headers": "X-Mailerlite-ApiKey",
-                    },
-                    body: JSON.stringify({
-                      email,
-                    }),
-                  }
-                );
+                const res = await fetch("/api/newsletter", {
+                  method: "POST",
+                  body: JSON.stringify({
+                    email,
+                  }),
+                });
                 console.log(res);
                 setEmail("");
               } catch (e) {
