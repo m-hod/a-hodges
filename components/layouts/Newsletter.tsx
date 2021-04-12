@@ -1,7 +1,8 @@
+import React, { useState } from "react";
+
 import BackgroundImage from "../elements/BackgroundImage";
 import Button from "../elements/button";
 import Input from "../elements/input";
-import React, { useState } from "react";
 
 function Newsletter() {
   const [email, setEmail] = useState("");
@@ -40,45 +41,56 @@ function Newsletter() {
             console.log("submitted");
             if (email) {
               setLoading(true);
-              const res = await fetch(
-                `https://api.mailertlite.com/api/v2/groups/8538412/subscribers`,
-                {
-                  method: "POST",
-                  headers: {
-                    Host: "api.mailertlite.com",
-                    "Content-Type": "application/json",
-                    "X-Mailerlite-ApiKey":
-                      process.env.NEXT_PUBLIC_MAILERLITE_API_KEY,
-                  },
-                  body: JSON.stringify({
-                    email,
-                  }),
-                }
-              );
-              console.log(res);
-              setLoading(false);
+              try {
+                const res = await fetch(
+                  `https://api.mailerlite.com/api/v2/groups/8538412/subscribers`,
+                  {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                      "X-Mailerlite-ApiKey":
+                        process.env.NEXT_PUBLIC_MAILERLITE_API_KEY,
+                      "Access-Control-Allow-Origin": "*",
+                      "Access-Controll-Allow-Headers": "X-Mailerlite-ApiKey",
+                    },
+                    body: JSON.stringify({
+                      email,
+                    }),
+                  }
+                );
+                console.log(res);
+                setEmail("");
+              } catch (e) {
+                console.warn(e);
+              } finally {
+                setLoading(false);
+              }
             }
           }}
+          className="w-3/4 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6"
         >
-          <div className="w-3/4 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-            <Input
-              className="md:col-span-2 w-full"
-              placeholder="Email Address"
-              typeof="email"
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-            />
-            <Button
-              className="md:col-span-1 w-full"
-              typeof="submit"
-              loading={loading}
-              disabled={loading}
-            >
-              SIGN UP
-            </Button>
-          </div>
+          {/* <div className="w-3/4 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6"> */}
+          <Input
+            className="md:col-span-2 w-full"
+            placeholder="Email Address"
+            typeof="email"
+            //@ts-ignore
+            value={email}
+            onChange={(e) => {
+              //@ts-ignore
+              setEmail(e.target.value);
+            }}
+          />
+          <Button
+            className="md:col-span-1 w-full"
+            typeof="submit"
+            loading={loading}
+            //@ts-ignore
+            disabled={loading}
+          >
+            SIGN UP
+          </Button>
+          {/* </div> */}
         </form>
       </div>
       <BackgroundImage
@@ -90,6 +102,3 @@ function Newsletter() {
 }
 
 export default Newsletter;
-
-// https://docs.mailerlite.com/pages/subscribers#post
-// https://api.mailerlite.com/api/v1/subscribers/{list_id}/
