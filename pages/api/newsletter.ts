@@ -40,6 +40,6 @@ module.exports = async (req, res) => {
     })
     .catch(({ err }) => {
       console.warn("error", err);
-      res.status(400).json({ err });
+      res.status(500).json({ err });
     });
 };

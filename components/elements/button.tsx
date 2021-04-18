@@ -1,5 +1,7 @@
 import React, { HTMLAttributes } from "react";
 
+import { CircularProgress } from "@material-ui/core";
+
 type Props = {
   children: React.ReactNode;
   variant?: "reverse";
@@ -27,9 +29,9 @@ function Button({
   return (
     <button
       {...rest}
-      className={`px-10 flex justify-center align-center font-sans font-medium border-2 truncate ${sizeClasses} ${colorClasses} ${className}`}
+      className={`px-10 flex justify-center items-center font-sans font-medium border-2 truncate ${sizeClasses} ${colorClasses} ${className}`}
     >
-      {loading ? "loading..." : children}
+      {loading ? <CircularProgress size={20} /> : children}
     </button>
   );
 }

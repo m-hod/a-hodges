@@ -1,3 +1,4 @@
+import { AlertCircle, CheckCircle } from "react-feather";
 import React, { useState } from "react";
 
 import BackgroundImage from "../elements/BackgroundImage";
@@ -7,6 +8,8 @@ import Input from "../elements/input";
 function Newsletter() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
 
   return (
     <div className="w-full 2xl:max-w-3/4 p-4 md:p-6 flex flex-col justify-center align-center text-center relative">
@@ -34,54 +37,76 @@ function Newsletter() {
         />
       </div>
       <p className="italic text-white">Short explanation of newsletter</p>
-      <div className="mt-4 md:mt-8 flex justify-center">
-        <form
-          onSubmit={async (e) => {
-            e.preventDefault();
-            console.log("submitted");
-            if (email) {
-              setLoading(true);
-              try {
-                const res = await fetch("/api/newsletter", {
-                  method: "POST",
-                  body: JSON.stringify({
-                    email,
-                  }),
-                });
-                console.log(res);
-                setEmail("");
-              } catch (e) {
-                console.warn(e);
-              } finally {
-                setLoading(false);
-              }
-            }
-          }}
-          className="w-3/4 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6"
-        >
-          {/* <div className="w-3/4 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6"> */}
-          <Input
-            className="md:col-span-2 w-full"
-            placeholder="Email Address"
-            typeof="email"
-            //@ts-ignore
-            value={email}
-            onChange={(e) => {
-              //@ts-ignore
-              setEmail(e.target.value);
-            }}
-          />
-          <Button
-            className="md:col-span-1 w-full"
-            typeof="submit"
-            loading={loading}
-            //@ts-ignore
-            disabled={loading}
-          >
-            SIGN UP
-          </Button>
-          {/* </div> */}
-        </form>
+      <div className="mt-4 md:mt-8 flex items-center justify-center flex-col">
+        {success ? (
+          <>
+            <CheckCircle color="#FFF" />
+            <p className="mt-2 mb-0 text-white">Successfully signed up!</p>
+          </>
+        ) : (
+          <>
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault();
+                if (email) {
+                  setLoading(true);
+                  setError("");
+                  try {
+                    const res = await fetch("/api/newsletter", {
+                      method: "POST",
+                      body: JSON.stringify({
+                        email,
+                      }),
+                    });
+                    if (res.status === 500) {
+                      throw new Error(res.statusText);
+                    }
+                    setSuccess(true);
+                    setEmail("");
+                  } catch (e) {
+                    console.warn(e);
+                    setError(e.message || "Please try again.");
+                  } finally {
+                    setLoading(false);
+                  }
+                } else {
+                  setError("An email address is required");
+                }
+              }}
+              className="w-3/4 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6"
+            >
+              <Input
+                className="md:col-span-2 w-full"
+                placeholder="Email Address"
+                typeof="email"
+                //@ts-ignore
+                value={email}
+                onChange={(e) => {
+                  //@ts-ignore
+                  setEmail(e.target.value);
+                }}
+              />
+              <Button
+                className="md:col-span-1 w-full"
+                typeof="submit"
+                loading={loading}
+                //@ts-ignore
+                disabled={loading}
+              >
+                SIGN UP
+              </Button>
+            </form>
+            {error && (
+              <>
+                <AlertCircle color="#FFF" className="mt-4" />
+                <p className="mt-2 mb-0 text-white">
+                  Oops! Looks like something went wrong.
+                </p>
+                <p className="mb-0 text-white">{error}</p>
+              </>
+            )}
+          </>
+        )}
       </div>
       <BackgroundImage
         thumb={"/images/Aaron_B3_Cover_no_typography_thumb.jpg"}

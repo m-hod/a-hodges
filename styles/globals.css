@@ -121,6 +121,10 @@
   z-index: 1;
 }
 
+.button svg {
+  color: rgba(107, 114, 128, var(--tw-border-opacity));
+}
+
 .button:after {
   position: absolute;
   content: "";
@@ -141,10 +145,18 @@
   color: #fff;
 }
 
+.button:hover svg {
+  color: #fff;
+}
+
 .button-reverse {
   position: relative;
   transition: all 0.35s;
   z-index: 1;
+}
+
+.button-reverse svg {
+  color: #fff;
 }
 
 .button-reverse:after {
@@ -164,6 +176,10 @@
 }
 
 .button-reverse:hover {
+  color: rgba(107, 114, 128, var(--tw-border-opacity));
+}
+
+.button-reverse:hover svg {
   color: rgba(107, 114, 128, var(--tw-border-opacity));
 }
 
