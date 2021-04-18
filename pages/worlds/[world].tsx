@@ -4,12 +4,21 @@ import { Schema, WorldTimeline, WorldTimelineSection } from "../../utils/types";
 import BackgroundImage from "../../components/elements/BackgroundImage";
 import Centered from "../../components/wrappers/Centered";
 import Divider from "../../components/layouts/Divider";
+import Head from "next/head";
 import Newsletter from "../../components/layouts/Newsletter";
+import ReactMarkdown from "react-markdown";
 import Section from "../../components/wrappers/Section";
 import Timeline from "../../components/layouts/Timeline";
 import Wrapper from "../../components/layouts/wrapper";
 import { slugify } from "../../utils";
 import { useRouter } from "next/router";
+
+type ItemType = "section" | "timeline";
+
+type Item<T> = {
+  type: ItemType;
+  item: T;
+};
 
 export default function Worlds(props: Schema) {
   const router = useRouter();
@@ -18,15 +27,28 @@ export default function Worlds(props: Schema) {
     const worldSlug = router.query.world;
     return props.worlds.find((_world) => slugify(_world.title) === worldSlug);
   }, []);
-  console.log(world);
 
-  const items: Array<WorldTimelineSection | WorldTimeline> = useMemo(() => {
+  const items: Array<
+    Item<WorldTimelineSection> | Item<WorldTimeline>
+  > = useMemo(() => {
     if (!world) return [];
-    const items = [...world.sections, ...world.timelines];
-    return items.sort((a, b) => a.order - b.order);
+    const items = [
+      ...world.sections.map((_section) => ({
+        item: _section,
+        type: "section" as ItemType,
+      })),
+      ...world.timelines.map((_timeline) => ({
+        item: _timeline,
+        type: "timeline" as ItemType,
+      })),
+    ];
+    return items.sort((a, b) => a.item.order - b.item.order);
   }, [world]);
 
-  console.log(items);
+  const page = useMemo(
+    () => props.pages.find((_page) => _page.slug === "world"),
+    [props.pages]
+  );
 
   if (!world) return null;
 
@@ -40,194 +62,97 @@ export default function Worlds(props: Schema) {
         socials: props.socials,
       }}
     >
+      <Head>
+        <title>
+          {world.title} - {page?.Title || ""} - Aaron Hodges
+        </title>
+        <meta
+          name="description"
+          property="og:description"
+          content={page?.Description || ""}
+        />
+        <meta name="keywords" content={page?.Keywords || ""} />
+        <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <div>
         <Section>
           <h1 className="mb-8">{world.title}</h1>
           <h3 className="md:w-3/5">{world.subtitle}</h3>
         </Section>
-        <Section>
-          <Divider
-            left={
-              <div className="h-full flex flex-col justify-center">
-                <h2 className="mb-8">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                </h2>
-                <p>
-                  Morbi ac ipsum ac orci sodales tristique sed vitae massa. Sed
-                  sed lacus dui. Ut eleifend nunc sit amet eleifend vulputate.
-                  Pellentesque aliquam viverra massa, in auctor sem tincidunt
-                  ut. Cras accumsan aliquet arcu, vitae sodales felis. Aenean
-                  erat metus, varius in tincidunt a, pharetra eu orci.
-                </p>
-              </div>
-            }
-            right={
-              <img
-                src="/images/AaronHodges_BookCover_Jpeg_Full.jpg"
-                className="h-auto w-auto"
-              />
-            }
-          />
-        </Section>
-        <Section>
-          <Timeline
-            entries={[
-              {
-                title:
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-                content: (
-                  <div className="my-8">
-                    <p className="mb-8">
-                      Morbi ac ipsum ac orci sodales tristique sed vitae massa.
-                      Sed sed lacus dui. Ut eleifend nunc sit amet eleifend
-                      vulputate. Pellentesque aliquam viverra massa, in auctor
-                      sem tincidunt ut. Cras accumsan aliquet arcu, vitae
-                      sodales felis. Aenean erat metus, varius in tincidunt a,
-                      pharetra eu orci.
-                    </p>
-                    <div
-                      className="relative w-full lg:w-4/6 mb-8"
-                      style={{ height: 250 }}
-                    >
-                      <BackgroundImage
-                        thumb="/images/AaronHodges_BookCover_Jpeg_Full.jpg"
-                        url="/images/AaronHodges_BookCover_Jpeg_Full.jpg"
-                      />
-                    </div>
-                    <p className="mb-8">
-                      Morbi ac ipsum ac orci sodales tristique sed vitae massa.
-                      Sed sed lacus dui. Ut eleifend nunc sit amet eleifend
-                      vulputate. Pellentesque aliquam viverra massa, in auctor
-                      sem tincidunt ut. Cras accumsan aliquet arcu, vitae
-                      sodales felis. Aenean erat metus, varius in tincidunt a,
-                      pharetra eu orci.
-                    </p>
-                  </div>
-                ),
-              },
-              {
-                title:
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-                content: (
-                  <div className="my-8">
-                    <p className="mb-8">
-                      Morbi ac ipsum ac orci sodales tristique sed vitae massa.
-                      Sed sed lacus dui. Ut eleifend nunc sit amet eleifend
-                      vulputate. Pellentesque aliquam viverra massa, in auctor
-                      sem tincidunt ut. Cras accumsan aliquet arcu, vitae
-                      sodales felis. Aenean erat metus, varius in tincidunt a,
-                      pharetra eu orci.
-                    </p>
-                  </div>
-                ),
-              },
-              {
-                title:
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-                content: (
-                  <div className="my-8">
-                    <p className="mb-8">
-                      Morbi ac ipsum ac orci sodales tristique sed vitae massa.
-                      Sed sed lacus dui. Ut eleifend nunc sit amet eleifend
-                      vulputate. Pellentesque aliquam viverra massa, in auctor
-                      sem tincidunt ut. Cras accumsan aliquet arcu, vitae
-                      sodales felis. Aenean erat metus, varius in tincidunt a,
-                      pharetra eu orci.
-                    </p>
-                    <div
-                      className="relative w-full lg:w-4/6 mb-8"
-                      style={{ height: 250 }}
-                    >
-                      <BackgroundImage
-                        thumb="/images/AaronHodges_BookCover_Jpeg_Full.jpg"
-                        url="/images/AaronHodges_BookCover_Jpeg_Full.jpg"
-                      />
-                    </div>
-                    <p className="mb-8">
-                      Morbi ac ipsum ac orci sodales tristique sed vitae massa.
-                      Sed sed lacus dui. Ut eleifend nunc sit amet eleifend
-                      vulputate. Pellentesque aliquam viverra massa, in auctor
-                      sem tincidunt ut. Cras accumsan aliquet arcu, vitae
-                      sodales felis. Aenean erat metus, varius in tincidunt a,
-                      pharetra eu orci.
-                    </p>
-                  </div>
-                ),
-              },
-            ]}
-          />
-        </Section>
-        <Section>
-          <Divider
-            left={
-              <div className="h-full flex flex-col justify-between">
-                <div className="md:hidden">
-                  <h2 className="mb-8">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                  </h2>
-                  <p>
-                    Morbi ac ipsum ac orci sodales tristique sed vitae massa.
-                    Sed sed lacus dui. Ut eleifend nunc sit amet eleifend
-                    vulputate. Pellentesque aliquam viverra massa, in auctor sem
-                    tincidunt ut. Cras accumsan aliquet arcu, vitae sodales
-                    felis. Aenean erat metus, varius in tincidunt a, pharetra eu
-                    orci.
-                  </p>
-                </div>
-                <img
-                  src="/images/AaronHodges_BookCover_Jpeg_Full.jpg"
-                  className="h-auto w-auto mb-8"
+        {items.map((_item, i) => {
+          if (_item.type === "section") {
+            const item = _item as Item<WorldTimelineSection>;
+            return (
+              <Section key={i}>
+                <Divider
+                  left={
+                    i % 2 === 0 ? (
+                      <div className="h-full flex flex-col">
+                        <h2 className="mb-8">{item.item.emphasis}</h2>
+                        <ReactMarkdown>{item.item.content}</ReactMarkdown>
+                      </div>
+                    ) : (
+                      item.item.images.map((_image) => (
+                        <img
+                          key={_image.id}
+                          src={_image.url}
+                          className="h-auto w-auto mb-8"
+                        />
+                      ))
+                    )
+                  }
+                  right={
+                    i % 2 !== 0 ? (
+                      <div className="h-full flex flex-col">
+                        <h2 className="mb-8">{item.item.emphasis}</h2>
+                        <ReactMarkdown>{item.item.content}</ReactMarkdown>
+                      </div>
+                    ) : (
+                      item.item.images.map((_image) => (
+                        <img
+                          key={_image.id}
+                          src={_image.url}
+                          className="h-auto w-auto mb-8"
+                        />
+                      ))
+                    )
+                  }
                 />
-                <p className="md:hidden">
-                  Morbi ac ipsum ac orci sodales tristique sed vitae massa. Sed
-                  sed lacus dui. Ut eleifend nunc sit amet eleifend vulputate.
-                  Pellentesque aliquam viverra massa, in auctor sem tincidunt
-                  ut. Cras accumsan aliquet arcu, vitae sodales felis. Aenean
-                  erat metus, varius in tincidunt a, pharetra eu orci.
-                </p>
-                <img
-                  src="/images/AaronHodges_BookCover_Jpeg_Full.jpg"
-                  className="h-auto w-auto mb-8"
+              </Section>
+            );
+          }
+          if (_item.type === "timeline") {
+            const item = _item as Item<WorldTimeline>;
+            return (
+              <Section key={i}>
+                <Timeline
+                  entries={item.item.entries.map((_entry) => {
+                    let count = 0;
+                    let content = _entry.contents;
+
+                    const regexp = new RegExp("{{image}}", "gm");
+                    let match;
+
+                    while ((match = regexp.exec(content)) !== null) {
+                      const image = `<div style="height: 250px; margin-bottom: 1rem; background-image: url(${_entry.images[count].url}); background-position: center; background-size: cover" />`;
+                      content =
+                        content.slice(0, match.index) +
+                        image +
+                        content.slice(regexp.lastIndex, content.length - 1);
+                      count++;
+                    }
+
+                    return {
+                      title: _entry.title,
+                      content: content,
+                    };
+                  })}
                 />
-                <p className="md:hidden">
-                  Morbi ac ipsum ac orci sodales tristique sed vitae massa. Sed
-                  sed lacus dui. Ut eleifend nunc sit amet eleifend vulputate.
-                  Pellentesque aliquam viverra massa, in auctor sem tincidunt
-                  ut. Cras accumsan aliquet arcu, vitae sodales felis. Aenean
-                  erat metus, varius in tincidunt a, pharetra eu orci.
-                </p>
-              </div>
-            }
-            right={
-              <div className="hidden md:flex h-full flex-col">
-                <h2 className="mb-8">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                </h2>
-                <p>
-                  Morbi ac ipsum ac orci sodales tristique sed vitae massa. Sed
-                  sed lacus dui. Ut eleifend nunc sit amet eleifend vulputate.
-                  Pellentesque aliquam viverra massa, in auctor sem tincidunt
-                  ut. Cras accumsan aliquet arcu, vitae sodales felis. Aenean
-                  erat metus, varius in tincidunt a, pharetra eu orci.
-                </p>
-                <p>
-                  Morbi ac ipsum ac orci sodales tristique sed vitae massa. Sed
-                  sed lacus dui. Ut eleifend nunc sit amet eleifend vulputate.
-                  Pellentesque aliquam viverra massa, in auctor sem tincidunt
-                  ut. Cras accumsan aliquet arcu, vitae sodales felis. Aenean
-                  erat metus, varius in tincidunt a, pharetra eu orci.
-                </p>
-                <p>
-                  Morbi ac ipsum ac orci sodales tristique sed vitae massa. Sed
-                  sed lacus dui. Ut eleifend nunc sit amet eleifend vulputate.
-                  Pellentesque aliquam viverra massa, in auctor sem tincidunt
-                  ut. Cras accumsan aliquet arcu, vitae sodales felis. Aenean
-                  erat metus, varius in tincidunt a, pharetra eu orci.
-                </p>
-              </div>
-            }
-          />
-        </Section>
+              </Section>
+            );
+          }
+        })}
         <Section>
           <Centered>
             <Newsletter />

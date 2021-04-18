@@ -3,6 +3,7 @@ import { Book, Schema } from "../utils/types";
 import Button from "../components/elements/button";
 import Centered from "../components/wrappers/Centered";
 import ContentDisplay from "../components/layouts/ContentDisplay";
+import Head from "next/head";
 import Link from "next/link";
 import Markdown from "react-markdown";
 import Newsletter from "../components/layouts/Newsletter";
@@ -32,6 +33,11 @@ export default function Home(props: Schema) {
     };
   }, [props]);
 
+  const page = useMemo(
+    () => props.pages.find((_page) => _page.slug === "home"),
+    [props.pages]
+  );
+
   return (
     <Wrapper
       headerProps={{
@@ -42,6 +48,17 @@ export default function Home(props: Schema) {
         socials: props.socials,
       }}
     >
+      <Head>
+        <title>{page?.Title || ""} - Aaron Hodges</title>
+        <meta
+          name="description"
+          property="og:description"
+          content={page?.Description || ""}
+        />
+        <meta name="keywords" content={page?.Keywords || ""} />
+        <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <div>
         {promoBook && promoSeries && (
           <Section>

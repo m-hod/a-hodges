@@ -1,12 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
+
 import { Circle } from "react-feather";
+import ReactMarkdown from "react-markdown";
+import parser from "react-html-parser";
 import useDebounce from "../../hooks/useDebouce";
 import useWindowSize from "../../hooks/useWindowSize";
 
 type Props = {
   entries: {
     title: string;
-    content: React.ReactNode;
+    content: string;
   }[];
 };
 
@@ -61,7 +64,10 @@ export default function Timeline({ entries }: Props) {
                   className="relative mx-8 md:mx-16 flex justify-center flex-col"
                 >
                   <h3>{_entry.title}</h3>
-                  {_entry.content}
+                  {/* {parser(_entry.content)} */}
+                  <ReactMarkdown allowDangerousHtml>
+                    {_entry.content}
+                  </ReactMarkdown>
                   <Circle
                     size={16}
                     className="absolute timeline-circle"
@@ -82,9 +88,10 @@ export default function Timeline({ entries }: Props) {
             <div
               key={i}
               id={`${i}`}
-              className="mx-8 md:mx-16 flex justify-center"
+              className="mx-8 md:mx-16 flex justify-center flex-col"
             >
-              {_entry.content}
+              {/* {parser(_entry.content)} */}
+              <ReactMarkdown allowDangerousHtml>{_entry.content}</ReactMarkdown>
             </div>
           );
         })}

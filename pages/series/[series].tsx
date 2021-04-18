@@ -4,6 +4,7 @@ import BookHoverAnchor from "../../components/elements/BookHoverAnchor";
 import BookSection from "../../components/layouts/BookSection";
 import Carousel from "../../components/layouts/Carousel";
 import Centered from "../../components/wrappers/Centered";
+import Head from "next/head";
 import Hero from "../../components/wrappers/hero";
 import Markdown from "react-markdown";
 import Newsletter from "../../components/layouts/Newsletter";
@@ -37,7 +38,6 @@ const dummyBooks: BookLink[] = [
 
 function Series(props: Schema) {
   const router = useRouter();
-  console.log(router);
 
   useEffect(() => {
     if (router.query.book) {
@@ -63,6 +63,11 @@ function Series(props: Schema) {
     );
   }, []);
 
+  const page = useMemo(
+    () => props.pages.find((_page) => _page.slug === "series"),
+    [props.pages]
+  );
+
   if (!series) return null;
 
   return (
@@ -75,6 +80,19 @@ function Series(props: Schema) {
         socials: props.socials,
       }}
     >
+      <Head>
+        <title>
+          {series.title} - {page?.Title || ""} - Aaron Hodges
+        </title>
+        <meta
+          name="description"
+          property="og:description"
+          content={page?.Description || ""}
+        />
+        <meta name="keywords" content={page?.Keywords || ""} />
+        <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <div>
         <Hero>
           <div

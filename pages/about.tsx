@@ -1,18 +1,24 @@
+import React, { useMemo } from "react";
 import { generateCMSLink, getSocials } from "../utils";
 
 import Centered from "../components/wrappers/Centered";
+import Head from "next/head";
 import Iconbutton from "../components/elements/iconbutton";
 import Link from "next/link";
 import Markdown from "react-markdown";
 import Newsletter from "../components/layouts/Newsletter";
 import ProgressiveImage from "../components/elements/ProgressiveImage";
 import Quote from "../components/elements/Quote";
-import React from "react";
 import { Schema } from "../utils/types";
 import Section from "../components/wrappers/Section";
 import Wrapper from "../components/layouts/wrapper";
 
 export default function About(props: Schema) {
+  const page = useMemo(
+    () => props.pages.find((_page) => _page.slug === "about"),
+    [props.pages]
+  );
+
   return (
     <Wrapper
       headerProps={{
@@ -23,6 +29,17 @@ export default function About(props: Schema) {
         socials: props.socials,
       }}
     >
+      <Head>
+        <title>{page?.Title || ""} - Aaron Hodges</title>
+        <meta
+          name="description"
+          property="og:description"
+          content={page?.Description || ""}
+        />
+        <meta name="keywords" content={page?.Keywords || ""} />
+        <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <div>
         <Section>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-8">

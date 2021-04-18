@@ -5,6 +5,15 @@ export type Schema = {
   socials: Socials;
   // new
   newsletter: Newsletter;
+  pages: SEOPage[];
+};
+
+export type SEOPage = {
+  id: number;
+  Title: string;
+  Description: string;
+  Keywords: string;
+  slug: string;
 };
 
 export type Newsletter = {
