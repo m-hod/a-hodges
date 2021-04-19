@@ -1,7 +1,6 @@
 import React, { useMemo } from "react";
 import { Schema, WorldTimeline, WorldTimelineSection } from "../../utils/types";
 
-import BackgroundImage from "../../components/elements/BackgroundImage";
 import Centered from "../../components/wrappers/Centered";
 import Divider from "../../components/layouts/Divider";
 import Head from "next/head";
@@ -135,7 +134,7 @@ export default function Worlds(props: Schema) {
                     let match;
 
                     while ((match = regexp.exec(content)) !== null) {
-                      const image = `<div style="height: 250px; margin-bottom: 1rem; background-image: url(${_entry.images[count].url}); background-position: center; background-size: cover" />`;
+                      const image = `<div style="height: 250px; margin-bottom: 1rem; background-image: url(${_entry.images[count].url}); background-position: center; background-size: cover;" />`;
                       content =
                         content.slice(0, match.index) +
                         image +
@@ -155,7 +154,7 @@ export default function Worlds(props: Schema) {
         })}
         <Section>
           <Centered>
-            <Newsletter />
+            <Newsletter newsletter={props.newsletter} />
           </Centered>
         </Section>
       </div>

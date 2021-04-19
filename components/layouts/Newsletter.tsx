@@ -4,8 +4,9 @@ import React, { useState } from "react";
 import BackgroundImage from "../elements/BackgroundImage";
 import Button from "../elements/button";
 import Input from "../elements/input";
+import { Newsletter as NewsletterType } from "../../utils/types";
 
-function Newsletter() {
+function Newsletter({ newsletter }: { newsletter: NewsletterType }) {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -25,7 +26,7 @@ function Newsletter() {
               "invert(100%) sepia(9%) saturate(365%) hue-rotate(203deg) brightness(115%) contrast(100%)",
           }}
         />
-        <h2 className="text-white">NEWSLETTER</h2>
+        <h2 className="text-white">{newsletter.title}</h2>
         <img
           src={`/brush6.svg`}
           width={100}
@@ -36,7 +37,7 @@ function Newsletter() {
           }}
         />
       </div>
-      <p className="italic text-white">Short explanation of newsletter</p>
+      <p className="italic text-white">{newsletter.content}</p>
       <div className="mt-4 md:mt-8 flex items-center justify-center flex-col">
         {success ? (
           <>
@@ -109,8 +110,8 @@ function Newsletter() {
         )}
       </div>
       <BackgroundImage
-        thumb={"/images/Aaron_B3_Cover_no_typography_thumb.jpg"}
-        url={"/images/Aaron_B3_Cover_no_typography_thumb.jpg"}
+        thumb={newsletter.backgroundImage.formats.thumbnail.url}
+        url={newsletter.backgroundImage.url}
       />
     </div>
   );

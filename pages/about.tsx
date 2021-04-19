@@ -102,7 +102,7 @@ export default function About(props: Schema) {
         </Section>
         <Section>
           <Centered>
-            <Newsletter />
+            <Newsletter newsletter={props.newsletter} />
           </Centered>
         </Section>
       </div>

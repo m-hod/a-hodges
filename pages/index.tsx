@@ -110,7 +110,7 @@ export default function Home(props: Schema) {
         )}
         <Section>
           <Centered>
-            <Newsletter />
+            <Newsletter newsletter={props.newsletter} />
           </Centered>
         </Section>
       </div>
