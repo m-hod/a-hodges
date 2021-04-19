@@ -1,9 +1,10 @@
+import { AlertCircle, CheckCircle, ChevronUp } from "react-feather";
+import React, { useState } from "react";
+
 import Button from "./elements/button";
-import { ChevronUp } from "react-feather";
 import Iconbutton from "./elements/iconbutton";
 import Input from "./elements/input";
 import Link from "next/link";
-import React from "react";
 import { Socials } from "../utils/types";
 import { getSocials } from "../utils";
 
@@ -12,6 +13,11 @@ export type FooterProps = {
 };
 
 function Footer({ socials }: FooterProps) {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [email, setEmail] = useState("");
+
   return (
     <div className="footer h-auto md:h-footer bg-gray-500 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 p-8 pr-24 font-roboto text-white relative">
       <div className="h-full w-full flex flex-col justify-between">
@@ -54,18 +60,69 @@ function Footer({ socials }: FooterProps) {
         })}
       </div>
       <div className="h-full w-full flex">
-        <div className="w-full max-w-sm flex flex-col justify-center">
-          <small className="mb-2">Sign up to the newsletter</small>
-          <Input
-            variant="reverse"
-            size="slim"
-            className="w-full mb-2"
-            placeholder="Email Address"
-          />
-          <Button variant="reverse" size="slim" className="w-full">
-            SIGN UP
-          </Button>
-        </div>
+        {success ? (
+          <div className="flex items-center">
+            <CheckCircle color="#FFF" size={16} className="mr-2" />
+            <small>Successfully signed up!</small>
+          </div>
+        ) : (
+          <form
+            onSubmit={async (e) => {
+              e.preventDefault();
+              if (email) {
+                setLoading(true);
+                setError("");
+                try {
+                  const res = await fetch("/api/newsletter", {
+                    method: "POST",
+                    body: JSON.stringify({
+                      email,
+                    }),
+                  });
+                  if (res.status === 500) {
+                    throw new Error(res.statusText);
+                  }
+                  setSuccess(true);
+                  setEmail("");
+                } catch (e) {
+                  console.warn(e);
+                  setError(e.message || "Please try again.");
+                } finally {
+                  setLoading(false);
+                }
+              } else {
+                setError("An email address is required");
+              }
+            }}
+            className="w-full max-w-sm flex flex-col justify-center"
+          >
+            <small className="mb-2">Sign up to the newsletter</small>
+            <Input
+              variant="reverse"
+              size="slim"
+              className="w-full mb-2"
+              placeholder="Email Address"
+              typeof="email"
+              //@ts-ignore
+              value={email}
+              onChange={(e) => {
+                //@ts-ignore
+                setEmail(e.target.value);
+              }}
+            />
+            <Button
+              variant="reverse"
+              size="slim"
+              className="w-full"
+              typeof="submit"
+              loading={loading}
+              //@ts-ignore
+              disabled={loading}
+            >
+              SIGN UP
+            </Button>
+          </form>
+        )}
       </div>
       <div className="absolute right-0 m-4">
         <Iconbutton
