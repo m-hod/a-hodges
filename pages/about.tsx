@@ -1,5 +1,4 @@
 import React, { useMemo } from "react";
-import { generateCMSLink, getSocials } from "../utils";
 
 import Centered from "../components/wrappers/Centered";
 import Head from "next/head";
@@ -12,6 +11,7 @@ import Quote from "../components/elements/Quote";
 import { Schema } from "../utils/types";
 import Section from "../components/wrappers/Section";
 import Wrapper from "../components/layouts/wrapper";
+import { getSocials } from "../utils";
 
 export default function About(props: Schema) {
   const page = useMemo(
@@ -51,10 +51,8 @@ export default function About(props: Schema) {
             </div>
             <div className="flex flex-grow flex-col items-center">
               <ProgressiveImage
-                thumb={generateCMSLink(
-                  props.about.profile.formats.thumbnail.url
-                )}
-                url={generateCMSLink(props.about.profile.url)}
+                thumb={props.about.profile.formats.thumbnail.url}
+                url={props.about.profile.url}
                 className="rounded-full w-full max-w-lg"
               />
               <div className="my-8 flex justify-center">
