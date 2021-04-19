@@ -56,7 +56,6 @@ export default function Home(props: Schema) {
           content={page?.Description || ""}
         />
         <meta name="keywords" content={page?.Keywords || ""} />
-        <link rel="icon" type="image/svg+xml" href="/logo.svg" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
@@ -68,6 +67,7 @@ export default function Home(props: Schema) {
                   <ProgressiveImage
                     thumb={promoBook.cover.formats.thumbnail.url}
                     url={promoBook.cover.url}
+                    className="h-full"
                   />
                   <div className="m-4">
                     <Button>

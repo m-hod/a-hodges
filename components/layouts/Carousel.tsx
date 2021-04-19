@@ -24,7 +24,7 @@ function Carousel({ images, interval }: Props) {
 
   return (
     <>
-      <div className="absolute bottom-0 left-0 w-full flex justify-center sm:justify-end p-8">
+      <div className="absolute bottom-0 left-0 w-full flex justify-center sm:justify-end p-4 md:p-8">
         {images.map((_image, i) => (
           <button
             key={i}

@@ -18,7 +18,7 @@ export default function BookHoverAnchor({
       }}
       className="hover:shadow-2xl transform hover:scale-105 transition-transform"
     >
-      <img src={image.url} alt="" className="w-40 xl:w-52 shadow-lg" />
+      <img src={image.url} alt="" className="w-32 sm:w-40 xl:w-52 shadow-lg" />
     </button>
   );
 }

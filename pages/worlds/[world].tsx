@@ -71,7 +71,6 @@ export default function Worlds(props: Schema) {
           content={page?.Description || ""}
         />
         <meta name="keywords" content={page?.Keywords || ""} />
-        <link rel="icon" type="image/svg+xml" href="/logo.svg" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>

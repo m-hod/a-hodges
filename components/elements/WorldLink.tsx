@@ -17,7 +17,7 @@ function WorldLink({
       <img
         src={`/brush6.svg`}
         width={150}
-        className={"mr-4"}
+        className={"mr-4 hidden sm:block"}
         style={{
           transform: "scaleX(-1)",
           filter:
@@ -64,7 +64,7 @@ function WorldLink({
       <img
         src={`/brush6.svg`}
         width={150}
-        className={"ml-4"}
+        className={"ml-4 hidden sm:block"}
         style={{
           filter:
             "invert(22%) sepia(13%) saturate(1090%) hue-rotate(178deg) brightness(95%) contrast(86%)",

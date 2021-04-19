@@ -17,11 +17,9 @@ function Newsletter({ newsletter }: { newsletter: NewsletterType }) {
       <div className="flex justify-center mb-4">
         <img
           src={`/brush6.svg`}
-          width={100}
-          className={"mr-4"}
+          className={"mr-2 md:mr-4 w-12 md:w-24"}
           style={{
             transform: "scaleX(-1)",
-
             filter:
               "invert(100%) sepia(9%) saturate(365%) hue-rotate(203deg) brightness(115%) contrast(100%)",
           }}
@@ -29,8 +27,7 @@ function Newsletter({ newsletter }: { newsletter: NewsletterType }) {
         <h2 className="text-white">{newsletter.title}</h2>
         <img
           src={`/brush6.svg`}
-          width={100}
-          className="ml-4"
+          className="ml-2 md:ml-4 w-12 md:w-24"
           style={{
             filter:
               "invert(100%) sepia(9%) saturate(365%) hue-rotate(203deg) brightness(115%) contrast(100%)",

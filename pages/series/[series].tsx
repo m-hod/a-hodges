@@ -21,21 +21,6 @@ type BookLink = {
   image: string;
 };
 
-const dummyBooks: BookLink[] = [
-  {
-    anchor: "daughter-of-fate",
-    image: "/images/AaronHodges_BookCover_Ebook-low-res-534x800.jpg",
-  },
-  {
-    anchor: "2",
-    image: "/images/AaronHodges_BookCover_Ebook-low-res-534x800.jpg",
-  },
-  {
-    anchor: "3",
-    image: "/images/AaronHodges_BookCover_Ebook-low-res-534x800.jpg",
-  },
-];
-
 function Series(props: Schema) {
   const router = useRouter();
 
@@ -90,21 +75,22 @@ function Series(props: Schema) {
           content={page?.Description || ""}
         />
         <meta name="keywords" content={page?.Keywords || ""} />
-        <link rel="icon" type="image/svg+xml" href="/logo.svg" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
         <Hero>
           <div
-            className="p-16 h-full flex flex-grow flex-col"
+            className="p-8 md:p-16 pb-16 h-full flex flex-grow flex-col"
             style={{ paddingTop: headerHeight }}
           >
             <div className="flex flex-col justify-between h-full">
-              <div className="flex flex-col text-center md:text-left">
-                <h1 className="mt-8 mb-16 text-white">{series.title}</h1>
+              <div className="flex flex-col text-center md:text-left mb-8">
+                <h1 className="mt-8 mb-8 md:mb-16 text-white">
+                  {series.title}
+                </h1>
                 <h3 className="md:max-w-3/5 text-white">{series.subtitle}</h3>
               </div>
-              <div className="flex mb-8 md:mb-0">
+              <div className="flex mb-8 md:mb-0 justify-center sm:justify-start">
                 {series.books.map((_book, i) => (
                   <div
                     key={i}
@@ -155,11 +141,13 @@ function Series(props: Schema) {
             {i !== series.books.length - 1 && <Separator />}
           </React.Fragment>
         ))}
-        <Section>
-          <Centered>
-            <Newsletter newsletter={props.newsletter} />
-          </Centered>
-        </Section>
+        <div style={{ maxWidth: "100vw" }}>
+          <Section>
+            <Centered>
+              <Newsletter newsletter={props.newsletter} />
+            </Centered>
+          </Section>
+        </div>
       </div>
     </Wrapper>
   );
