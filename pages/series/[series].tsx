@@ -31,14 +31,14 @@ function Series(props: Schema) {
         target.scrollIntoView({ block: "start", behavior: "smooth" });
       }
     }
-  }, [router]);
+  }, [router.query]);
 
   const series = useMemo(
     () =>
       props.series.find(
         (_series) => slugify(_series.title) === router.query.series
       ),
-    []
+    [router.query]
   );
 
   const world = useMemo(() => {
@@ -46,7 +46,7 @@ function Series(props: Schema) {
     return props.worlds.find(
       (_world) => _world.seriesIdentifier === series.worldIdentifier
     );
-  }, []);
+  }, [series, props.worlds]);
 
   const page = useMemo(
     () => props.pages.find((_page) => _page.slug === "series"),

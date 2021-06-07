@@ -70,9 +70,13 @@ export default function Home(props: Schema) {
                     className="h-full"
                   />
                   <div className="m-4">
-                    <Button>
-                      <a href={promoBook.orderLinks[0].url}>PREORDER</a>
-                    </Button>
+                    <a
+                      href={promoBook.orderLinks[0].url}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                    >
+                      <Button>PREORDER</Button>
+                    </a>
                   </div>
                 </div>
               }

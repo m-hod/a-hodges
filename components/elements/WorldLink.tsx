@@ -31,12 +31,17 @@ function WorldLink({
             minWidth: 250,
             maxWidth: 250,
             borderRadius: "50%",
-            backgroundImage: `url(${image.url})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
           }}
           className="display flex justify-center bg-gray-500 items-center cursor-pointer transform hover:scale-105 transition-transform hover:shadow-xl relative"
         >
+          <BackgroundImage
+            thumb={image.url}
+            url={image.url}
+            style={{
+              borderRadius: "50%",
+              overflow: "hidden",
+            }}
+          />
           <img
             src={`/brush21.svg`}
             width={150}

@@ -61,7 +61,9 @@ export default function BookSection({
               <h2 className="text-center mb-8">Order Now</h2>
               <div className="grid grid-cols-2 gap-4">
                 {orderLinks.map((_link) => (
-                  <Button key={_link.id}>{_link.title.toUpperCase()}</Button>
+                  <a href={_link.url} target="_blank" rel="noreferrer noopener">
+                    <Button key={_link.id}>{_link.title.toUpperCase()}</Button>
+                  </a>
                 ))}
               </div>
             </div>
