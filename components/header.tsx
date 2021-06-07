@@ -21,7 +21,11 @@ function Header({ series, worlds }: HeaderProps) {
   const router = useRouter();
   const [dropdownVisibility, setDropdownVisibility] = useState(false);
   const mode = useMemo(() => {
-    if ([...Object.keys(router.query)].includes("series")) return "absolute";
+    if (
+      router.pathname.includes("series") ||
+      router.pathname.includes("newsletter")
+    )
+      return "absolute";
     return "";
   }, [router]);
   const theme = useMemo(() => {
