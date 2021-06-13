@@ -50,7 +50,7 @@ function Footer({ socials }: FooterProps) {
                 <a
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex align-center hover:text-gray-300"
+                  className="inline-flex align-center hover:text-gray-300 items-center justify-center"
                 >
                   <Icon className="mr-2" /> {_social.label}
                 </a>

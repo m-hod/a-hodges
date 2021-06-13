@@ -119,11 +119,18 @@ export type About = {
   profile: StrapiImage;
 };
 
-export type SocialsUnion = "facebook" | "twitter" | "instagram";
+export type SocialsUnion =
+  | "facebook"
+  | "twitter"
+  | "instagram"
+  | "goodreads"
+  | "bookbub";
 
 export type Socials = {
   id: number;
   facebook?: string;
   twitter?: string;
   instagram?: string;
+  goodreads?: string;
+  bookbub?: string;
 };
