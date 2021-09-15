@@ -25,24 +25,23 @@ export default function Worlds(props: Schema) {
   const world = useMemo(() => {
     const worldSlug = router.query.world;
     return props.worlds.find((_world) => slugify(_world.title) === worldSlug);
-  }, []);
+  }, [router.query]);
 
-  const items: Array<
-    Item<WorldTimelineSection> | Item<WorldTimeline>
-  > = useMemo(() => {
-    if (!world) return [];
-    const items = [
-      ...world.sections.map((_section) => ({
-        item: _section,
-        type: "section" as ItemType,
-      })),
-      ...world.timelines.map((_timeline) => ({
-        item: _timeline,
-        type: "timeline" as ItemType,
-      })),
-    ];
-    return items.sort((a, b) => a.item.order - b.item.order);
-  }, [world]);
+  const items: Array<Item<WorldTimelineSection> | Item<WorldTimeline>> =
+    useMemo(() => {
+      if (!world) return [];
+      const items = [
+        ...world.sections.map((_section) => ({
+          item: _section,
+          type: "section" as ItemType,
+        })),
+        ...world.timelines.map((_timeline) => ({
+          item: _timeline,
+          type: "timeline" as ItemType,
+        })),
+      ];
+      return items.sort((a, b) => a.item.order - b.item.order);
+    }, [world]);
 
   const page = useMemo(
     () => props.pages.find((_page) => _page.slug === "world"),
