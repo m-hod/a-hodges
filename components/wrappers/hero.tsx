@@ -1,6 +1,6 @@
-import React from "react";
-import { Circle } from "react-feather";
 import BackgroundImage from "../elements/BackgroundImage";
+import { Circle } from "react-feather";
+import React from "react";
 
 interface Props {
   children: React.ReactNode;
@@ -10,7 +10,7 @@ interface Props {
 function Hero({ children, headerHeight }: Props) {
   return (
     <div
-      className="w-full relative flex"
+      className="w-full relative flex overflow-x-hidden"
       style={{
         height: `calc(100vh - ${headerHeight || 0}px)`,
       }}
