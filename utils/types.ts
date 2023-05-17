@@ -2,17 +2,18 @@ export type Schema = {
   series: Series[];
   worlds: World[];
   about: About;
-  socials: Socials;
   // new
   newsletter: Newsletter;
   pages: SEOPage[];
+  home: Array<{ id: number; books: Book[] }>;
+  socials: NewSocial[];
 };
 
 export type SEOPage = {
   id: number;
-  Title: string;
-  Description: string;
-  Keywords: string;
+  title: string;
+  description: string;
+  keywords: string;
   slug: string;
 };
 
@@ -133,4 +134,10 @@ export type Socials = {
   instagram?: string;
   goodreads?: string;
   bookbub?: string;
+};
+
+export type NewSocial = {
+  id: number;
+  url: string;
+  title: string;
 };

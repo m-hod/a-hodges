@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { getSocials, getValidSocials } from "../utils";
 
 import Centered from "../components/wrappers/Centered";
 import Head from "next/head";
@@ -11,9 +12,11 @@ import Quote from "../components/elements/Quote";
 import { Schema } from "../utils/types";
 import Section from "../components/wrappers/Section";
 import Wrapper from "../components/layouts/wrapper";
-import { getSocials } from "../utils";
+import schema from "../utils/schema";
 
 export default function About(props: Schema) {
+  console.log(props);
+
   const page = useMemo(
     () => props.pages.find((_page) => _page.slug === "about"),
     [props.pages]
@@ -22,26 +25,26 @@ export default function About(props: Schema) {
   return (
     <Wrapper
       headerProps={{
-        series: props.series,
-        worlds: props.worlds,
+        series: [],
+        worlds: [],
       }}
       footerProps={{
         socials: props.socials,
       }}
     >
       <Head>
-        <title>{page?.Title || ""} - Aaron Hodges</title>
+        <title>{page?.title || ""} - Aaron Hodges</title>
         <meta
           name="description"
           property="og:description"
-          content={page?.Description || ""}
+          content={page?.description || ""}
         />
-        <meta name="keywords" content={page?.Keywords || ""} />
+        <meta name="keywords" content={page?.keywords || ""} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
         <Section>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-8">
+          {/* <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
             <div className="lg:col-span-2">
               <h1 className="mb-8">{props.about.title}</h1>
               <h3 className="mb-8">{props.about.subtitle}</h3>
@@ -49,14 +52,14 @@ export default function About(props: Schema) {
                 <Markdown>{props.about.content}</Markdown>
               </div>
             </div>
-            <div className="flex flex-grow flex-col items-center">
+            <div className="flex flex-col items-center flex-grow">
               <ProgressiveImage
                 thumb={props.about.profile.formats.thumbnail.url}
                 url={props.about.profile.url}
-                className="rounded-full w-full max-w-lg"
+                className="w-full max-w-lg rounded-full"
               />
-              <div className="my-8 flex justify-center">
-                {getSocials(props.socials).map((_social, i) => {
+              <div className="flex justify-center my-8">
+                {getValidSocials(props.socials).map((_social, i) => {
                   const Icon = _social.Icon;
                   return (
                     <Link key={i} href={_social.link}>
@@ -79,10 +82,10 @@ export default function About(props: Schema) {
                 })}
               </div>
             </div>
-          </div>
+          </div> */}
         </Section>
         <Section>
-          {props.about.quotes.map((_quote, i) => (
+          {/* {props.about.quotes.map((_quote, i) => (
             <div
               key={_quote.id}
               className={`${
@@ -95,12 +98,12 @@ export default function About(props: Schema) {
                 authorAlign="left"
               />
             </div>
-          ))}
+          ))} */}
         </Section>
         <Section>
-          <Centered>
+          {/* <Centered>
             <Newsletter newsletter={props.newsletter} />
-          </Centered>
+          </Centered> */}
         </Section>
       </div>
     </Wrapper>
@@ -108,7 +111,6 @@ export default function About(props: Schema) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch("https://admin.m-hodges.com/aahodges");
-  const data: Schema = await res.json();
+  const data = await schema();
   return { props: data };
 }

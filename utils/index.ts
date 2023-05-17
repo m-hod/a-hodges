@@ -1,6 +1,6 @@
 import { FaFacebook, FaGoodreads, FaInstagram } from "react-icons/fa";
 import { Facebook, Instagram } from "react-feather";
-import { Socials, SocialsUnion } from "./types";
+import { NewSocial, Socials, SocialsUnion } from "./types";
 
 import { BsBook } from "react-icons/bs";
 import { baseUrl } from "./constants";
@@ -11,6 +11,33 @@ const validSocials: SocialsUnion[] = [
   "bookbub",
   "goodreads",
 ];
+
+const getSocialIcon = (social: NewSocial) => {
+  switch (social.title.toLowerCase()) {
+    case "facebook":
+      return FaFacebook;
+    case "instagram":
+      return FaInstagram;
+    case "bookbub":
+      return BsBook;
+    case "goodreads":
+      return FaGoodreads;
+  }
+};
+
+export const getValidSocials = (socials: NewSocial[]) => {
+  return socials
+    .filter((social) =>
+      validSocials.some(
+        (validSocial) => social.title.toLowerCase() === validSocial
+      )
+    )
+    .map((social) => ({
+      Icon: getSocialIcon(social),
+      label: social.title,
+      link: social.url,
+    }));
+};
 
 export function getSocials(socials: Socials) {
   const { id, ...links } = socials;

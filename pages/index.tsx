@@ -11,27 +11,36 @@ import ProgressiveImage from "../components/elements/ProgressiveImage";
 import Section from "../components/wrappers/Section";
 import TextFade from "../components/wrappers/TextFade";
 import Wrapper from "../components/layouts/wrapper";
+import axios from "axios";
 import classes from "./index.module.scss";
 import clsx from "clsx";
+import directus from "../lib/directus";
+import schema from "../utils/schema";
 import { slugify } from "../utils";
+import { useEffect } from "react";
 import { useMemo } from "react";
 
 export default function Home(props: Schema) {
-  const { promoBook, promoSeries } = useMemo(() => {
-    let promoBook: Book | undefined = undefined;
-    const promoSeries = props.series.find((_series) =>
-      _series.books.find((_book) => {
-        if (_book.is_promo) {
-          promoBook = _book;
-          return true;
-        } else return false;
-      })
-    );
-    return {
-      promoBook,
-      promoSeries,
-    };
-  }, [props]);
+  console.log("props: ", props);
+
+  const promoBooks = props.home[0];
+  console.log("promoBooks: ", promoBooks);
+
+  // const { promoBook, promoSeries } = useMemo(() => {
+  //   let promoBook: Book | undefined = undefined;
+  //   const promoSeries = props.series.find((_series) =>
+  //     _series.books.find((_book) => {
+  //       if (_book.is_promo) {
+  //         promoBook = _book;
+  //         return true;
+  //       } else return false;
+  //     })
+  //   );
+  //   return {
+  //     promoBook,
+  //     promoSeries,
+  //   };
+  // }, [props]);
 
   const page = useMemo(
     () => props.pages.find((_page) => _page.slug === "home"),
@@ -41,29 +50,29 @@ export default function Home(props: Schema) {
   return (
     <Wrapper
       headerProps={{
-        series: props.series,
-        worlds: props.worlds,
+        series: [],
+        worlds: [],
       }}
       footerProps={{
         socials: props.socials,
       }}
     >
       <Head>
-        <title>{page?.Title || ""} - Aaron Hodges</title>
+        <title>{page?.title || ""} - Aaron Hodges</title>
         <meta
           name="description"
           property="og:description"
-          content={page?.Description || ""}
+          content={page?.description || ""}
         />
-        <meta name="keywords" content={page?.Keywords || ""} />
+        <meta name="keywords" content={page?.keywords || ""} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-        {promoBook && promoSeries && (
+        {/* {promoBook && promoSeries && (
           <Section>
             <ContentDisplay
               left={
-                <div className="fade-in flex flex-col items-center justify-center object-contain h-full-padding-removed md:h-full">
+                <div className="flex flex-col items-center justify-center object-contain fade-in h-full-padding-removed md:h-full">
                   <ProgressiveImage
                     thumb={promoBook.cover.formats.thumbnail.url}
                     url={promoBook.cover.url}
@@ -82,7 +91,7 @@ export default function Home(props: Schema) {
               }
               right={
                 <TextFade>
-                  <div className="flex flex-col h-full relative">
+                  <div className="relative flex flex-col h-full">
                     <div className="flex flex-col">
                       <h5 className="mb-8">{promoBook.subtitle}</h5>
                       <h1 className="mb-12">{promoBook.title}</h1>
@@ -95,7 +104,7 @@ export default function Home(props: Schema) {
                     >
                       <Markdown>{promoBook.summary}</Markdown>
                     </div>
-                    <div className="absolute bottom-0 z-20 flex w-full justify-center">
+                    <div className="absolute bottom-0 z-20 flex justify-center w-full">
                       <p className="underline cursor-pointer hover:text-gray-400">
                         <Link
                           href={`/series/${slugify(
@@ -111,10 +120,10 @@ export default function Home(props: Schema) {
               }
             />
           </Section>
-        )}
+        )} */}
         <Section>
           <Centered>
-            <Newsletter newsletter={props.newsletter} />
+            {/* <Newsletter newsletter={props.newsletter} /> */}
           </Centered>
         </Section>
       </div>
@@ -123,7 +132,6 @@ export default function Home(props: Schema) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch("https://admin.m-hodges.com/aahodges");
-  const data: Schema = await res.json();
+  const data = await schema();
   return { props: data };
 }
