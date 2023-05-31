@@ -1,15 +1,15 @@
 import { AlertCircle, CheckCircle, ChevronUp } from "react-feather";
-import { NewSocial, Socials } from "../utils/types";
 import React, { useState } from "react";
 
 import Button from "./elements/button";
 import Iconbutton from "./elements/iconbutton";
 import Input from "./elements/input";
 import Link from "next/link";
+import { Social } from "../utils/types";
 import { getValidSocials } from "../utils";
 
 export type FooterProps = {
-  socials: NewSocial[];
+  socials: Social[];
 };
 
 function Footer({ socials }: FooterProps) {

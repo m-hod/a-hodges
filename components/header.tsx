@@ -76,7 +76,7 @@ function Header({ series, worlds }: HeaderProps) {
       >
         <div className="relative flex items-center">
           <div
-            className="absolute right-full hidden md:flex"
+            className="absolute hidden right-full md:flex"
             style={{
               top: "calc(50% - 12px)",
             }}
@@ -88,12 +88,12 @@ function Header({ series, worlds }: HeaderProps) {
               <img
                 src="/logo.svg"
                 alt="Aaron Hodges"
-                className="header-logo transition-all duration-250 object-contain"
+                className="object-contain transition-all header-logo duration-250"
               />
             </a>
           </Link>
           <div
-            className="absolute left-full hidden md:flex"
+            className="absolute hidden left-full md:flex"
             style={{
               top: "calc(50% - 12px)",
             }}
@@ -102,7 +102,7 @@ function Header({ series, worlds }: HeaderProps) {
             <NavDropdown label="Worlds" theme={theme} links={worldsLinks} />
           </div>
         </div>
-        <div className="flex justify-center items-center md:hidden mr-8">
+        <div className="flex items-center justify-center mr-8 md:hidden">
           <button
             onClick={() => {
               setDropdownVisibility(!dropdownVisibility);
@@ -126,23 +126,23 @@ function Header({ series, worlds }: HeaderProps) {
           zIndex: 999,
         }}
       >
-        <div className="h-full flex justify-between md:justify-center align-center">
+        <div className="flex justify-between h-full md:justify-center align-center">
           <div className="relative flex items-center">
             <div
-              className="absolute right-full hidden md:flex"
+              className="absolute hidden right-full md:flex"
               style={{
                 top: "calc(50% - 12px)",
               }}
             >
               <NavLink label="About" url="/about" />
             </div>
-            <div className="font-medium mx-4 cursor-pointer tracking-wider hover:text-gray-500 underline">
+            <div className="mx-4 font-medium tracking-wider underline cursor-pointer hover:text-gray-500">
               <Link href="/">
                 <a>AARON HODGES</a>
               </Link>
             </div>
             <div
-              className="absolute left-full hidden md:flex"
+              className="absolute hidden left-full md:flex"
               style={{
                 top: "calc(50% - 12px)",
               }}
@@ -151,7 +151,7 @@ function Header({ series, worlds }: HeaderProps) {
               <NavDropdown label="Worlds" links={worldsLinks} />
             </div>
           </div>
-          <div className="flex justify-center items-center md:hidden mr-4">
+          <div className="flex items-center justify-center mr-4 md:hidden">
             <button
               onClick={() => {
                 setDropdownVisibility(!dropdownVisibility);
@@ -234,7 +234,7 @@ function NavDropdown({
       }`}
     >
       {label.toUpperCase()}
-      <div className="hover-target hidden absolute p-4 top-6">
+      <div className="absolute hidden p-4 hover-target top-6">
         <ul
           className={`arrow justify-center flex-col shadow-lg z-50 pt-2 pb-2 bg-white`}
           style={{
@@ -247,7 +247,7 @@ function NavDropdown({
             ) : (
               <li
                 key={i}
-                className="w-full hover:bg-gray-200 text-black p-2 text-sm text-center list-none"
+                className="w-full p-2 text-sm text-center text-black list-none hover:bg-gray-200"
               >
                 <Link href={_link.url}>
                   <a className="col-span-3 hover:text-gray-500">
@@ -274,14 +274,14 @@ function NavDropdownItem({ link }: { link: CascadeLinkType }) {
   }, [router, router.pathname]);
 
   return !!link.links?.length ? (
-    <li className="w-full hover:bg-gray-200 text-black p-2 text-sm text-left list-none">
+    <li className="w-full p-2 text-sm text-left text-black list-none hover:bg-gray-200">
       <div className="grid grid-cols-4 gap-2">
         <Link href={link.url}>
           <a className="col-span-3 hover:text-gray-500">{link.label}</a>
         </Link>
         {isExpanded ? (
           <button
-            className="flex justify-end items-center hover:text-gray-500"
+            className="flex items-center justify-end hover:text-gray-500"
             onClick={() => {
               setExpanded(false);
             }}
@@ -290,7 +290,7 @@ function NavDropdownItem({ link }: { link: CascadeLinkType }) {
           </button>
         ) : (
           <button
-            className="flex justify-end items-center hover:text-gray-500"
+            className="flex items-center justify-end hover:text-gray-500"
             onClick={() => {
               setExpanded(true);
             }}
@@ -310,7 +310,7 @@ function NavDropdownItem({ link }: { link: CascadeLinkType }) {
       </div>
     </li>
   ) : (
-    <li className="w-full hover:bg-gray-200 text-black p-2 text-sm text-center list-none">
+    <li className="w-full p-2 text-sm text-center text-black list-none hover:bg-gray-200">
       <Link href={link.url}>
         <a className="col-span-3 hover:text-gray-500">{link.label}</a>
       </Link>
@@ -341,7 +341,7 @@ function SubNavDropdownItem({
         <button className="hover:text-gray-500">{label.toUpperCase()}</button>
         {!!links.length && isExpanded ? (
           <button
-            className="ml-2 flex justify-end items-center hover:text-gray-500"
+            className="flex items-center justify-end ml-2 hover:text-gray-500"
             onClick={() => {
               setExpanded(false);
             }}
@@ -350,7 +350,7 @@ function SubNavDropdownItem({
           </button>
         ) : (
           <button
-            className="ml-2 flex justify-end items-center hover:text-gray-500"
+            className="flex items-center justify-end ml-2 hover:text-gray-500"
             onClick={() => {
               setExpanded(true);
             }}

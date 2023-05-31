@@ -1,13 +1,12 @@
-import { Book, Schema } from "../utils/types";
+import schema, { Schema } from "../utils/schema";
 
 import Button from "../components/elements/button";
 import Centered from "../components/wrappers/Centered";
 import ContentDisplay from "../components/layouts/ContentDisplay";
 import Head from "next/head";
 import Link from "next/link";
-import Markdown from "react-markdown";
+import Meta from "../components/elements/Meta";
 import Newsletter from "../components/layouts/Newsletter";
-import ProgressiveImage from "../components/elements/ProgressiveImage";
 import Section from "../components/wrappers/Section";
 import TextFade from "../components/wrappers/TextFade";
 import Wrapper from "../components/layouts/wrapper";
@@ -15,16 +14,13 @@ import axios from "axios";
 import classes from "./index.module.scss";
 import clsx from "clsx";
 import directus from "../lib/directus";
-import schema from "../utils/schema";
 import { slugify } from "../utils";
 import { useEffect } from "react";
 import { useMemo } from "react";
 
 export default function Home(props: Schema) {
-  console.log("props: ", props);
-
-  const promoBooks = props.home[0];
-  console.log("promoBooks: ", promoBooks);
+  // const promoBooks = props.home[0];
+  // console.log("promoBooks: ", promoBooks);
 
   // const { promoBook, promoSeries } = useMemo(() => {
   //   let promoBook: Book | undefined = undefined;
@@ -50,23 +46,18 @@ export default function Home(props: Schema) {
   return (
     <Wrapper
       headerProps={{
-        series: [],
-        worlds: [],
+        series: props.series,
+        worlds: props.worlds,
       }}
       footerProps={{
         socials: props.socials,
       }}
     >
-      <Head>
-        <title>{page?.title || ""} - Aaron Hodges</title>
-        <meta
-          name="description"
-          property="og:description"
-          content={page?.description || ""}
-        />
-        <meta name="keywords" content={page?.keywords || ""} />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <Meta
+        pageTitle={page?.title || ""}
+        description={page?.description || ""}
+        keywords={page?.keywords || ""}
+      />
       <div>
         {/* {promoBook && promoSeries && (
           <Section>
@@ -123,7 +114,7 @@ export default function Home(props: Schema) {
         )} */}
         <Section>
           <Centered>
-            {/* <Newsletter newsletter={props.newsletter} /> */}
+            <Newsletter newsletter={props.newsletter} />
           </Centered>
         </Section>
       </div>

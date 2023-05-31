@@ -26,16 +26,12 @@ function runMiddleware(req, res, fn) {
 
 module.exports = async (req, res) => {
   await runMiddleware(req, res, cors);
-  console.log(req.body);
-  console.log(req.body.email);
   const body = JSON.parse(req.body);
-  console.log(body);
   await instance
     .post(`https://api.mailerlite.com/api/v2/groups/8538412/subscribers`, {
       email: body.email,
     })
     .then(({ data }) => {
-      console.log("success", data);
       res.status(200).json({ data });
     })
     .catch(({ err }) => {

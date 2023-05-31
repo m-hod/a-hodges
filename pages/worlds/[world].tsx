@@ -1,14 +1,17 @@
 import React, { useMemo } from "react";
-import { Schema, WorldTimeline, WorldTimelineSection } from "../../utils/types";
+import { WorldSection, WorldTimeline } from "../../utils/types";
+import schema, { Schema } from "../../utils/schema";
 
 import Centered from "../../components/wrappers/Centered";
 import Divider from "../../components/layouts/Divider";
-import Head from "next/head";
+import Image from "../../components/elements/Image";
+import Meta from "../../components/elements/Meta";
 import Newsletter from "../../components/layouts/Newsletter";
-import ReactMarkdown from "react-markdown";
 import Section from "../../components/wrappers/Section";
 import Timeline from "../../components/layouts/Timeline";
 import Wrapper from "../../components/layouts/wrapper";
+import { assetUrl } from "../../utils/constants";
+import parser from "react-html-parser";
 import { slugify } from "../../utils";
 import { useRouter } from "next/router";
 
@@ -27,21 +30,20 @@ export default function Worlds(props: Schema) {
     return props.worlds.find((_world) => slugify(_world.title) === worldSlug);
   }, [router.query]);
 
-  const items: Array<Item<WorldTimelineSection> | Item<WorldTimeline>> =
-    useMemo(() => {
-      if (!world) return [];
-      const items = [
-        ...world.sections.map((_section) => ({
-          item: _section,
-          type: "section" as ItemType,
-        })),
-        ...world.timelines.map((_timeline) => ({
-          item: _timeline,
-          type: "timeline" as ItemType,
-        })),
-      ];
-      return items.sort((a, b) => a.item.order - b.item.order);
-    }, [world]);
+  const items: Array<Item<WorldSection> | Item<WorldTimeline>> = useMemo(() => {
+    if (!world) return [];
+    const items = [
+      ...world.sections.map((_section) => ({
+        item: _section,
+        type: "section" as ItemType,
+      })),
+      ...world.timelines.map((_timeline) => ({
+        item: _timeline,
+        type: "timeline" as ItemType,
+      })),
+    ];
+    return items.sort((a, b) => a.item.order - b.item.order);
+  }, [world]);
 
   const page = useMemo(
     () => props.pages.find((_page) => _page.slug === "world"),
@@ -60,18 +62,12 @@ export default function Worlds(props: Schema) {
         socials: props.socials,
       }}
     >
-      <Head>
-        <title>
-          {world.title} - {page?.Title || ""} - Aaron Hodges
-        </title>
-        <meta
-          name="description"
-          property="og:description"
-          content={page?.Description || ""}
-        />
-        <meta name="keywords" content={page?.Keywords || ""} />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <Meta
+        title={world.title}
+        pageTitle={page?.title || ""}
+        description={page?.description || ""}
+        keywords={page?.keywords || ""}
+      />
       <div>
         <Section>
           <h1 className="mb-8">{world.title}</h1>
@@ -79,38 +75,38 @@ export default function Worlds(props: Schema) {
         </Section>
         {items.map((_item, i) => {
           if (_item.type === "section") {
-            const item = _item as Item<WorldTimelineSection>;
+            const item = _item as Item<WorldSection>;
             return (
               <Section key={i}>
                 <Divider
                   left={
                     i % 2 === 0 ? (
-                      <div className="h-full flex flex-col">
+                      <div className="flex flex-col h-full">
                         <h2 className="mb-8">{item.item.emphasis}</h2>
-                        <ReactMarkdown>{item.item.content}</ReactMarkdown>
+                        {parser(item.item.content)}
                       </div>
                     ) : (
                       item.item.images.map((_image) => (
-                        <img
+                        <Image
                           key={_image.id}
-                          src={_image.url}
-                          className="h-auto w-auto mb-8"
+                          imageId={_image.directus_files_id}
+                          className="w-auto h-auto mb-8"
                         />
                       ))
                     )
                   }
                   right={
                     i % 2 !== 0 ? (
-                      <div className="h-full flex flex-col">
+                      <div className="flex flex-col h-full">
                         <h2 className="mb-8">{item.item.emphasis}</h2>
-                        <ReactMarkdown>{item.item.content}</ReactMarkdown>
+                        {parser(item.item.content)}
                       </div>
                     ) : (
                       item.item.images.map((_image) => (
-                        <img
+                        <Image
                           key={_image.id}
-                          src={_image.url}
-                          className="h-auto w-auto mb-8"
+                          imageId={_image.directus_files_id}
+                          className="w-auto h-auto mb-8"
                         />
                       ))
                     )
@@ -126,13 +122,13 @@ export default function Worlds(props: Schema) {
                 <Timeline
                   entries={item.item.entries.map((_entry) => {
                     let count = 0;
-                    let content = _entry.contents;
+                    let content = _entry.content;
 
                     const regexp = new RegExp("{{image}}", "gm");
                     let match;
 
                     while ((match = regexp.exec(content)) !== null) {
-                      const image = `<div style="height: 250px; margin-bottom: 1rem; background-image: url(${_entry.images[count].url}); background-position: center; background-size: cover;" />`;
+                      const image = `<div style="height: 250px; margin-bottom: 1rem; background-image: url(${assetUrl}${_entry.images[count].directus_files_id}); background-position: center; background-size: cover;" />`;
                       content =
                         content.slice(0, match.index) +
                         image +
@@ -161,8 +157,7 @@ export default function Worlds(props: Schema) {
 }
 
 export async function getStaticPaths() {
-  const res = await fetch("https://admin.m-hodges.com/aahodges");
-  const data: Schema = await res.json();
+  const data = await schema();
   const paths = data.worlds.map((_world) => ({
     params: { world: slugify(_world.title) },
   }));
@@ -173,7 +168,6 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps() {
-  const res = await fetch("https://admin.m-hodges.com/aahodges");
-  const data: Schema = await res.json();
+  const data = await schema();
   return { props: data };
 }

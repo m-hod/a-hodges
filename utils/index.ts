@@ -1,9 +1,7 @@
 import { FaFacebook, FaGoodreads, FaInstagram } from "react-icons/fa";
-import { Facebook, Instagram } from "react-feather";
-import { NewSocial, Socials, SocialsUnion } from "./types";
+import { Social, SocialsUnion } from "./types";
 
 import { BsBook } from "react-icons/bs";
-import { baseUrl } from "./constants";
 
 const validSocials: SocialsUnion[] = [
   "facebook",
@@ -12,7 +10,7 @@ const validSocials: SocialsUnion[] = [
   "goodreads",
 ];
 
-const getSocialIcon = (social: NewSocial) => {
+const getSocialIcon = (social: Social) => {
   switch (social.title.toLowerCase()) {
     case "facebook":
       return FaFacebook;
@@ -25,7 +23,7 @@ const getSocialIcon = (social: NewSocial) => {
   }
 };
 
-export const getValidSocials = (socials: NewSocial[]) => {
+export const getValidSocials = (socials: Social[]) => {
   return socials
     .filter((social) =>
       validSocials.some(
@@ -39,44 +37,6 @@ export const getValidSocials = (socials: NewSocial[]) => {
     }));
 };
 
-export function getSocials(socials: Socials) {
-  const { id, ...links } = socials;
-  return [...Object.keys(links)]
-    .filter((_key) => validSocials.includes(_key as SocialsUnion))
-    .map((_key) => {
-      switch (_key) {
-        case "facebook":
-          return {
-            Icon: FaFacebook,
-            label: "Facebook",
-            link: links[_key],
-          };
-        case "instagram":
-          return {
-            Icon: FaInstagram,
-            label: "Instagram",
-            link: links[_key],
-          };
-        case "goodreads":
-          return {
-            Icon: FaGoodreads,
-            label: "Goodreads",
-            link: links[_key],
-          };
-        case "bookbub":
-          return {
-            Icon: BsBook,
-            label: "Bookbub",
-            link: links[_key],
-          };
-      }
-    });
-}
-
 export function slugify(text: string) {
   return text.toLowerCase().replace(/ /gi, "-");
-}
-
-export function generateCMSLink(url: string) {
-  return `${baseUrl}${url}`;
 }
