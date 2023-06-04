@@ -23,7 +23,8 @@ function Header({ series, worlds }: HeaderProps) {
   const mode = useMemo(() => {
     if (
       router.pathname.includes("series") ||
-      router.pathname.includes("newsletter")
+      router.pathname.includes("newsletter") ||
+      router.pathname === "/"
     )
       return "absolute";
     return "";

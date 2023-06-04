@@ -58,6 +58,7 @@ export type Book = {
   banner: string;
   quotes: Quote[];
   order_links: OrderLink[];
+  aahodges_series_id: number;
 };
 
 export type Series = {

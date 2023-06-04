@@ -5,15 +5,20 @@ import React from "react";
 interface Props {
   children: React.ReactNode;
   headerHeight?: number;
+  noMaxHeight?: boolean;
 }
 
-function Hero({ children, headerHeight }: Props) {
+function Hero({ children, headerHeight, noMaxHeight }: Props) {
   return (
     <div
-      className="w-full relative flex overflow-x-hidden"
-      style={{
-        height: `calc(100vh - ${headerHeight || 0}px)`,
-      }}
+      className="relative flex w-full overflow-x-hidden"
+      style={
+        !noMaxHeight
+          ? {
+              height: `calc(100vh - ${headerHeight || 0}px)`,
+            }
+          : {}
+      }
     >
       {children}
     </div>

@@ -4,9 +4,11 @@ import { assetUrl } from "../../utils/constants";
 export default function BookHoverAnchor({
   imageId,
   anchor,
+  variable,
 }: {
   imageId: string;
   anchor: string;
+  variable?: boolean;
 }) {
   return (
     <button
@@ -21,7 +23,7 @@ export default function BookHoverAnchor({
       <img
         src={`${assetUrl}${imageId}`}
         alt=""
-        className="w-32 shadow-lg sm:w-40 xl:w-52"
+        className={!variable && "w-32 shadow-lg sm:w-40 xl:w-52"}
       />
     </button>
   );

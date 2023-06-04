@@ -2,45 +2,36 @@ import schema, { Schema } from "../utils/schema";
 
 import Button from "../components/elements/button";
 import Centered from "../components/wrappers/Centered";
-import ContentDisplay from "../components/layouts/ContentDisplay";
-import Head from "next/head";
 import Link from "next/link";
 import Meta from "../components/elements/Meta";
 import Newsletter from "../components/layouts/Newsletter";
 import Section from "../components/wrappers/Section";
-import TextFade from "../components/wrappers/TextFade";
 import Wrapper from "../components/layouts/wrapper";
-import axios from "axios";
-import classes from "./index.module.scss";
-import clsx from "clsx";
-import directus from "../lib/directus";
 import { slugify } from "../utils";
-import { useEffect } from "react";
 import { useMemo } from "react";
+import Image from "../components/elements/Image";
+import Hero from "../components/wrappers/hero";
+import { headerHeight, TAILWIND_MD_BREAKPOINT } from "../utils/constants";
+import Carousel from "../components/layouts/Carousel";
+import useWindowSize from "../hooks/useWindowSize";
 
 export default function Home(props: Schema) {
-  // const promoBooks = props.home[0];
-  // console.log("promoBooks: ", promoBooks);
-
-  // const { promoBook, promoSeries } = useMemo(() => {
-  //   let promoBook: Book | undefined = undefined;
-  //   const promoSeries = props.series.find((_series) =>
-  //     _series.books.find((_book) => {
-  //       if (_book.is_promo) {
-  //         promoBook = _book;
-  //         return true;
-  //       } else return false;
-  //     })
-  //   );
-  //   return {
-  //     promoBook,
-  //     promoSeries,
-  //   };
-  // }, [props]);
+  const { width } = useWindowSize();
 
   const page = useMemo(
     () => props.pages.find((_page) => _page.slug === "home"),
     [props.pages]
+  );
+
+  const booksWithSeries = useMemo(
+    () =>
+      props.home.map((book) => ({
+        ...book,
+        series: props.series.find(
+          (series) => series.id === book.aahodges_series_id
+        ),
+      })),
+    []
   );
 
   return (
@@ -58,66 +49,68 @@ export default function Home(props: Schema) {
         description={page?.description || ""}
         keywords={page?.keywords || ""}
       />
-      <div>
-        {/* {promoBook && promoSeries && (
-          <Section>
-            <ContentDisplay
-              left={
-                <div className="flex flex-col items-center justify-center object-contain fade-in h-full-padding-removed md:h-full">
-                  <ProgressiveImage
-                    thumb={promoBook.cover.formats.thumbnail.url}
-                    url={promoBook.cover.url}
-                    className="h-full"
-                  />
-                  <div className="m-4">
-                    <a
-                      href={promoBook.orderLinks[0].url}
-                      target="_blank"
-                      rel="noreferrer noopener"
+      <Hero noMaxHeight={width <= TAILWIND_MD_BREAKPOINT}>
+        <div
+          className="flex flex-col flex-grow h-full p-8 pb-16 md:p-16"
+          style={{ paddingTop: headerHeight }}
+        >
+          <div className="flex items-center justify-center w-full h-full">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-8">
+              {booksWithSeries.map((book) => {
+                const firstOrderLink = book.order_links[0];
+                return (
+                  <div key={book.id} className="flex flex-col gap-4 md:gap-6">
+                    <Link
+                      href={`/series/${slugify(
+                        book.series.title
+                      )}?book=${slugify(book.title)}`}
                     >
-                      <Button>PREORDER</Button>
-                    </a>
-                  </div>
-                </div>
-              }
-              right={
-                <TextFade>
-                  <div className="relative flex flex-col h-full">
-                    <div className="flex flex-col">
-                      <h5 className="mb-8">{promoBook.subtitle}</h5>
-                      <h1 className="mb-12">{promoBook.title}</h1>
-                    </div>
-                    <div
-                      className={clsx(
-                        "h-full overflow-hidden",
-                        classes.markdown
-                      )}
-                    >
-                      <Markdown>{promoBook.summary}</Markdown>
-                    </div>
-                    <div className="absolute bottom-0 z-20 flex justify-center w-full">
-                      <p className="underline cursor-pointer hover:text-gray-400">
-                        <Link
-                          href={`/series/${slugify(
-                            promoSeries.title
-                          )}?book=${slugify(promoBook.title)}`}
+                      <a className="transition-transform transform hover:shadow-2xl hover:scale-105">
+                        <Image
+                          key={book.id}
+                          imageId={book.cover}
+                          style={{
+                            maxHeight: 550,
+                          }}
+                        />
+                      </a>
+                    </Link>
+                    {firstOrderLink && (
+                      <div className="flex justify-center">
+                        <a
+                          key={firstOrderLink.id}
+                          href={firstOrderLink.url}
+                          target="_blank"
+                          rel="noreferrer noopener"
                         >
-                          <a>Read More</a>
-                        </Link>
-                      </p>
-                    </div>
+                          <Button>{firstOrderLink.title.toUpperCase()}</Button>
+                        </a>
+                      </div>
+                    )}
                   </div>
-                </TextFade>
-              }
-            />
-          </Section>
-        )} */}
-        <Section>
-          <Centered>
-            <Newsletter newsletter={props.newsletter} />
-          </Centered>
-        </Section>
-      </div>
+                );
+              })}
+            </div>
+          </div>
+          <Carousel
+            imageIds={[
+              ...booksWithSeries
+                .map((book) => [
+                  book.banner,
+                  ...book.series.banners
+                    .map((banner) => banner.directus_files_id)
+                    .flat(),
+                ])
+                .flat(),
+            ]}
+          />
+        </div>
+      </Hero>
+      <Section>
+        <Centered>
+          <Newsletter newsletter={props.newsletter} />
+        </Centered>
+      </Section>
     </Wrapper>
   );
 }
