@@ -23,16 +23,27 @@ export default function Home(props: Schema) {
     [props.pages]
   );
 
-  const booksWithSeries = useMemo(
-    () =>
-      props.home.map((book) => ({
+  const { booksWithSeries, banners } = useMemo(() => {
+    const banners = new Set<string>();
+
+    const booksWithSeries = props.home.map((book) => {
+      const series = props.series.find(
+        (series) => series.id === book.aahodges_series_id
+      );
+
+      banners.add(book.banner);
+      series.banners.forEach((banner) => {
+        banners.add(banner.directus_files_id);
+      });
+
+      return {
         ...book,
-        series: props.series.find(
-          (series) => series.id === book.aahodges_series_id
-        ),
-      })),
-    []
-  );
+        series,
+      };
+    });
+
+    return { booksWithSeries, banners };
+  }, []);
 
   return (
     <Wrapper
@@ -92,18 +103,7 @@ export default function Home(props: Schema) {
               })}
             </div>
           </div>
-          <Carousel
-            imageIds={[
-              ...booksWithSeries
-                .map((book) => [
-                  book.banner,
-                  ...book.series.banners
-                    .map((banner) => banner.directus_files_id)
-                    .flat(),
-                ])
-                .flat(),
-            ]}
-          />
+          <Carousel imageIds={[...banners.values()]} />
         </div>
       </Hero>
       <Section>
