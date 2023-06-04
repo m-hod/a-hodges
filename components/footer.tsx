@@ -46,14 +46,11 @@ function Footer({ socials }: FooterProps) {
           const Icon = _social.Icon;
           return (
             <div key={i}>
-              <Link href={_social.link}>
-                <a
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center justify-center align-center hover:text-gray-300"
-                >
-                  <Icon className="mr-2" /> {_social.label}
-                </a>
+              <Link
+                href={_social.link}
+                className="inline-flex items-center justify-center align-center hover:text-gray-300"
+              >
+                <Icon className="mr-2" /> {_social.label}
               </Link>
             </div>
           );

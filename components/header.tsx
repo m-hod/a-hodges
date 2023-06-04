@@ -85,13 +85,11 @@ function Header({ series, worlds }: HeaderProps) {
             <NavLink label="About" url="/about" theme={theme} />
           </div>
           <Link href="/">
-            <a>
-              <img
-                src="/logo.svg"
-                alt="Aaron Hodges"
-                className="object-contain transition-all header-logo duration-250"
-              />
-            </a>
+            <img
+              src="/logo.svg"
+              alt="Aaron Hodges"
+              className="object-contain transition-all header-logo duration-250"
+            />
           </Link>
           <div
             className="absolute hidden left-full md:flex"
@@ -138,9 +136,7 @@ function Header({ series, worlds }: HeaderProps) {
               <NavLink label="About" url="/about" />
             </div>
             <div className="mx-4 font-medium tracking-wider underline cursor-pointer hover:text-gray-500">
-              <Link href="/">
-                <a>AARON HODGES</a>
-              </Link>
+              <Link href="/">AARON HODGES</Link>
             </div>
             <div
               className="absolute hidden left-full md:flex"
@@ -206,9 +202,7 @@ function NavLink({ label, url, theme = "default" }: LinkType) {
           : "hover:text-gray-500"
       }`}
     >
-      <Link href={url}>
-        <a>{label.toUpperCase()}</a>
-      </Link>
+      <Link href={url}>{label.toUpperCase()}</Link>
     </div>
   );
 }
@@ -250,10 +244,11 @@ function NavDropdown({
                 key={i}
                 className="w-full p-2 text-sm text-center text-black list-none hover:bg-gray-200"
               >
-                <Link href={_link.url}>
-                  <a className="col-span-3 hover:text-gray-500">
-                    {_link.label}
-                  </a>
+                <Link
+                  href={_link.url}
+                  className="col-span-3 hover:text-gray-500"
+                >
+                  {_link.label}
                 </Link>
               </li>
             )
@@ -277,8 +272,8 @@ function NavDropdownItem({ link }: { link: CascadeLinkType }) {
   return !!link.links?.length ? (
     <li className="w-full p-2 text-sm text-left text-black list-none hover:bg-gray-200">
       <div className="grid grid-cols-4 gap-2">
-        <Link href={link.url}>
-          <a className="col-span-3 hover:text-gray-500">{link.label}</a>
+        <Link href={link.url} className="col-span-3 hover:text-gray-500">
+          {link.label}
         </Link>
         {isExpanded ? (
           <button
@@ -303,8 +298,8 @@ function NavDropdownItem({ link }: { link: CascadeLinkType }) {
       <div className={`overflow-hidden ${isExpanded ? "h-full" : "h-0"}`}>
         {link.links?.map((_link, i) => (
           <div key={i} className="m-4">
-            <Link href={_link.url}>
-              <a className="text-black hover:text-gray-500">{_link.label}</a>
+            <Link href={_link.url} className="text-black hover:text-gray-500">
+              {_link.label}
             </Link>
           </div>
         ))}
@@ -312,8 +307,8 @@ function NavDropdownItem({ link }: { link: CascadeLinkType }) {
     </li>
   ) : (
     <li className="w-full p-2 text-sm text-center text-black list-none hover:bg-gray-200">
-      <Link href={link.url}>
-        <a className="col-span-3 hover:text-gray-500">{link.label}</a>
+      <Link href={link.url} className="col-span-3 hover:text-gray-500">
+        {link.label}
       </Link>
     </li>
   );

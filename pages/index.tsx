@@ -75,16 +75,15 @@ export default function Home(props: Schema) {
                       href={`/series/${slugify(
                         book.series.title
                       )}?book=${slugify(book.title)}`}
+                      className="transition-transform transform hover:shadow-2xl hover:scale-105"
                     >
-                      <a className="transition-transform transform hover:shadow-2xl hover:scale-105">
-                        <Image
-                          key={book.id}
-                          imageId={book.cover}
-                          style={{
-                            maxHeight: 550,
-                          }}
-                        />
-                      </a>
+                      <Image
+                        key={book.id}
+                        imageId={book.cover}
+                        style={{
+                          maxHeight: 550,
+                        }}
+                      />
                     </Link>
                     {firstOrderLink && (
                       <div className="flex justify-center">

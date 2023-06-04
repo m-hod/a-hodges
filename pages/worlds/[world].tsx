@@ -11,7 +11,7 @@ import Section from "../../components/wrappers/Section";
 import Timeline from "../../components/layouts/Timeline";
 import Wrapper from "../../components/layouts/wrapper";
 import { assetUrl } from "../../utils/constants";
-import parser from "react-html-parser";
+import parser from "html-react-parser";
 import { slugify } from "../../utils";
 import { useRouter } from "next/router";
 

@@ -7,7 +7,7 @@ import React from "react";
 import Section from "../wrappers/Section";
 import classes from "./BookSection.module.scss";
 import clsx from "clsx";
-import parser from "react-html-parser";
+import parser from "html-react-parser";
 
 export type BookSectionType = Omit<Book, "id" | "aahodges_series_id"> & {
   orientation: "left" | "right";

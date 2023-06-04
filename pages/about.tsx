@@ -11,7 +11,7 @@ import Quote from "../components/elements/Quote";
 import Section from "../components/wrappers/Section";
 import Wrapper from "../components/layouts/wrapper";
 import { getValidSocials } from "../utils";
-import parser from "react-html-parser";
+import parser from "html-react-parser";
 
 export default function About(props: Schema) {
   const page = useMemo(
@@ -51,21 +51,19 @@ export default function About(props: Schema) {
                 {getValidSocials(props.socials).map((_social, i) => {
                   const Icon = _social.Icon;
                   return (
-                    <Link key={i} href={_social.link}>
-                      <a
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex align-center"
+                    <Link
+                      key={i}
+                      href={_social.link}
+                      className="inline-flex align-center"
+                    >
+                      <Iconbutton
+                        color="gray"
+                        size="large"
+                        className="mx-4"
+                        title={_social.label}
                       >
-                        <Iconbutton
-                          color="gray"
-                          size="large"
-                          className="mx-4"
-                          title={_social.label}
-                        >
-                          <Icon size={30} />
-                        </Iconbutton>
-                      </a>
+                        <Icon size={30} />
+                      </Iconbutton>
                     </Link>
                   );
                 })}

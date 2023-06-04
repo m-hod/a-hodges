@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import { Circle } from "react-feather";
-import ReactMarkdown from "react-markdown";
-import parser from "react-html-parser";
+import parser from "html-react-parser";
 import useDebounce from "../../hooks/useDebouce";
 import useWindowSize from "../../hooks/useWindowSize";
 
@@ -27,7 +26,7 @@ export default function Timeline({ entries }: Props) {
           return (
             <div
               key={i}
-              className="my-8 mr-8 absolute hidden md:block"
+              className="absolute hidden my-8 mr-8 md:block"
               style={{
                 top:
                   el.getBoundingClientRect().top -
@@ -37,7 +36,7 @@ export default function Timeline({ entries }: Props) {
               <h3>{_entry.title}</h3>
               <Circle
                 size={16}
-                className="my-8 absolute top-0 timeline-circle"
+                className="absolute top-0 my-8 timeline-circle"
                 style={{
                   right: "calc(-2rem - 10px)",
                 }}
@@ -51,7 +50,7 @@ export default function Timeline({ entries }: Props) {
 
   return (
     <div ref={ref} className="grid grid-cols-1 md:grid-cols-3">
-      <div className="col-span-1 border-l-4 md:border-r-4 md:border-l-0 border-gray-300 relative">
+      <div className="relative col-span-1 border-l-4 border-gray-300 md:border-r-4 md:border-l-0">
         {width >= 768 ? (
           timestamps
         ) : (
@@ -61,13 +60,10 @@ export default function Timeline({ entries }: Props) {
                 <div
                   key={i}
                   id={`${i}`}
-                  className="relative mx-8 md:mx-16 flex justify-center flex-col"
+                  className="relative flex flex-col justify-center mx-8 md:mx-16"
                 >
                   <h3>{_entry.title}</h3>
-                  {/* {parser(_entry.content)} */}
-                  <ReactMarkdown allowDangerousHtml>
-                    {_entry.content}
-                  </ReactMarkdown>
+                  {parser(_entry.content)}
                   <Circle
                     size={16}
                     className="absolute timeline-circle"
@@ -82,16 +78,15 @@ export default function Timeline({ entries }: Props) {
           </div>
         )}
       </div>
-      <div className="col-span-2 hidden md:block">
+      <div className="hidden col-span-2 md:block">
         {entries.map((_entry, i) => {
           return (
             <div
               key={i}
               id={`${i}`}
-              className="mx-8 md:mx-16 flex justify-center flex-col"
+              className="flex flex-col justify-center mx-8 md:mx-16"
             >
-              {/* {parser(_entry.content)} */}
-              <ReactMarkdown allowDangerousHtml>{_entry.content}</ReactMarkdown>
+              {parser(_entry.content)}
             </div>
           );
         })}
