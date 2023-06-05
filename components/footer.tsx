@@ -5,11 +5,11 @@ import Button from "./elements/button";
 import Iconbutton from "./elements/iconbutton";
 import Input from "./elements/input";
 import Link from "next/link";
-import { Socials } from "../utils/types";
-import { getSocials } from "../utils";
+import { Social } from "../utils/types";
+import { getValidSocials } from "../utils";
 
 export type FooterProps = {
-  socials: Socials;
+  socials: Social[];
 };
 
 function Footer({ socials }: FooterProps) {
@@ -19,8 +19,8 @@ function Footer({ socials }: FooterProps) {
   const [email, setEmail] = useState("");
 
   return (
-    <div className="footer h-auto md:h-footer bg-gray-500 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 p-8 pr-24 font-roboto text-white relative">
-      <div className="h-full w-full flex flex-col justify-between">
+    <div className="relative grid h-auto grid-cols-1 gap-8 p-8 pr-24 text-white bg-gray-500 footer md:h-footer sm:grid-cols-2 md:grid-cols-3 font-roboto">
+      <div className="flex flex-col justify-between w-full h-full">
         <div className="text-base">
           <strong>Aaron Hodges</strong>
         </div>
@@ -41,25 +41,22 @@ function Footer({ socials }: FooterProps) {
           </small>
         </div>
       </div>
-      <div className="h-full w-full flex flex-col justify-between">
-        {getSocials(socials).map((_social, i) => {
+      <div className="flex flex-col justify-between w-full h-full">
+        {getValidSocials(socials).map((_social, i) => {
           const Icon = _social.Icon;
           return (
             <div key={i}>
-              <Link href={_social.link}>
-                <a
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex align-center hover:text-gray-300 items-center justify-center"
-                >
-                  <Icon className="mr-2" /> {_social.label}
-                </a>
+              <Link
+                href={_social.link}
+                className="inline-flex items-center justify-center align-center hover:text-gray-300"
+              >
+                <Icon className="mr-2" /> {_social.label}
               </Link>
             </div>
           );
         })}
       </div>
-      <div className="h-full w-full flex">
+      <div className="flex w-full h-full">
         {success ? (
           <div className="flex items-center">
             <CheckCircle color="#FFF" size={16} className="mr-2" />
@@ -94,7 +91,7 @@ function Footer({ socials }: FooterProps) {
                 setError("An email address is required");
               }
             }}
-            className="w-full max-w-sm flex flex-col justify-center"
+            className="flex flex-col justify-center w-full max-w-sm"
           >
             <small className="mb-2">Sign up to the newsletter</small>
             <Input

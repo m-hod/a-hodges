@@ -1,19 +1,18 @@
 import BackgroundImage from "./BackgroundImage";
 import Link from "next/link";
 import React from "react";
-import { StrapiImage } from "../../utils/types";
 
 function WorldLink({
-  image,
+  imageId,
   link,
   title,
 }: {
-  image: StrapiImage;
+  imageId: string;
   link: string;
   title: string;
 }) {
   return (
-    <div className="my-8 flex justify-center items-center">
+    <div className="flex items-center justify-center my-8">
       <img
         src={`/brush6.svg`}
         width={150}
@@ -32,11 +31,10 @@ function WorldLink({
             maxWidth: 250,
             borderRadius: "50%",
           }}
-          className="display flex justify-center bg-gray-500 items-center cursor-pointer transform hover:scale-105 transition-transform hover:shadow-xl relative"
+          className="relative flex items-center justify-center transition-transform transform bg-gray-500 cursor-pointer display hover:scale-105 hover:shadow-xl"
         >
           <BackgroundImage
-            thumb={image.url}
-            url={image.url}
+            imageId={imageId}
             style={{
               borderRadius: "50%",
               overflow: "hidden",

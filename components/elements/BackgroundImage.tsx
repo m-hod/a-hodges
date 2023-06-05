@@ -1,26 +1,23 @@
 import React, { HTMLAttributes } from "react";
 
-import ProgressiveImage from "./ProgressiveImage";
+import Image from "./Image";
 
 interface Props {
-  thumb: string;
-  url: string;
+  imageId: string;
 }
 
 /**
  * Place within a relatively positioned container
  */
 function BackgroundImage({
-  thumb,
-  url,
+  imageId,
   className,
   style,
   ...props
 }: Props & HTMLAttributes<HTMLImageElement>) {
   return (
-    <ProgressiveImage
-      thumb={thumb}
-      url={url}
+    <Image
+      imageId={imageId}
       {...props}
       className={`absolute left-0 top-0 w-full h-full bg-gray-500 object-cover bg-center ${className}`}
       style={{

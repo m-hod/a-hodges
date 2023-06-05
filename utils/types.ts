@@ -1,122 +1,30 @@
-export type Schema = {
-  series: Series[];
-  worlds: World[];
-  about: About;
-  socials: Socials;
-  // new
-  newsletter: Newsletter;
-  pages: SEOPage[];
-};
-
-export type SEOPage = {
+export type File = {
   id: number;
-  Title: string;
-  Description: string;
-  Keywords: string;
-  slug: string;
-};
-
-export type Newsletter = {
-  title: string;
-  content: string;
-  backgroundImage: StrapiImage;
-};
-
-export type Series = {
-  id: number;
-  title: string;
-  subtitle: string;
-  books: Book[];
-  // hero carousel automatically pulls banner images from books, add more here for any additional art
-  banners?: StrapiImage[];
-  // world to assosciate series with (solo books don't neccessarily have a world)
-  worldIdentifier?: string;
-};
-
-export type World = {
-  id: number;
-  title: string;
-  subtitle: string;
-  sections: WorldTimelineSection[];
-  timelines: WorldTimeline[];
-  // series to assosciate world with
-  seriesIdentifier: string;
-};
-
-export type WorldTimeline = {
-  id: number;
-  // use to determine order between sections and timelines on page
-  order: number;
-  entries: WorldTimelineEntry[];
-};
-
-export type WorldTimelineEntry = {
-  id: number;
-  title: string;
-  // string as md with replacers
-  contents: string;
-  images: StrapiImage[];
-};
-
-export type WorldTimelineSection = {
-  id: number;
-  // use to determine order between sections and timelines on page
-  order: number;
-  emphasis: string;
-  // as md
-  content: string;
-  images: StrapiImage[];
-};
-
-export type Book = {
-  id: number;
-  title: string;
-  subtitle: string;
-  // as md
-  summary: string;
-  // if book is promo, first link is used for 'preorder' button on homepage
-  orderLinks: Link[];
-  cover: StrapiImage;
-  banner: StrapiImage;
-  quotes?: Quote[];
-  // book will appear on home page if checked (can only be one checked at any time)
-  is_promo?: boolean;
+  directus_files_id: string;
 };
 
 export type Quote = {
   id: number;
-  content: string;
   author: string;
-};
-
-export type Link = {
-  id: number;
-  url: string;
-  title: string;
-};
-
-export type StrapiImage = {
-  id: number;
-  url: string;
-  alternativeText: string;
-  formats: {
-    thumbnail: Image;
-  };
-};
-
-export type Image = {
-  name: string;
-  url: string;
+  content: string;
 };
 
 export type About = {
-  id: number;
   title: string;
   subtitle: string;
-  // as md
+  // html string
   content: string;
+  // image id string
+  profile_picture: string;
   quotes: Quote[];
-  profile: StrapiImage;
+};
+
+export type Page = {
+  id: number;
+  title: string;
+  slug: string;
+  keywords: string;
+  description: string;
 };
 
 export type SocialsUnion =
@@ -126,11 +34,78 @@ export type SocialsUnion =
   | "goodreads"
   | "bookbub";
 
-export type Socials = {
+export type Social = {
   id: number;
-  facebook?: string;
-  twitter?: string;
-  instagram?: string;
-  goodreads?: string;
-  bookbub?: string;
+  title: string;
+  url: string;
+};
+
+export type OrderLink = {
+  id: number;
+  title: string;
+  url: string;
+};
+
+export type Book = {
+  id: number;
+  title: string;
+  subtitle: string;
+  // html string
+  summary: string;
+  // image id string
+  cover: string;
+  // image id string
+  banner: string;
+  quotes: Quote[];
+  order_links: OrderLink[];
+  aahodges_series_id: number;
+};
+
+export type Series = {
+  id: number;
+  title: string;
+  subtitle: string;
+  // world id
+  world: number;
+  banners: File[];
+  books: Book[];
+};
+
+export type WorldSection = {
+  id: number;
+  order: number;
+  emphasis: string;
+  // html string
+  content: string;
+  images: File[];
+};
+
+export type WorldTimelineEntry = {
+  id: number;
+  title: string;
+  // html string
+  content: string;
+  images: File[];
+};
+
+export type WorldTimeline = {
+  id: number;
+  order: number;
+  entries: WorldTimelineEntry[];
+};
+
+export type World = {
+  id: number;
+  title: string;
+  subtitle: string;
+  // series id's
+  series: number[];
+  sections: WorldSection[];
+  timelines: WorldTimeline[];
+};
+
+export type Newsletter = {
+  title: string;
+  content: string;
+  background_image: string;
 };

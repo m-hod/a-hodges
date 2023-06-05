@@ -23,7 +23,8 @@ function Header({ series, worlds }: HeaderProps) {
   const mode = useMemo(() => {
     if (
       router.pathname.includes("series") ||
-      router.pathname.includes("newsletter")
+      router.pathname.includes("newsletter") ||
+      router.pathname === "/"
     )
       return "absolute";
     return "";
@@ -76,7 +77,7 @@ function Header({ series, worlds }: HeaderProps) {
       >
         <div className="relative flex items-center">
           <div
-            className="absolute right-full hidden md:flex"
+            className="absolute hidden right-full md:flex"
             style={{
               top: "calc(50% - 12px)",
             }}
@@ -84,16 +85,14 @@ function Header({ series, worlds }: HeaderProps) {
             <NavLink label="About" url="/about" theme={theme} />
           </div>
           <Link href="/">
-            <a>
-              <img
-                src="/logo.svg"
-                alt="Aaron Hodges"
-                className="header-logo transition-all duration-250 object-contain"
-              />
-            </a>
+            <img
+              src="/logo.svg"
+              alt="Aaron Hodges"
+              className="object-contain transition-all header-logo duration-250"
+            />
           </Link>
           <div
-            className="absolute left-full hidden md:flex"
+            className="absolute hidden left-full md:flex"
             style={{
               top: "calc(50% - 12px)",
             }}
@@ -102,7 +101,7 @@ function Header({ series, worlds }: HeaderProps) {
             <NavDropdown label="Worlds" theme={theme} links={worldsLinks} />
           </div>
         </div>
-        <div className="flex justify-center items-center md:hidden mr-8">
+        <div className="flex items-center justify-center mr-8 md:hidden">
           <button
             onClick={() => {
               setDropdownVisibility(!dropdownVisibility);
@@ -126,23 +125,21 @@ function Header({ series, worlds }: HeaderProps) {
           zIndex: 999,
         }}
       >
-        <div className="h-full flex justify-between md:justify-center align-center">
+        <div className="flex justify-between h-full md:justify-center align-center">
           <div className="relative flex items-center">
             <div
-              className="absolute right-full hidden md:flex"
+              className="absolute hidden right-full md:flex"
               style={{
                 top: "calc(50% - 12px)",
               }}
             >
               <NavLink label="About" url="/about" />
             </div>
-            <div className="font-medium mx-4 cursor-pointer tracking-wider hover:text-gray-500 underline">
-              <Link href="/">
-                <a>AARON HODGES</a>
-              </Link>
+            <div className="mx-4 font-medium tracking-wider underline cursor-pointer hover:text-gray-500">
+              <Link href="/">AARON HODGES</Link>
             </div>
             <div
-              className="absolute left-full hidden md:flex"
+              className="absolute hidden left-full md:flex"
               style={{
                 top: "calc(50% - 12px)",
               }}
@@ -151,7 +148,7 @@ function Header({ series, worlds }: HeaderProps) {
               <NavDropdown label="Worlds" links={worldsLinks} />
             </div>
           </div>
-          <div className="flex justify-center items-center md:hidden mr-4">
+          <div className="flex items-center justify-center mr-4 md:hidden">
             <button
               onClick={() => {
                 setDropdownVisibility(!dropdownVisibility);
@@ -205,9 +202,7 @@ function NavLink({ label, url, theme = "default" }: LinkType) {
           : "hover:text-gray-500"
       }`}
     >
-      <Link href={url}>
-        <a>{label.toUpperCase()}</a>
-      </Link>
+      <Link href={url}>{label.toUpperCase()}</Link>
     </div>
   );
 }
@@ -234,7 +229,7 @@ function NavDropdown({
       }`}
     >
       {label.toUpperCase()}
-      <div className="hover-target hidden absolute p-4 top-6">
+      <div className="absolute hidden p-4 hover-target top-6">
         <ul
           className={`arrow justify-center flex-col shadow-lg z-50 pt-2 pb-2 bg-white`}
           style={{
@@ -247,12 +242,13 @@ function NavDropdown({
             ) : (
               <li
                 key={i}
-                className="w-full hover:bg-gray-200 text-black p-2 text-sm text-center list-none"
+                className="w-full p-2 text-sm text-center text-black list-none hover:bg-gray-200"
               >
-                <Link href={_link.url}>
-                  <a className="col-span-3 hover:text-gray-500">
-                    {_link.label}
-                  </a>
+                <Link
+                  href={_link.url}
+                  className="col-span-3 hover:text-gray-500"
+                >
+                  {_link.label}
                 </Link>
               </li>
             )
@@ -274,14 +270,14 @@ function NavDropdownItem({ link }: { link: CascadeLinkType }) {
   }, [router, router.pathname]);
 
   return !!link.links?.length ? (
-    <li className="w-full hover:bg-gray-200 text-black p-2 text-sm text-left list-none">
+    <li className="w-full p-2 text-sm text-left text-black list-none hover:bg-gray-200">
       <div className="grid grid-cols-4 gap-2">
-        <Link href={link.url}>
-          <a className="col-span-3 hover:text-gray-500">{link.label}</a>
+        <Link href={link.url} className="col-span-3 hover:text-gray-500">
+          {link.label}
         </Link>
         {isExpanded ? (
           <button
-            className="flex justify-end items-center hover:text-gray-500"
+            className="flex items-center justify-end hover:text-gray-500"
             onClick={() => {
               setExpanded(false);
             }}
@@ -290,7 +286,7 @@ function NavDropdownItem({ link }: { link: CascadeLinkType }) {
           </button>
         ) : (
           <button
-            className="flex justify-end items-center hover:text-gray-500"
+            className="flex items-center justify-end hover:text-gray-500"
             onClick={() => {
               setExpanded(true);
             }}
@@ -302,17 +298,17 @@ function NavDropdownItem({ link }: { link: CascadeLinkType }) {
       <div className={`overflow-hidden ${isExpanded ? "h-full" : "h-0"}`}>
         {link.links?.map((_link, i) => (
           <div key={i} className="m-4">
-            <Link href={_link.url}>
-              <a className="text-black hover:text-gray-500">{_link.label}</a>
+            <Link href={_link.url} className="text-black hover:text-gray-500">
+              {_link.label}
             </Link>
           </div>
         ))}
       </div>
     </li>
   ) : (
-    <li className="w-full hover:bg-gray-200 text-black p-2 text-sm text-center list-none">
-      <Link href={link.url}>
-        <a className="col-span-3 hover:text-gray-500">{link.label}</a>
+    <li className="w-full p-2 text-sm text-center text-black list-none hover:bg-gray-200">
+      <Link href={link.url} className="col-span-3 hover:text-gray-500">
+        {link.label}
       </Link>
     </li>
   );
@@ -341,7 +337,7 @@ function SubNavDropdownItem({
         <button className="hover:text-gray-500">{label.toUpperCase()}</button>
         {!!links.length && isExpanded ? (
           <button
-            className="ml-2 flex justify-end items-center hover:text-gray-500"
+            className="flex items-center justify-end ml-2 hover:text-gray-500"
             onClick={() => {
               setExpanded(false);
             }}
@@ -350,7 +346,7 @@ function SubNavDropdownItem({
           </button>
         ) : (
           <button
-            className="ml-2 flex justify-end items-center hover:text-gray-500"
+            className="flex items-center justify-end ml-2 hover:text-gray-500"
             onClick={() => {
               setExpanded(true);
             }}

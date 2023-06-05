@@ -2,20 +2,19 @@ import React, { useEffect, useState } from "react";
 
 import BackgroundImage from "../elements/BackgroundImage";
 import { Circle } from "react-feather";
-import { StrapiImage } from "../../utils/types";
 
 interface Props {
-  images: StrapiImage[];
+  imageIds: string[];
   /** Apply a custom intervale for the image to change at */
   interval?: number;
 }
 
 /** Place within a relative wrapper */
-function Carousel({ images, interval }: Props) {
+function Carousel({ imageIds, interval }: Props) {
   const [activeIndex, setActiveIndex] = useState(0);
   useEffect(() => {
     const timer = setTimeout(() => {
-      setActiveIndex(activeIndex < images.length - 1 ? activeIndex + 1 : 0);
+      setActiveIndex(activeIndex < imageIds.length - 1 ? activeIndex + 1 : 0);
     }, interval || 10000);
     return () => {
       clearTimeout(timer);
@@ -24,8 +23,8 @@ function Carousel({ images, interval }: Props) {
 
   return (
     <>
-      <div className="absolute bottom-0 left-0 w-full flex justify-center sm:justify-end p-4 md:p-8">
-        {images.map((_image, i) => (
+      <div className="absolute bottom-0 left-0 flex justify-center w-full p-4 sm:justify-end md:p-8">
+        {imageIds.map((_, i) => (
           <button
             key={i}
             onClick={() => {
@@ -41,13 +40,12 @@ function Carousel({ images, interval }: Props) {
           </button>
         ))}
       </div>
-      {images.map((_image, i) => {
+      {imageIds.map((id, i) => {
         const offset = (i - activeIndex) * 100;
         return (
           <BackgroundImage
             key={i}
-            thumb={images[i].formats.thumbnail.url}
-            url={images[i].url}
+            imageId={id}
             style={{
               transform: `translate(${offset}%)`,
               transition: "transform 0.5s ease-in",

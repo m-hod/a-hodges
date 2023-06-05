@@ -13,7 +13,7 @@ function Newsletter({ newsletter }: { newsletter: NewsletterType }) {
   const [success, setSuccess] = useState(false);
 
   return (
-    <div className="w-full 2xl:max-w-3/4 p-4 md:p-6 flex flex-col justify-center align-center text-center relative">
+    <div className="relative flex flex-col justify-center w-full p-4 text-center 2xl:max-w-3/4 md:p-6 align-center">
       <div className="flex justify-center mb-4">
         <img
           src={`/brush6.svg`}
@@ -27,7 +27,7 @@ function Newsletter({ newsletter }: { newsletter: NewsletterType }) {
         <h2 className="text-white">{newsletter.title}</h2>
         <img
           src={`/brush6.svg`}
-          className="ml-2 md:ml-4 w-12 md:w-24"
+          className="w-12 ml-2 md:ml-4 md:w-24"
           style={{
             filter:
               "invert(100%) sepia(9%) saturate(365%) hue-rotate(203deg) brightness(115%) contrast(100%)",
@@ -35,7 +35,7 @@ function Newsletter({ newsletter }: { newsletter: NewsletterType }) {
         />
       </div>
       <p className="italic text-white">{newsletter.content}</p>
-      <div className="mt-4 md:mt-8 flex items-center justify-center flex-col">
+      <div className="flex flex-col items-center justify-center mt-4 md:mt-8">
         {success ? (
           <>
             <CheckCircle color="#FFF" />
@@ -71,10 +71,10 @@ function Newsletter({ newsletter }: { newsletter: NewsletterType }) {
                   setError("An email address is required");
                 }
               }}
-              className="w-3/4 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6"
+              className="grid w-3/4 grid-cols-1 gap-4 md:grid-cols-3 md:gap-6"
             >
               <Input
-                className="md:col-span-2 w-full"
+                className="w-full md:col-span-2"
                 placeholder="Email Address"
                 typeof="email"
                 //@ts-ignore
@@ -85,7 +85,7 @@ function Newsletter({ newsletter }: { newsletter: NewsletterType }) {
                 }}
               />
               <Button
-                className="md:col-span-1 w-full"
+                className="w-full md:col-span-1"
                 typeof="submit"
                 loading={loading}
                 //@ts-ignore
@@ -106,10 +106,7 @@ function Newsletter({ newsletter }: { newsletter: NewsletterType }) {
           </>
         )}
       </div>
-      <BackgroundImage
-        thumb={newsletter.backgroundImage.formats.thumbnail.url}
-        url={newsletter.backgroundImage.url}
-      />
+      <BackgroundImage imageId={newsletter.background_image} />
     </div>
   );
 }

@@ -1,17 +1,17 @@
 import React, { useMemo } from "react";
+import schema, { Schema } from "../utils/schema";
 
 import Centered from "../components/wrappers/Centered";
-import Head from "next/head";
 import Iconbutton from "../components/elements/iconbutton";
+import Image from "../components/elements/Image";
 import Link from "next/link";
-import Markdown from "react-markdown";
+import Meta from "../components/elements/Meta";
 import Newsletter from "../components/layouts/Newsletter";
-import ProgressiveImage from "../components/elements/ProgressiveImage";
 import Quote from "../components/elements/Quote";
-import { Schema } from "../utils/types";
 import Section from "../components/wrappers/Section";
 import Wrapper from "../components/layouts/wrapper";
-import { getSocials } from "../utils";
+import { getValidSocials } from "../utils";
+import parser from "html-react-parser";
 
 export default function About(props: Schema) {
   const page = useMemo(
@@ -29,51 +29,41 @@ export default function About(props: Schema) {
         socials: props.socials,
       }}
     >
-      <Head>
-        <title>{page?.Title || ""} - Aaron Hodges</title>
-        <meta
-          name="description"
-          property="og:description"
-          content={page?.Description || ""}
-        />
-        <meta name="keywords" content={page?.Keywords || ""} />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <Meta
+        pageTitle={page?.title || ""}
+        description={page?.description || ""}
+        keywords={page?.keywords || ""}
+      />
       <div>
         <Section>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-8">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
             <div className="lg:col-span-2">
               <h1 className="mb-8">{props.about.title}</h1>
               <h3 className="mb-8">{props.about.subtitle}</h3>
-              <div className="text-column-2">
-                <Markdown>{props.about.content}</Markdown>
-              </div>
+              <div className="text-column-2">{parser(props.about.content)}</div>
             </div>
-            <div className="flex flex-grow flex-col items-center">
-              <ProgressiveImage
-                thumb={props.about.profile.formats.thumbnail.url}
-                url={props.about.profile.url}
-                className="rounded-full w-full max-w-lg"
+            <div className="flex flex-col items-center flex-grow">
+              <Image
+                imageId={props.about.profile_picture}
+                className="w-full max-w-lg rounded-full"
               />
-              <div className="my-8 flex justify-center">
-                {getSocials(props.socials).map((_social, i) => {
+              <div className="flex justify-center my-8">
+                {getValidSocials(props.socials).map((_social, i) => {
                   const Icon = _social.Icon;
                   return (
-                    <Link key={i} href={_social.link}>
-                      <a
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex align-center"
+                    <Link
+                      key={i}
+                      href={_social.link}
+                      className="inline-flex align-center"
+                    >
+                      <Iconbutton
+                        color="gray"
+                        size="large"
+                        className="mx-4"
+                        title={_social.label}
                       >
-                        <Iconbutton
-                          color="gray"
-                          size="large"
-                          className="mx-4"
-                          title={_social.label}
-                        >
-                          <Icon size={30} />
-                        </Iconbutton>
-                      </a>
+                        <Icon size={30} />
+                      </Iconbutton>
                     </Link>
                   );
                 })}
@@ -108,7 +98,6 @@ export default function About(props: Schema) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch("https://admin.m-hodges.com/aahodges");
-  const data: Schema = await res.json();
+  const data = await schema();
   return { props: data };
 }

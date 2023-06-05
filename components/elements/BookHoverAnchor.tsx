@@ -1,12 +1,14 @@
 import React from "react";
-import { StrapiImage } from "../../utils/types";
+import { assetUrl } from "../../utils/constants";
 
 export default function BookHoverAnchor({
-  image,
+  imageId,
   anchor,
+  variable,
 }: {
-  image: StrapiImage;
+  imageId: string;
   anchor: string;
+  variable?: boolean;
 }) {
   return (
     <button
@@ -16,9 +18,13 @@ export default function BookHoverAnchor({
           target.scrollIntoView({ block: "start", behavior: "smooth" });
         }
       }}
-      className="hover:shadow-2xl transform hover:scale-105 transition-transform"
+      className="transition-transform transform hover:shadow-2xl hover:scale-105"
     >
-      <img src={image.url} alt="" className="w-32 sm:w-40 xl:w-52 shadow-lg" />
+      <img
+        src={`${assetUrl}${imageId}`}
+        alt=""
+        className={!variable && "w-32 shadow-lg sm:w-40 xl:w-52"}
+      />
     </button>
   );
 }

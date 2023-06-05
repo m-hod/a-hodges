@@ -1,12 +1,12 @@
 import { AlertCircle, CheckCircle } from "react-feather";
 import React, { useMemo, useState } from "react";
+import schema, { Schema } from "../utils/schema";
 
 import BackgroundImage from "../components/elements/BackgroundImage";
 import Button from "../components/elements/button";
-import Head from "next/head";
 import Input from "../components/elements/input";
 import Link from "next/link";
-import { Schema } from "../utils/types";
+import Meta from "../components/elements/Meta";
 import Wrapper from "../components/layouts/wrapper";
 
 function Newsletter(props: Schema) {
@@ -30,17 +30,12 @@ function Newsletter(props: Schema) {
         socials: props.socials,
       }}
     >
-      <Head>
-        <title>Newsletter - Aaron Hodges</title>
-        <meta
-          name="description"
-          property="og:description"
-          content={page?.Description || ""}
-        />
-        <meta name="keywords" content={page?.Keywords || ""} />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <div className="h-screen w-full relative flex flex-col justify-center items-center">
+      <Meta
+        pageTitle={page?.title || ""}
+        description={page?.description || ""}
+        keywords={page?.keywords || ""}
+      />
+      <div className="relative flex flex-col items-center justify-center w-full h-screen">
         <div className="flex justify-center mb-4">
           <img
             src={`/brush6.svg`}
@@ -54,7 +49,7 @@ function Newsletter(props: Schema) {
           <h2 className="text-white">{props.newsletter.title}</h2>
           <img
             src={`/brush6.svg`}
-            className="ml-2 md:ml-4 w-12 md:w-24"
+            className="w-12 ml-2 md:ml-4 md:w-24"
             style={{
               filter:
                 "invert(100%) sepia(9%) saturate(365%) hue-rotate(203deg) brightness(115%) contrast(100%)",
@@ -127,7 +122,7 @@ function Newsletter(props: Schema) {
               </Button>
             </form>
             {error && (
-              <div className="flex flex-col justify-center items-center">
+              <div className="flex flex-col items-center justify-center">
                 <AlertCircle color="#FFF" className="mt-4" />
                 <p className="mt-2 mb-0 text-white">
                   Oops! Looks like something went wrong.
@@ -137,10 +132,7 @@ function Newsletter(props: Schema) {
             )}
           </>
         )}
-        <BackgroundImage
-          thumb={props.newsletter.backgroundImage.formats.thumbnail.url}
-          url={props.newsletter.backgroundImage.url}
-        />
+        <BackgroundImage imageId={props.newsletter.background_image} />
       </div>
     </Wrapper>
   );
@@ -149,7 +141,6 @@ function Newsletter(props: Schema) {
 export default Newsletter;
 
 export async function getStaticProps() {
-  const res = await fetch("https://admin.m-hodges.com/aahodges");
-  const data: Schema = await res.json();
+  const data = await schema();
   return { props: data };
 }
