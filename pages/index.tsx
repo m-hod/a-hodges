@@ -11,12 +11,16 @@ import { slugify } from "../utils";
 import { useMemo } from "react";
 import Image from "../components/elements/Image";
 import Hero from "../components/wrappers/hero";
-import { headerHeight, TAILWIND_MD_BREAKPOINT } from "../utils/constants";
+import {
+  headerHeight,
+  TAILWIND_MD_BREAKPOINT,
+  TAILWIND_SM_BREAKPOINT,
+} from "../utils/constants";
 import Carousel from "../components/layouts/Carousel";
 import useWindowSize from "../hooks/useWindowSize";
 
 export default function Home(props: Schema) {
-  const { width } = useWindowSize();
+  const { height, width } = useWindowSize();
 
   const page = useMemo(
     () => props.pages.find((_page) => _page.slug === "home"),
@@ -60,22 +64,28 @@ export default function Home(props: Schema) {
         description={page?.description || ""}
         keywords={page?.keywords || ""}
       />
-      <Hero noMaxHeight={width <= TAILWIND_MD_BREAKPOINT}>
+      <Hero
+        noMaxHeight={
+          width <= TAILWIND_MD_BREAKPOINT || height <= TAILWIND_MD_BREAKPOINT
+        }
+      >
         <div
           className="flex flex-col flex-grow h-full p-8 pb-16 md:p-16"
           style={{ paddingTop: headerHeight }}
         >
           <div className="flex items-center justify-center w-full h-full">
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-8">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-8 h-full">
               {booksWithSeries.map((book) => {
                 const firstOrderLink = book.order_links[0];
                 return (
-                  <div key={book.id} className="flex flex-col gap-4 md:gap-6">
+                  <div
+                    key={book.id}
+                    className="flex flex-col gap-4 md:gap-6 h-full"
+                  >
                     <Link
                       href={`/series/${slugify(
                         book.series.title
                       )}?book=${slugify(book.title)}`}
-                      className="transition-transform transform hover:shadow-2xl hover:scale-105"
                     >
                       <Image
                         key={book.id}
@@ -83,6 +93,7 @@ export default function Home(props: Schema) {
                         style={{
                           maxHeight: 550,
                         }}
+                        className="w-full h-full transition-transform transform hover:shadow-2xl hover:scale-105"
                       />
                     </Link>
                     {firstOrderLink && (
