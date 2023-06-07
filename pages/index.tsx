@@ -65,6 +65,7 @@ export default function Home(props: Schema) {
         keywords={page?.keywords || ""}
       />
       <Hero
+        useMinHeight
         noMaxHeight={
           width <= TAILWIND_MD_BREAKPOINT || height <= TAILWIND_MD_BREAKPOINT
         }
@@ -80,7 +81,7 @@ export default function Home(props: Schema) {
                 return (
                   <div
                     key={book.id}
-                    className="flex flex-col gap-4 md:gap-6 h-full"
+                    className="flex flex-col justify-center gap-4 md:gap-6 h-full"
                   >
                     <Link
                       href={`/series/${slugify(
