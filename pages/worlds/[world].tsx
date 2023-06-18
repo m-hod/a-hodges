@@ -83,7 +83,7 @@ export default function Worlds(props: Schema) {
                     i % 2 === 0 ? (
                       <div className="flex flex-col h-full">
                         <h2 className="mb-8">{item.item.emphasis}</h2>
-                        {parser(item.item.content)}
+                        {parser(item.item.content || "")}
                       </div>
                     ) : (
                       item.item.images.map((_image) => (
@@ -99,7 +99,7 @@ export default function Worlds(props: Schema) {
                     i % 2 !== 0 ? (
                       <div className="flex flex-col h-full">
                         <h2 className="mb-8">{item.item.emphasis}</h2>
-                        {parser(item.item.content)}
+                        {parser(item.item.content || "")}
                       </div>
                     ) : (
                       item.item.images.map((_image) => (

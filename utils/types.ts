@@ -76,7 +76,7 @@ export type WorldSection = {
   order: number;
   emphasis: string;
   // html string
-  content: string;
+  content?: string;
   images: File[];
 };
 
@@ -84,7 +84,7 @@ export type WorldTimelineEntry = {
   id: number;
   title: string;
   // html string
-  content: string;
+  content?: string;
   images: File[];
 };
 
