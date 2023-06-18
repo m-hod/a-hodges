@@ -1,5 +1,3 @@
-import BackgroundImage from "../elements/BackgroundImage";
-import { Circle } from "react-feather";
 import React from "react";
 
 interface Props {

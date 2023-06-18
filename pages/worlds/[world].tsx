@@ -23,6 +23,7 @@ type Item<T> = {
 };
 
 export default function Worlds(props: Schema) {
+  console.log(props);
   const router = useRouter();
 
   const world = useMemo(() => {
@@ -120,27 +121,29 @@ export default function Worlds(props: Schema) {
             return (
               <Section key={i}>
                 <Timeline
-                  entries={item.item.entries.map((_entry) => {
-                    let count = 0;
-                    let content = _entry.content;
+                  entries={
+                    item.item.entries?.map((_entry) => {
+                      let count = 0;
+                      let content = _entry.content;
 
-                    const regexp = new RegExp("{{image}}", "gm");
-                    let match;
+                      const regexp = new RegExp("{{image}}", "gm");
+                      let match;
 
-                    while ((match = regexp.exec(content)) !== null) {
-                      const image = `<div style="height: 250px; margin-bottom: 1rem; background-image: url(${assetUrl}${_entry.images[count].directus_files_id}); background-position: center; background-size: cover;" />`;
-                      content =
-                        content.slice(0, match.index) +
-                        image +
-                        content.slice(regexp.lastIndex, content.length - 1);
-                      count++;
-                    }
+                      while ((match = regexp.exec(content)) !== null) {
+                        const image = `<div style="height: 250px; margin-bottom: 1rem; background-image: url(${assetUrl}${_entry.images[count].directus_files_id}); background-position: center; background-size: cover;" />`;
+                        content =
+                          content.slice(0, match.index) +
+                          image +
+                          content.slice(regexp.lastIndex, content.length - 1);
+                        count++;
+                      }
 
-                    return {
-                      title: _entry.title,
-                      content: content,
-                    };
-                  })}
+                      return {
+                        title: _entry.title,
+                        content: content,
+                      };
+                    }) || []
+                  }
                 />
               </Section>
             );

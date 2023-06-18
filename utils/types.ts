@@ -91,7 +91,7 @@ export type WorldTimelineEntry = {
 export type WorldTimeline = {
   id: number;
   order: number;
-  entries: WorldTimelineEntry[];
+  entries?: WorldTimelineEntry[];
 };
 
 export type World = {
