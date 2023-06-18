@@ -63,7 +63,7 @@ export default function Timeline({ entries }: Props) {
                   className="relative flex flex-col justify-center mx-8 md:mx-16"
                 >
                   <h3>{_entry.title}</h3>
-                  {parser(_entry.content)}
+                  {parser(_entry.content || "")}
                   <Circle
                     size={16}
                     className="absolute timeline-circle"
@@ -86,7 +86,7 @@ export default function Timeline({ entries }: Props) {
               id={`${i}`}
               className="flex flex-col justify-center mx-8 md:mx-16"
             >
-              {parser(_entry.content)}
+              {parser(_entry.content || "")}
             </div>
           );
         })}

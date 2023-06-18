@@ -40,7 +40,9 @@ export default function About(props: Schema) {
             <div className="lg:col-span-2">
               <h1 className="mb-8">{props.about.title}</h1>
               <h3 className="mb-8">{props.about.subtitle}</h3>
-              <div className="text-column-2">{parser(props.about.content)}</div>
+              <div className="text-column-2">
+                {parser(props.about.content || "")}
+              </div>
             </div>
             <div className="flex flex-col items-center flex-grow">
               <Image

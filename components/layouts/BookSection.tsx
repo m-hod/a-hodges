@@ -44,7 +44,7 @@ export default function BookSection({
           <div
             className={clsx(classes.markdown, "lg:col-span-2 text-column-2")}
           >
-            {parser(summary)}
+            {parser(summary || "")}
             <div>
               <hr className="my-8" />
               <h2 className="mb-8 text-center">Order Now</h2>
