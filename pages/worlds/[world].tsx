@@ -23,7 +23,6 @@ type Item<T> = {
 };
 
 export default function Worlds(props: Schema) {
-  console.log(props);
   const router = useRouter();
 
   const world = useMemo(() => {
