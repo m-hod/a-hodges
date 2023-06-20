@@ -56,7 +56,9 @@ export default function BookSection({
                     target="_blank"
                     rel="noreferrer noopener"
                   >
-                    <Button>{_link.title.toUpperCase()}</Button>
+                    <Button className="w-full">
+                      {_link.title.toUpperCase()}
+                    </Button>
                   </a>
                 ))}
               </div>
